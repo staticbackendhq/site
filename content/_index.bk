@@ -1,0 +1,133 @@
++++
+title			= "No vendor-lock-in backend as a service"
+
+menu_home	= true
+page_title = "WTH is this?"
++++
+
+<div class="container mx-auto p-8">
+	<div class="w-full lg:flex">
+		<div class="w-full lg:w-1/2">
+			<h1 class="text-5xl">
+				The no vendor-lock-in backend as a service
+			</h1>
+			<p class="text-3xl">
+				A backend for your <strong>client-side applications</strong> and static websites that 
+				grows with you.
+			</p>
+			<p class="text-3xl">
+				Let us handle the high availability infrastructure and focus on your 
+				client-side code (web and/or mobile).
+			</p>
+			<div class="py-8 text-center">
+				<a href="/signup" class="btn">Join the waiting list</a>
+			</div>
+			<h3 class="pt-8 text-3xl">Get three months free.</h3>
+			<p>
+				If you join the waiting list, you'll get three months for free and a 
+				20% lifetime discount on your subscription.
+			</p>
+			<p>
+				This offer ends when we launch, make sure to pick your spot in line.
+			</p>
+		</div>
+		<div class="w-full lg:w-1/2">
+			<img class="max-w-full" src="/img/db_preview.png" alt="code preview for the database calls" />
+		</div>
+	</div>
+</div>
+
+<div class="container mx-auto py-20">
+	<div class="w-full lg:flex">
+		<div class="w-full lg:w-1/3 p-4 text-center">
+			<h3 class="text-3xl">
+				Database
+			</h3>
+			<span class="w-full">
+				<img src="/img/icon-database.png" class="block mx-auto max-h-12 md:max-h-20 lg:max-h-32 xl:max-h-48" />
+			</span>
+			<p>
+				Get a redundant and highly available database without thinking about 
+				infrastructure.
+			</p>
+		</div>
+		<div class="w-full lg:w-1/3 p-4 text-center">
+			<h3 class="text-3xl">
+				Users management
+			</h3>
+			<span class="w-full">
+				<img src="/img/icon-user-management.png" class="block mx-auto max-h-12 md:max-h-20 lg:max-h-32 xl:max-h-48" />
+			</span>
+			<p>
+				Let your users create accounts and login to access their data. All 
+				requests need authentication.
+			</p>
+		</div>
+		<div class="w-full lg:w-1/3 p-4 text-center">
+			<h3 class="text-3xl">
+				Flexible hosting
+			</h3>
+			<span class="w-full">
+				<img src="/img/icon-flexible-hosting.png" class="block mx-auto max-h-12 md:max-h-20 lg:max-h-32 xl:max-h-48" />
+			</span>
+			<p>
+				From fully managed to self-hosting to open source, you'll have all the 
+				flexibility you need.
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="container mx-auto py-20">
+	<div class="text-center">
+		<h2 class="text-4xl">
+			We want to help you get started quickly with your idea.
+		</h2>
+	</div>
+	<div class="w-full lg:flex py-8">
+		<div class="w-full lg:w-1/2 pr-8">
+			<h3 class="text-3xl">
+				Don't lock you in
+			</h3>
+			<p>
+				Don't plague your code base with vendor specific code.
+			</p>
+			<p>
+				We get it, you don't want or have time to build a backend. The 
+				compromise should not affect your project in the long terms.
+			</p>
+			<p>
+				You should not change how you're used to build client-side 
+				applications when using a BaaS (backend as a service).				
+			</p>
+		</div>
+		<div class="w-full lg:w-1/2">
+			<img src="/img/lockedin.png" class="max-w-lg" />
+		</div>
+	</div>
+	<div class="w-full lg:flex py-20">
+		<div class="w-full lg:w-1/2">
+			<img src="/img/nolockin.png" />
+		</div>
+		<div class="w-full lg:w-1/2 pl-8">
+			<h3 class="text-3xl">We propose a different approach</h3>
+			<p>
+				Our backend respond to standard HTTPS calls. A good ol' REST API that 
+				accepts and returns JSON.
+			</p>
+			<p>
+				Use it like you would use your API. Our goal is to limit 
+				the amount of code you would need to change if you were 
+				to use a different solution.
+			</p>
+			<p>
+				Start by using the fully managed services than update to a self-hosted 
+				scenario.
+			</p>
+			<p>
+				You want something custom or need the control, no problem. We offer 
+				a licensed open source version that you can use in your organization.
+			</p>
+		</div>
+	</div>
+</div>

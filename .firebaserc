@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "staticbackend"
+  },
+  "targets": {
+    "staticbackend": {
+      "hosting": {
+        "web": [
+          "staticbackend"
+        ],
+        "app": [
+          "sb-app"
+        ]
+      }
+    }
+  }
+}

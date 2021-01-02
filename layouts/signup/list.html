@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{{ partial "header/meta.html" . }}
+</head>
+
+<body>
+
+	{{ partial "header/mainnav.html" .}}
+
+	<div class="relative bg-white">
+		<div class="absolute inset-0">
+			<div class="absolute inset-y-0 left-0 w-1/2 bg-gray-50"></div>
+		</div>
+		<div class="relative max-w-7xl mx-auto lg:grid lg:grid-cols-5">
+			<div class="bg-gray-50 py-16 px-4 sm:px-6 lg:col-span-2 lg:px-8 lg:py-24 xl:pr-12">
+				<div class="max-w-lg mx-auto">
+					<h2 class="text-2xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-3xl sm:leading-9">
+						Sign up
+					</h2>
+					<p class="mt-3 text-lg leading-6 text-gray-500">
+						We require an active credit card to start your 14-day free trial. 
+						You'll be redirected to Stripe Billing Portal to provide the billing 
+						information.
+						<br /><br />
+						We recommend you install the CLI to evaluate the product. There's 
+						not much implemented in our UI dashboard at the moment.
+					</p>
+					<p class="mt-6 text-base leading-6 text-gray-500">
+						Get in touch if you want to talk about your project.
+						<a href="/contact" class="font-medium text-gray-700 underline">Contact us</a>.
+					</p>
+				</div>
+			</div>
+			<div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
+				<div class="max-w-lg mx-auto lg:max-w-none">
+					<form id="signupForm" action="#" method="POST" class="grid grid-cols-1 gap-y-6">
+						<div class="hidden">
+							<input type="text" id="_hp_" name="_hp_" />
+						</div>
+						<div>
+							<label for="email" class="sr-only">Email</label>
+							<div class="relative rounded-md shadow-sm">
+								<input id="email" name="email" type="email" required
+									class="form-input block w-full py-3 px-4 placeholder-gray-500 transition ease-in-out duration-150"
+									placeholder="Your email address">
+							</div>
+						</div>
+						<div>
+							<label for="initial" class="sr-only">
+								What are the initials of John Doe?
+							</label>
+							<div class="relative rounded-md shadow-sm">
+								<input id="initials" name="initials" type="text" required
+									class="form-input block w-full py-3 px-4 placeholder-gray-500 transition ease-in-out duration-150"
+									placeholder="John Doe's initials">
+							</div>
+						</div>
+						<div class="">
+							<span class="inline-flex rounded-md shadow-sm">
+								<button type="submit"
+									class="inline-flex justify-center py-3 px-6 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-sb hover:bg-red-600 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-sb transition duration-150 ease-in-out">
+									Provide credit card info
+								</button>
+							</span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var stripe = Stripe('pk_live_GUMq4FPOuvS9kHE4Cl92nvfH');
+
+		document.body.onload = function () {
+			var form = document.forms["signupForm"];
+			form.onsubmit = function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var hp = form["_hp_"].value;
+				if (hp) {
+					return;
+				}
+
+				var initials = form.initials.value.toLowerCase();
+				if (initials != "jd") {
+					form.initials.focus();
+					return;
+				}
+
+				var email = encodeURIComponent(form.email.value);
+
+				url = "https://na1.staticbackend.com/account/init?email=" + email + "&ui=true";
+
+				fetch(url,
+					{
+						method: "GET"
+					}).then((res) => {
+						res.json().then((url) => {
+							document.location.href = url;
+						}).catch((err) => {
+							alert("Sorry, an error occured, please contact us.\n\n" + err);
+						})
+					}).catch((err) => {
+						alert("Sorry, an error occured, please contact us.\n\n" + err);
+					});
+			}
+		}
+	</script>
+
+
+	{{ partial "footer/footer.html"}} </body>
+
+</html>

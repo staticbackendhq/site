@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{{ partial "header/meta.html" . }}
+</head>
+
+<body>
+	{{ partial "header/mainnav.html" .}}
+
+	<div class="max-w-2xl mx-auto pb-20">
+		<div class="text-center p-12">
+			<h1 class="text-4xl text-gray-800 font-semibold">
+				{{ if .Params.pagetitle}}
+					{{.Params.pagetitle}}
+				{{else}}
+					{{ .Page.Title}}
+				{{end}}
+			</h1>
+			{{ if .Params.lead}}
+			<p class="text-2xl text-gray-800 font-light;">
+				{{.Params.lead}}
+			</p>
+			{{end}}
+		</div>
+		<div class="prose prose-lg text-gray-600">{{.Content}}</div>
+	</div>
+
+	{{ partial "footer/footer.html" }}
+</body>
+
+</html>

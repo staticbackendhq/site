@@ -1,0 +1,98 @@
+<nav>
+	{{ if eq .Params.submenu "auth"}}
+	<a href="/docs"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Authentication
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Authentication
+		</span>
+	</a>
+	{{end}}
+	{{ if eq .Params.submenu "user"}}
+	<a href="/docs/users"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Users
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/users"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Users
+		</span>
+	</a>
+	{{end}}
+	{{ if eq .Params.submenu "db"}}
+	<a href="/docs/database"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Database
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/database"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Database
+		</span>
+	</a>
+	{{end}}
+	{{ if eq .Params.submenu "storage"}}
+	<a href="/docs/storage"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Storage
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/storage"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Storage
+		</span>
+	</a>
+	{{end}}
+	{{ if eq .Params.submenu "form"}}
+	<a href="/docs/forms"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Forms
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/forms"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Forms
+		</span>
+	</a>
+	{{end}}
+	{{ if eq .Params.submenu "api"}}
+	<a href="/docs/libraries"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			API libraries
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/libraries"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			API libraries
+		</span>
+	</a>
+	{{end}}
+</nav>

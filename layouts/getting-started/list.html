@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{{ partial "header/meta.html" . }}
+</head>
+
+<body>
+
+	{{ partial "header/mainnav.html" .}}
+
+	<div class="container mx-auto pb-12">
+		<h1 class="pb-8 text-gray-900 text-4xl">{{.Title}}</h1>
+
+		{{ partial "gs/menu.html" . }}
+
+		<div class="p-8 prose prose-lg text-gray-600 max-w-full">
+			{{.Content}}
+		</div>
+	</div>
+
+
+	{{ partial "footer/footer.html"}} </body>
+
+</html>

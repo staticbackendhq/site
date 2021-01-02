@@ -1,0 +1,44 @@
+<div class="mx-auto container">
+	<nav class="flex items-center justify-between flex-wrap p-6">
+		<div class="flex items-center flex-shrink-0 text-gray-800 mr-6">
+			<a href="/" title="StaticBackend home">
+				<img class="inline fill-current w-12 mr-2" width="50" src="/img/logo-small.png" alt="StaticBackend logo" />
+				<img class="inline fill-current w-48 mr-2" width="50" src="/img/logo-textonly.png" />
+				<!-- img class="inline fill-current mr-2" src="/img/logo-with-text-small.png" alt="StaticBackend logo" / -->
+			</a>
+			
+		</div>
+		<div class="block lg:hidden">
+			<button
+				class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white">
+				<svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+					<title>Menu</title>
+					<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+				</svg>
+			</button>
+		</div>
+		<div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+			<div class="text-base text-bold lg:flex-grow">
+				<a href="/getting-started" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 mr-4" title="Tour">
+					Getting started
+				</a>
+				<a href="/pricing" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 mr-4" title="Pricing">
+					Pricing
+				</a>
+				<a href="/docs" class="block mt-4 lg:inline-block lg:mt-0 text-gray-800 hover:text-gray-900 mr-4" title="Pricing">
+					Documentation
+				</a>
+			</div>
+			<div>
+				<a href="https://app.staticbackend.com/"
+					class="inline-block text-base text-gray-800 pr-4">
+					Log in
+				</a>
+				<a href="/signup"
+					class="inline-block text-base px-4 py-2 leading-none border rounded text-gray-800 border-gray-900 hover:border-transparent hover:text-gray-900 hover:bg-white mt-4 lg:mt-0">
+					Sign up
+				</a>
+			</div>
+		</div>
+	</nav>
+</div>

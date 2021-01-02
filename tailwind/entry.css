@@ -1,0 +1,77 @@
+@tailwind base;
+
+@tailwind components;
+
+h1, h2, h3, h4, h5, h6 {
+	@apply font-lato text-gray-900 font-semibold;
+}
+
+p {
+	@apply text-xl font-merri text-gray-700;
+}
+
+label {
+	@apply block font-lato text-gray-900 text-base font-bold mb-2;
+}
+
+input {
+	@apply shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight;
+}
+
+input:focus {
+	@apply outline-none shadow-outline;
+}
+
+button, .btn {
+	@apply bg-sb font-lato text-white text-xl font-bold py-4 px-8 rounded-full;
+}
+
+button:hover, .btn:hover {
+	@apply bg-red-700;
+}
+
+div.content h1, div.content h2, div.content h3, div.content h4, div.content h5, div.content h6 {
+	@apply pt-8 pb-4;
+}
+
+div.content p {
+	@apply py-4;
+}
+
+div.content h1 {
+	@apply text-5xl;
+}
+
+div.content h2 {
+	@apply text-4xl;
+}
+
+div.content h3 {
+	@apply text-3xl;
+}
+
+div.content .highlight pre {
+	@apply p-4;
+}
+
+div.content .tab {
+	@apply inline-block border border-white rounded text-red-600 py-1 px-3;
+}
+
+div.content .tab:hover {
+	@apply border-gray-200 bg-gray-200;
+}
+
+div.content .tab-active {
+	@apply inline-block border border-red-600 rounded py-1 px-3 bg-red-600 text-white;
+}
+
+div.content th, td {
+	@apply px-2;
+}
+
+div.content a {
+	@apply text-red-600 pb-1 border-b border-red-600;
+}
+
+@tailwind utilities;

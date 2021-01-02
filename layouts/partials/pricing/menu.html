@@ -1,0 +1,14 @@
+<ul class="flex py-8">
+	<li class="mr-3">
+		<a {{if eq .Params.pricingmenu "home"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/pricing">Managed</a>
+	</li>
+	<li class="mr-3">
+		<a {{if eq .Params.pricingmenu "self"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/pricing/self-hosted">Self hosted</a>
+	</li>
+	<li class="mr-3">
+		<a {{if eq .Params.pricingmenu "source"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/pricing/source-code">Source code</a>
+	</li>
+</ul>

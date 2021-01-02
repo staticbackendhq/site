@@ -1,0 +1,32 @@
+<html>
+
+<head>
+	<title>page title</title>
+	<link href="https://fonts.googleapis.com/css?family=Lato|Merriweather&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/css/tailwind.css" />
+</head>
+
+<body>
+	<div class="flex lg:mx-auto container md:max-w-full lg:max-w-lg2 xl:max-w-xl2">
+		<div class="absolute bg-orange md:invisible xl:visible mt-48 ml-16" style="width: 450px;height: 325px;"></div>
+		<div class="absolute bg-orange xl:hidden mt-48 ml-16" style="width: 400px;height: 325px"></div>
+		<div class="w-1/4">
+			<img class="p-4" src="/img/logo-osmosis.png" width="150" />
+		</div>
+		<div class="bg-right-top bg-no-repeat bg-contain w-3/4" style="background-image: url(img/hero.png);height: 690px;">
+			<div class="">
+				{{ partial "header/menu.html" .}}
+				<h1 class="absolute text-4xl text-white md:mt-10 md:ml-20 lg:mt-24 lg:ml-32 xl:mt-24 xl:ml-40">
+					Turn leads into paying projects faster
+				</h1>
+				<h2 class="absolute font-merri text-2xl text-white lg:mt-40 lg:ml-56 xl:mt-48 xl:ml-64">
+					<p class="lg:max-w-md lg:text-center xl:max-w-lg xl:text-left">
+						Osmosis streamlines the process from first contact to accepted proposal.
+					</p>
+				</h2>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

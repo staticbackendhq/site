@@ -1,0 +1,22 @@
+<ul class="flex">
+	<li class="mr-3">
+		<a {{if eq .Params.docmenu "home"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/docs">Authentication</a>
+	</li>
+	<li class="mr-3">
+		<a {{if eq .Params.docmenu "users"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/docs/users">Users</a>
+	</li>
+	<li class="mr-3">
+		<a {{if eq .Params.docmenu "db"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/docs/database">Database</a>
+	</li>
+	<li class="mr-3">
+		<a {{if eq .Params.docmenu "storage"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/docs/storage">Storage</a>
+	</li>
+	<li class="mr-3">
+		<a {{if eq .Params.docmenu "forms"}}class="tab-active"{{else}}class="tab"{{end}}
+			href="/docs/forms">Forms</a>
+	</li>
+</ul>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{{ partial "header/meta.html" . }}
+</head>
+
+<body>
+
+	{{ partial "header/mainnav.html" .}}
+
+	<div class="lg:mx-auto container md:max-w-full lg:max-w-lg2 xl:max-w-xl2">
+		{{.Content}}
+	</div>
+	
+	{{partial "footer/footer.html" .}}
+</body>
+
+</html>

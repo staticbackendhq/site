@@ -1,0 +1,156 @@
++++
+title = "Pricing for managed services"
+
+pricingmenu = "home"
+lead = "Pricing that grows with you."
++++
+
+<p>
+	All prices are billed monthly. All plans include all features, unlimited users, and reasonable API and 
+	bandwidth usage. <em>WS connections stands for concurrent WebSocket connections</em>.
+</p>
+
+
+<h3>For pre-revenue & early stage products</h3>
+
+<div class="lg:flex">
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$10</h3>
+		</div>
+		<p><strong>12k</strong> documents</p>
+		<p><strong>50</strong> WS connections</p>
+		<p><strong>5 GB</strong> file storage</p>
+		<p><strong>1 MB</strong> max file size</p>
+	</div>
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$20</h3>
+		</div>
+		<p><strong>50k</strong> documents</p>
+		<p><strong>150</strong> WS connections</p>
+		<p><strong>20 GB</strong> file storage</p>
+		<p><strong>5 MB</strong> max file size</p>
+	</div>
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$50</h3>
+		</div>
+		<p><strong>200k</strong> documents</p>
+		<p><strong>500</strong> WS connections</p>
+		<p><strong>50 GB</strong> file storage</p>
+		<p><strong>15 MB</strong> max file size</p>
+	</div>
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$75</h3>
+		</div>
+		<p><strong>500k</strong> documents</p>
+		<p><strong>1k</strong> WS connections</p>
+		<p><strong>75 GB</strong> file storage</p>
+		<p><strong>15 MB</strong> max file size</p>
+	</div>
+</div>
+
+<h3>For product/market fit products</h3>
+
+<div class="lg:flex">
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$100</h3>
+		</div>
+		<p><strong>1.5m</strong> documents</p>
+		<p><strong>5k</strong> WS connections</p>
+		<p><strong>100 GB</strong> file storage</p>
+		<p><strong>25 MB</strong> max file size</p>
+	</div>
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$150</h3>
+		</div>
+		<p><strong>3m</strong> documents</p>
+		<p><strong>10k</strong> WS connections</p>
+		<p><strong>150 GB</strong> file storage</p>
+		<p><strong>25 MB</strong> max file size</p>
+	</div>
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$200</h3>
+		</div>
+		<p><strong>5m</strong> documents</p>
+		<p><strong>20k</strong> WS connections</p>
+		<p><strong>200 GB</strong> file storage</p>
+		<p><strong>25 MB</strong> max file size</p>
+	</div>
+	<div class="w-full lg:w-1/4 mx-2 py-2 px-4 border border-red-600 rounded">
+		<div class="text-center">
+			<h3>$250</h3>
+		</div>
+		<p><strong>10m</strong> documents</p>
+		<p><strong>50k</strong> WS connections</p>
+		<p><strong>250 GB</strong> file storage</p>
+		<p><strong>25 MB</strong> max file size</p>
+	</div>
+</div>
+
+<h3>Need more?</h3>
+
+<p>
+	We recommend investigating the fact of 
+	<a href="/pricing/self-hosted">self-hosting</a> at this point. Note that we 
+	can offer you a custom plan as well if you'd like to continue using our 
+	managed services, please contact us for information.
+</p>
+
+<div class="py-8 flex">
+	<div class="w-full md:w-1/2 md:pr-4">
+		<h3>What's a document?</h3>
+		<p>		
+			We're using a document database. It means that you store documents as JSON 
+			objects instead of rows of data like in a relational database system.
+		</p>
+		<p>
+			The best way to model your data is to have documents match what your UI needs 
+			to display.
+		</p>
+	</div>
+	<div class="w-full md:w-1/2">
+		<h3>What are reasonable limits?</h3>
+		<p>
+			We currently don't enforce a hard bandwidth limit. We can decline a good 
+			rule of thumb from the number of documents in the plan. For instance, 12k 
+			documents would give roughly 1 gigabyte of bandwidth per month.
+		</p>
+		<p>
+			The API calls are throttled per user. A user cannot perform more than 25 
+			API calls in 60 seconds.
+		</p>
+	</div>
+</div>
+
+<div class="pb-8 flex">
+	<div class="w-full md:w-1/2 md:pr-4">
+		<h3>What if we exceed the document limit.</h3>
+		<p>
+			You'll receive an automated email at 90% of your capacity to prepare for 
+			upgrading your plan or clean up some documents. If you exceed your limit, 
+			we'll contact you to find the right option for you. 
+		<p>
+			Your users are never impacted. Your account can continue to write and 
+			read documents while you upgrade.
+		</p>
+	</div>
+	<div class="w-full md:w-1/2">
+		<h3>You cannot exceed WebSocket connections</h3>
+		<p>
+			We are having a hard limit on WebSocket connections. You cannot exceed the 
+			maximum of concurrent connection your plan allow. You'll receive an HTTP 
+			error if you try to connect and your connection pool is full.
+		</p>
+		<p>
+			We recommend you maintain an internal count inside your application so 
+			you may notify yourself if you're often approaching your maximum connection.
+		</p>
+	</div>
+</div>
+

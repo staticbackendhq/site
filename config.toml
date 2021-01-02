@@ -1,0 +1,10 @@
+baseURL = "https://staticbackend.com"
+languageCode = "en-ca"
+title = "StaticBackend"
+
+[params]
+cliversion = "v1.0.0-rc"
+
+
+[markup.goldmark.renderer]
+unsafe=true

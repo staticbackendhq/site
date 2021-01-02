@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{{ partial "header/meta.html" . }}
+</head>
+
+<body>
+
+	{{ partial "header/mainnav.html" .}}
+
+	<div class="mx-auto container">
+		<div class="text-center">
+			<h1 class="text-gray-900 text-4xl">{{.Params.Title}}</h1>
+			<p class="text-gray-600">
+				{{.Params.docsub}}
+			</p>
+		</div>
+
+		<div class="p-20 md:flex">
+			<div class="w-full md:w-1/3 lg:w-1/4 xl:w-1/5">
+				{{ partial "docs/menu.html" .}}
+			</div>
+			<div class="w-full md:w-2/3 lg:w-3/4 xl:w-4/5">
+				<div class="prose prose-lg text-gray-600 mx-auto">
+					{{.Content}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ partial "footer/footer.html"}}
+</body>
+
+</html>
