@@ -31,8 +31,7 @@
 						<div class="-mr-2 flex items-center md:hidden">
 							<button type="button"
 								class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 bg-transparent hover:bg-gray-700 focus:outline-none focus:bg-gray-700 transition duration-150 ease-in-out"
-								@click="isOpen = true"
-								id="main-menu" aria-label="Main menu" aria-haspopup="true">
+								@click="isOpen = true" id="main-menu" aria-label="Main menu" aria-haspopup="true">
 								<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
 								</svg>
@@ -50,9 +49,13 @@
 							class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Documentation</a>
 					</div>
 				</div>
-				<div class="hidden md:flex">
+				<div class="hidden md:flex items-center justify-end space-x-8 md:flex-1 lg:w-0">
+					<a href="https://app.staticbackend.com"
+						class="whitespace-no-wrap text-base leading-6 font-medium text-white hover:text-gray-300 focus:outline-none focus:text-gray-200">
+						Sign in
+					</a>
 					<a href="/signup"
-						class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-gray-600 hover:bg-gray-500 focus:outline-none focus:shadow-outline-gray focus:border-gray-700 active:bg-gray-700 transition duration-150 ease-in-out">
+						class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-sb hover:bg-red-600 focus:outline-none focus:shadow-outline-red focus:border-red-700 active:bg-red-700 transition duration-150 ease-in-out">
 						Start here
 					</a>
 				</div>
@@ -68,9 +71,7 @@
 					From: "opacity-100 scale-100"
 					To: "opacity-0 scale-95"
 			-->
-			<div 
-				x-show="isOpen"
-				class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
+			<div x-show="isOpen" class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
 				<div class="rounded-lg shadow-md">
 					<div class="rounded-lg bg-white shadow-xs overflow-hidden" role="menu" aria-orientation="vertical"
 						aria-labelledby="main-menu">
@@ -81,8 +82,7 @@
 							<div class="-mr-2">
 								<button type="button"
 									class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 bg-white hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-									@click="isOpen = false"
-									aria-label="Close menu">
+									@click="isOpen = false" aria-label="Close menu">
 									<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 									</svg>
@@ -144,7 +144,8 @@
 									covered.
 								</p>
 								<p class="mt-8">
-									<a href="/getting-started" class="bg-sb text-white text-semibold text-xl p-4 rounded-full">
+									<a href="/getting-started"
+										class="inline-flex justify-center py-4 px-6 border border-transparent text-xl leading-6 font-medium rounded-md text-white bg-sb hover:bg-red-600 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-sb transition duration-150 ease-in-out">
 										Get started with the CLI
 									</a>
 								</p>
@@ -169,7 +170,9 @@
 							</div>
 						</div>
 						<div class="mt-12 sm:mt-16 lg:mt-0 lg:col-span-6">
-							<iframe width="560" height="315" src="https://www.youtube.com/embed/ZEEZlVF_pvc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/ZEEZlVF_pvc" frameborder="0"
+								allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen></iframe>
 						</div>
 					</div>
 				</div>
@@ -196,7 +199,8 @@
 					Users management
 				</h3>
 				<span class="w-full">
-					<img src="/img/icon-user-management.png" class="py-4 block mx-auto max-h-12 md:max-h-20 lg:max-h-32 xl:max-h-48" />
+					<img src="/img/icon-user-management.png"
+						class="py-4 block mx-auto max-h-12 md:max-h-20 lg:max-h-32 xl:max-h-48" />
 				</span>
 				<p>
 					Let your users create accounts and login to access their data. All

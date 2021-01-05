@@ -2,6 +2,10 @@
 
 @tailwind components;
 
+body {
+	@apply bg-white;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	@apply font-lato text-gray-900 font-semibold;
 }
