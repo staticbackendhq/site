@@ -21,18 +21,18 @@
 					</p>
 					<form class="mt-6 flex lg:mt-0 lg:justify-end">
 						<input aria-label="Email address" type="email" required
-							class="appearance-none w-full px-4 py-2 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out lg:max-w-xs"
+							class="appearance-none w-full px-4 py-2 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white placeholder-gray-500 focus:outline-none focus:ring focus:border-blue-300 transition duration-150 ease-in-out lg:max-w-xs"
 							placeholder="Enter your email">
 						<span class="ml-3 flex-shrink-0 inline-flex rounded-md shadow-sm">
 							<button type="button"
-								class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-sb hover:bg-red-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+								class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-sb hover:bg-red-500 focus:outline-none focus:border-indigo-700 focus:ring active:bg-indigo-700 transition ease-in-out duration-150">
 								Notify me
 							</button>
 						</span>
 					</form>
 				</div>
 			</div>
-			<div class="mt-6 grid gap-16 border-t-2 border-gray-100 pt-10 lg:grid-cols-2 lg:col-gap-5 lg:row-gap-12">
+			<div class="mt-6 grid gap-16 border-t-2 border-gray-100 pt-10 lg:grid-cols-2 lg:gap-x-5 lg:gap-y-12">
 				{{ range .Data.Pages.ByPublishDate.Reverse }}				
 				<div>
 					<p class="text-sm leading-5 text-gray-500">

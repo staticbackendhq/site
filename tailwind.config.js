@@ -1,22 +1,10 @@
 module.exports = {
   purge: {
-    enabled: true,
+    enabled: false,
     content: ["./**/*.html"]
   },
 
   theme: {
-    typography: {
-      default: {
-        css: {
-          'code::before': {
-            content: '""',
-          },
-          'code::after': {
-            content: '""',
-          },
-        },
-      },
-    },
     extend: {
       fontFamily: {
         lato: ["lato"],
@@ -37,6 +25,8 @@ module.exports = {
   },
   variants: {},
   plugins: [
-    require("@tailwindcss/ui"),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),    
   ]
 }
