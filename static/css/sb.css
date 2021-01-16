@@ -2671,6 +2671,10 @@ div.content a {
   height: 2.5rem;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .h-full {
   height: 100%;
 }
@@ -2828,10 +2832,6 @@ div.content a {
 
 .-mr-2 {
   margin-right: -0.5rem;
-}
-
-.max-h-12 {
-  max-height: 3rem;
 }
 
 .max-w-lg {
@@ -3034,10 +3034,6 @@ div.content a {
 
 .pb-8 {
   padding-bottom: 2rem;
-}
-
-.pl-8 {
-  padding-left: 2rem;
 }
 
 .pt-10 {
@@ -6261,10 +6257,6 @@ div.content a {
     margin-left: 5rem;
   }
 
-  .md\:max-h-20 {
-    max-height: 5rem;
-  }
-
   .md\:max-w-2xl {
     max-width: 42rem;
   }
@@ -7593,6 +7585,10 @@ div.content a {
     flex: 1 1 0%;
   }
 
+  .lg\:h-32 {
+    height: 8rem;
+  }
+
   .lg\:h-full {
     height: 100%;
   }
@@ -7648,10 +7644,6 @@ div.content a {
 
   .lg\:ml-56 {
     margin-left: 14rem;
-  }
-
-  .lg\:max-h-32 {
-    max-height: 8rem;
   }
 
   .lg\:max-w-none {
@@ -9108,10 +9100,6 @@ div.content a {
 
   .xl\:ml-64 {
     margin-left: 16rem;
-  }
-
-  .xl\:max-h-48 {
-    max-height: 12rem;
   }
 
   .xl\:max-w-lg {
