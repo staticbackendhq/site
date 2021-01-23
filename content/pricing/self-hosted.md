@@ -8,7 +8,7 @@ lead = "Manage your own deployment."
 <div class="pt-12"></div>
 <div class="relative bg-white">
   <div class="absolute inset-0" aria-hidden="true">
-    <div class="mt-12 absolute inset-y-0 right-0 w-1/2 bg-gray-800"></div>
+    <div class="absolute inset-y-0 right-0 w-1/2 bg-gray-800"></div>
   </div>
   <div class="relative max-w-7xl mx-auto lg:px-8 lg:grid lg:grid-cols-2">
     <div class="bg-white py-16 px-4 sm:py-24 sm:px-6 lg:px-0 lg:pr-8">
