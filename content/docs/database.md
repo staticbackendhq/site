@@ -86,15 +86,35 @@ curl -H "Content-Type: application/json" \
      -d '{"name": "task name", "done": false}' \
      https://na1.staticbackend.com/db/tasks
 ```
+```javascript
+const doc = {
+  name: "task name",
+  done: false
+}
+const result = await bkn.create(session_token, "tasks", doc);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+task := Task{
+  Name: "task name",
+  Done: false,
+}
+
+err := backend.Create(token, "tasks", task, &task)
+```
 
 **Response**:
 
 ```json
 {
-	"accountId":"5e184d95b1374eaf8b994bf3",
-	"done":false,
-	"id":"5e185aceb1374eaf8b994bf6",
-	"name":"task name"
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "done":false,
+  "id":"5e185aceb1374eaf8b994bf6",
+  "name":"task name"
 }
 ```
 
@@ -122,25 +142,49 @@ curl -H "Content-Type: application/json" \
      -H "Authorization: Bearer user-token" \
      https://na1.staticbackend.com/db/tasks?size=2&desc=true
 ```
+```javascript
+const optionalParams = {
+  page: 1,
+  size: 2,
+  descending: true
+}
+const result = await bkn.list(session_token, "tasks", optionalParams);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+params := &backend.ListParams{
+  Page: 1,
+  Size: 20,
+  Descending: true,
+}
+
+var tasks []Task
+result, err := backend.List(token, "tasks", &tasks, params)
+fmt.Println("tasks hold the result", tasks)
+```
 
 **Response**:
 
 ```json
 {
-	"page":1,
-	"size":2,
-	"total":223,
-	"results":[{
-		"accountId":"5e184d95b1374eaf8b994bf3",
-		"done":true,
-		"id":"5e185bdcb1374eaf8b994bf7",
-		"name":"2nd task here"
-	},{
-		"accountId":"5e184d95b1374eaf8b994bf3",
-		"done":false,
-		"id":"5e185aceb1374eaf8b994bf6",
-		"name":"task name here"
-	}]
+  "page":1,
+  "size":2,
+  "total":223,
+  "results":[{
+    "accountId":"5e184d95b1374eaf8b994bf3",
+    "done":true,
+    "id":"5e185bdcb1374eaf8b994bf7",
+    "name":"2nd task here"
+  },{
+    "accountId":"5e184d95b1374eaf8b994bf3",
+    "done":false,
+    "id":"5e185aceb1374eaf8b994bf6",
+    "name":"task name here"
+  }]
 }
 ```
 
@@ -160,15 +204,30 @@ curl -H "Content-Type: application/json" \
      -H "Authorization: Bearer user-token" \
      https://na1.staticbackend.com/db/tasks/5e185aceb1374eaf8b994bf6
 ```
+```javascript
+const id = "5e185aceb1374eaf8b994bf6";
+const result = await bkn.getById(session_token, "tasks", id);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+id := "5e185aceb1374eaf8b994bf6";
+var task Task
+err := backend.GetByID(token, "tasks", id, &task)
+fmt.Println(task)
+```
 
 **Response**:
 
 ```json
 {
-	"accountId":"5e184d95b1374eaf8b994bf3",
-	"done":false,
-	"id":"5e185aceb1374eaf8b994bf6",
-	"name":"task name here"
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "done":false,
+  "id":"5e185aceb1374eaf8b994bf6",
+  "name":"task name here"
 }
 ```
 
@@ -202,10 +261,14 @@ value | any | Filter field on that value based on operator.
 
 ```json
 [
-	["done", "==", true],
-	["field", "!=", "value"]
+  ["done", "==", true],
+  ["field", "!=", "value"]
 ]
 ```
+
+Supported operations: `==`, `!=`, `<`, `>`, `<=`, `>=`, `in`, `!in`.
+
+*Only AND are supported for now*.
 
 **Example**:
 
@@ -217,20 +280,38 @@ curl -H "Content-Type: application/json" \
      -d '[["done", "==", true]]'
      https://na1.staticbackend.com/query/tasks
 ```
+```javascript
+const filters = [
+  ["done", "==", true]
+];
+const result = await bkn.query(session_token, "tasks", filters);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+var filters []backend.QueryItem
+filters = append(filters, backend.QueryItem{Field: "done", Op: backend.QueryEqual, Value: true})
+var tasks []Task
+result, err := backend.Find(token, "tasks", filters, &tasks)
+fmt.Println(tasks)
+```
 
 **Response**:
 
 ```json
 {
-	"page":1,
-	"size":25,
-	"total":1,
-	"results":[{
-		"accountId":"5e184d95b1374eaf8b994bf3",
-		"done":true,
-		"id":"5e185bdcb1374eaf8b994bf7",
-		"name":"2nd task here"
-	}]
+  "page":1,
+  "size":25,
+  "total":1,
+  "results":[{
+    "accountId":"5e184d95b1374eaf8b994bf3",
+    "done":true,
+    "id":"5e185bdcb1374eaf8b994bf7",
+    "name":"2nd task here"
+  }]
 }
 ```
 
@@ -262,6 +343,29 @@ curl -H "Content-Type: application/json" \
      -d '{"done": false, "assignedTo": "dominic"}'
      https://na1.staticbackend.com/db/tasks/5e185bdcb1374eaf8b994bf7
 ```
+```javascript
+const doc = {
+  done: false,
+  assignedTo: "dominic"
+};
+const id = "5e185bdcb1374eaf8b994bf7";
+const result = await bkn.update(session_token, "tasks", id, doc);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+partialUpdate := new(struct{
+  Done bool `json:"done"`
+  AssignedTo string `json:"assignedTo"`
+})
+
+var task Task
+err := backend.Update(token, "tasks", id, partialUpdate, &task)
+fmt.Println(task)
+```
 
 *Note that you may add new field when updating a document.*
 
@@ -287,6 +391,19 @@ curl -H "Content-Type: application/json" \
      -H "Authorization: Bearer user-token" \
      -X DELETE
      https://na1.staticbackend.com/db/tasks/5e185bdcb1374eaf8b994bf7
+```
+```javascript
+const id = "5e185bdcb1374eaf8b994bf7";
+const result = await bkn.delete(session_token, "tasks", id);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+id := "5e185bdcb1374eaf8b994bf7";
+err := backend.Delete(token, "tasks", id)
 ```
 
 **Response**:

@@ -30,6 +30,39 @@
 	</div>
 
 	{{ partial "footer/footer.html"}}
+
+	<script>
+		window.addEventListener("DOMContentLoaded", function (e) {
+			var lng = localStorage.getItem("lng") || "JavaScript";
+			showRightCodeLanguage(lng);
+		});
+	
+		function showRightCodeLanguage(lng) {
+			var btn = document.getElementById("options-lng");
+			if (btn) {
+				btn.innerText = "Language: " + lng;
+			}
+	
+			localStorage.setItem("lng", lng);
+	
+			var codes = document.querySelectorAll("[data-lang]");
+			if (!codes) {
+				return;
+			}
+	
+			codes.forEach(function (el) {
+				if (el.dataset["lang"] != "json") { 
+					el.parentElement.parentElement.style.display = "none";
+				}
+			});
+	
+			var codelng = document.querySelectorAll('[data-lang="' + lng.toLowerCase() + '"]');
+			codelng.forEach(function (el) {
+				el.parentElement.parentElement.style.display = "block";
+			})
+		}
+	
+	</script>
 </body>
 
 </html>

@@ -54,6 +54,15 @@
 				Local development
 			</a>
 			{{end}}
+			{{if eq .Params.gsmenu "selfhost"}}
+			<a href="/getting-started/self-hosting" class="bg-sb text-white px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
+				Self hosting
+			</a>
+			{{else}}
+			<a href="/getting-started/self-hosting" class="text-gray-500 px-3 py-2 font-medium text-sm rounded-md">
+				Self hosting
+			</a>
+			{{end}}
 			{{if eq .Params.gsmenu "deploy"}}
 			<a href="/getting-started/deploy" class="bg-sb text-white hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
 				Local to production

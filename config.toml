@@ -1,9 +1,11 @@
 baseURL = "https://staticbackend.com"
 languageCode = "en-ca"
-title = "StaticBackend"
+title = "StaticBackend - backend as a service"
+enableRobotsTXT = true
+
 
 [params]
-cliversion = "v1.0.0-rc"
+cliversion = "v1.0.0"
 
 
 [markup.goldmark.renderer]

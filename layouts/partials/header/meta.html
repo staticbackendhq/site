@@ -2,26 +2,48 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ .Page.Title }} | StaticBackend</title>
+{{ if .Params.metadesc}}
+<meta name="description" content="{{.Params.metadesc}}">
+{{end}}
+{{ if .Params.rss}}
+<link rel="alternate" type="application/rss+xml" title="StaticBackend blog" href="https://staticbackend.com/blog/index.xml">
+{{end}}
+
 <link href="https://fonts.googleapis.com/css?family=Lato|Merriweather&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/sb.css?v=1.16" />
-<!-- link rel="stylesheet" href="/css/elements.css" / -->
+<link rel="stylesheet" href="/css/sb.css?v=1.17" />
 
 
 <!-- Facebook -->
 <meta property="og:url" content="https://staticbackend.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="StaticBackend">
-<meta property="og:description" content="No vendor-lock-in backend as a service">
-<meta property="og:title" content="StaticBackend">
+{{ if .Params.metadesc}}
+<meta property="og:description" content="{{.Params.metadesc}}">
+{{else}}
+<meta property="og:description" content="No vendor-lock-in backend as a service for web and mobile applications.">
+{{end}}
+<meta property="og:title" content="{{.Title}}">
+{{ if .Params.cardimg }}
+<meta property="og:image" content="{{.Params.cardimg}}">
+{{else}}
 <meta property="og:image" content="https://staticbackend.com/img/preview.jpg">
+{{end}}
 <!-- /Facebook -->
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@staticbackend">
-<meta name="twitter:title" content="StaticBackend">
-<meta name="twitter:description" content="No vendor-lock-in backend as a service.">
+<meta name="twitter:title" content="{{.Title}}">
+{{ if .Params.metadesc }}
+<meta name="twitter:description" content="{{.Params.metadesc}}">
+{{else}}
+<meta name="twitter:description" content="No vendor-lock-in backend as a service for your web and mobile applications.">
+{{end}}
+{{ if .Params.cardimg}}
+<meta name="twitter:image" content="{{.Params.cardimg}}">
+{{else}}
 <meta name="twitter:image" content="https://staticbackend.com/img/preview.jpg">
+{{end}}
 <!-- /Twitter -->
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

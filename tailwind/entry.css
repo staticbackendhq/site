@@ -26,11 +26,11 @@ input:focus {
 	@apply outline-none ring;
 }
 
-button, .btn {
+.btn {
 	@apply bg-sb font-lato text-white text-xl font-bold py-4 px-8 rounded-full;
 }
 
-button:hover, .btn:hover {
+.btn:hover {
 	@apply bg-red-700;
 }
 

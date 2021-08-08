@@ -2,6 +2,7 @@
 title				= "Why we're building NoChurn and the plan going forward"
 publishDate	= "2020-08-03"
 slug				= "why-we-building-nochurn-plan-forward"
+draft = true
 +++
 
 I've been building SaaS products for a long time. One aspect I'm personally 

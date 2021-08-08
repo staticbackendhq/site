@@ -58,6 +58,9 @@
 				</p>
 			</div>
 			<div class="prose prose-lg text-gray-500 mx-auto">
+				{{ if .Params.vid}}
+				<video src="{{.Params.vid}}" width="100%" controls></video>
+				{{end}}
 				{{ .Content }}
 			</div>
 		</div>

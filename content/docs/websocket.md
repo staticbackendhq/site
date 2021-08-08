@@ -5,14 +5,14 @@ docsub = "Powering real-time experience for your web and mobile applications."
 submenu = "ws"
 +++
 
-WebSocket communication is a key feature for applications needing real-time 
+Server-Sent Events communication are a key feature for applications needing real-time 
 experience like collaborative documents, chat, games, etc. We're offering a 
-completely managed channel-based communication infrastructure handling standard 
-WebSocket and real-time database update notifications.
+completely managed channel-based communication infrastructure handling broadcasting  
+messages to channels and real-time database update notifications.
 
 ### Connection limits
 
-A maximum of concurrent WebSocket connections is restricted based on your plan. 
+A maximum of concurrent connections is restricted based on your plan. 
 You cannot have more active connections than your plan's limit. You receive an 
 error if you try to establish a connection that would exceed that number.
 
@@ -21,7 +21,7 @@ error if you try to establish a connection that would exceed that number.
 There's a preset JSON object you need to comply with when sending and receiving 
 data. Here are the fields and definitions.
 
-```javascript
+```json
 {
   "sid": "unique socket id",
   "type": "one of supported types",
@@ -38,90 +38,66 @@ You may receive the following types: `ok`, `error`, `init`, `token`, `joined`, `
 
 ### Establishing a connection
 
-The following steps are required for standard WebSocket communication or for 
+The following steps are required for channel-based communication or for 
 real-time database events.
 
-1. Creating the connection.
+1. Initiating the connection.
 2. Authenticating the user.
 3. Joining channel(s) to send and receive messages.
 4. Subscribing to database events.
 
 ### Creating the connection
 
-StaticBackend returns a unique connection ID on a successful connection. You 
-should keep this ID alongside the user's session token.
+Use the `connect` function of our JavaScript helper library.
 
 ```javascript
-var ws = new WebSocket("wss://na1.staticbackend.com/ws");
+import { Backend } from "@staticbackend/js"
+const bkn = new Backend("your-pub-key", "na1");
 
-ws.onerror = function(e) { 
-  console.error("websocket error: ", e);
+const onAuth = (tok) => {
+  console.log("ready to use the connection");
 }
 
-ws.onclose = function() {
-  console.log("connection closed");
+const onMessage = (payload) => {
+  console.log("receiving", payload);
 }
 
-ws.onmessage = function(e) {
-  console.log("received message", e);
-}
-```
-
-The first message looks like this:
-
-```json
-{
-  "sid":"",
-  "type":"init",
-  "data":"7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  "channel":"",
-  "token":""
-}
+bkn.connect("user-session-token", OnAuth, onMessage);
 ```
 
 You can use the `echo` command to test your connection.
 
 ```javascript
-var msg = {
-  sid: "7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  type: "echo",
-  data: "hello StaticBackend"
-}
-ws.send(JSON.stringify(msg));
+bkn.send(bkn.types.echo, "hello");
 ```
 
-You'll receive a message having `"echo: hello StaticBackend"` as its `data` 
-value.
+The `onMessage` callback fires and prints this:
+
+```json
+{
+  "sid":"7eea6625-54c1-11eb-8296-d6c19976ae8a",
+  "type":"echo",
+  "data":"echo: hello",
+  "channel":"",
+  "token":""
+}
+```
 
 ### Authenticating the user
 
 At this time, only authenticated users can join a channel and receive database 
-events. Here's how you authenticate your WebSocket conenctions.
-
-```javascript
-var msg = {
-  sid: "7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  type: "auth",
-  data: "user-session-token"
-}
-ws.send(JSON.stringify(msg));
-```
+events.
 
 You must provide the authenticated user's session token. You receive that token 
 after a call to [register or login](/docs/users).
 
-You receive this on successful authentication.
+Your `onAuth` callback fires on successful authentication.
 
-```json
-{
-  "sid": "7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  "type": "token",
-  "data": "unique socket token",
+```javascript
+const onAuth = (tok) => {
+  // it's safe to use the bkn.send command.
 }
 ```
-
-You'll need to provide this WebSocket token on all your message in the `token` 
-field.
 
 If the authentication failed you'll receive this message:
 
@@ -135,7 +111,7 @@ If the authentication failed you'll receive this message:
 
 ### Joining channel(s) to send and receive messages
 
-You have a fully functional WebSocket connection. Your users can join channels 
+You have a fully functional bi-directional connection. Your users can join channels 
 to send and receive messages to all members of that channel.
 
 It's up to you to have channel names that are hard to guess. There's no way to 
@@ -145,16 +121,8 @@ unique name with letters and digits would be a great choice here, say
 `25ti97wIt56swf5210aPo854Uoma`.
 
 ```javascript
-var msg {
-  sid: "7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  type: "join",
-  data: "25ti97wIt56swf5210aPo854Uoma",
-  token: "unique socket token"
-}
+bkn.send(bkn.types.join, "25ti97wIt56swf5210aPo854Uoma");
 ```
-
-The `data` field holds the name of the channel you want them to join. You must 
-specify a valid WebSocket `token` to join a channel.
 
 This is the confirmation message:
 
@@ -162,24 +130,18 @@ This is the confirmation message:
 {
   "sid": "7eea6625-54c1-11eb-8296-d6c19976ae8a",
   "type": "joined",
-  "data": "channel-name",
+  "data": "25ti97wIt56swf5210aPo854Uoma",
 }
 ```
 
 To send message:
 
 ```javascript
-var msg = {
-  sid: "7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  type: "chan_in",
-  data: "the message here",  
-  token: "unique socket token",
-  channel: "25ti97wIt56swf5210aPo854Uoma"
-}
-ws.send(JSON.stringify(msg));
+bkn.send(bkn.types.chanIn, "hello all", "25ti97wIt56swf5210aPo854Uoma");
 ```
 
-You should specify the `token` and `channel` fields to send a message to a channel.
+You should specify the type `chanIn` and `channel` parameters to send a message 
+to a channel.
 
 A reply with the `type` field's value of `ok` is returned on successful message 
 sent.
@@ -193,7 +155,6 @@ New messages from channels your user are members of looks like this:
   "data": "the message here",  
   "channel": "25ti97wIt56swf5210aPo854Uoma"
 }
-ws.send(JSON.stringify(msg));
 ```
 
 Feel free to use JSON objects inside your message. For instance, if you would 
@@ -205,14 +166,7 @@ var payload = {
   message: "hello from Québec",
   sentAt: new Date()
 }
-var msg = {
-  sid: "7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  type: "chan_in",
-  data: JSON.stringify(payload),
-  token: "unique socket token",
-  channel: "25ti97wIt56swf5210aPo854Uoma"  
-}
-ws.send(JSON.stringify(msg));
+bkn.send(bkn.types.chanIn, JSON.stringify(payload), "25ti97wIt56swf5210aPo854Uoma");
 ```
 
 *You'd need to `JSON.parse` the data field value when you receive it.*
@@ -227,13 +181,7 @@ if you have a `tasks_760_` repository and want some users to receive database
 events, you join the channel `db-tasks_760_`.
 
 ```javascript
-var msg {
-  sid: "7eea6625-54c1-11eb-8296-d6c19976ae8a",
-  type: "join",
-  data: "db-tasks_760_",
-  token: "unique socket token"
-}
-ws.send(JSON.stringify(msg));
+bkn.send(bkn.types.join, "db-tasks_760_")
 ```
 
 All documents created, updated, and deleted this user has **access to read** will 
@@ -243,7 +191,7 @@ events only on the documents they can read.
 
 Let say we have the following users connected:
 
-```
+```json
 |- Account A
 |---- User A
 |---- User B
@@ -269,7 +217,7 @@ Here are examples of database event messages:
 {
   "sid": "7eea6625-54c1-11eb-8296-d6c19976ae8a",
   "type": "db_created",
-  "data": "{id: "123", name: "new doc"}",
+  "data": "{id: \"123\", name: \"new doc\"}",
   "channel": "db-tasks_760_"
 }
 ```

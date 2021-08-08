@@ -1,5 +1,5 @@
 +++
-title			= "Getting started with StaticBackend"
+title			= "Install our CLI"
 
 gsmenu = "cli"
 +++

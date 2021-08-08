@@ -41,6 +41,19 @@ curl -H "Content-Type: application/json" \
      -d '{"email": "new@user.com", "password": "userpw"}' \
      https://na1.staticbackend.com/register
 ```
+```javascript
+const result = await bkn.register(email, pass);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log("session token", result.content);
+```
+
+```go
+token, err := backend.Register("email", "password")
+fmt.Println("use token for all requests", token)
+```
 
 **Response**:
 
@@ -73,6 +86,19 @@ curl -H "Content-Type: application/json" \
      -X POST \
      -d '{"email": "new@user.com", "password": "userpw"}' \
      https://na1.staticbackend.com/login
+```
+```javascript
+const result = await bkn.login(email, pass);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log("session token", result.content);
+```
+
+```go
+token, err := backend.Login("email", "password")
+fmt.Println("use token for all requests", token)
 ```
 
 **Response**:

@@ -47,9 +47,16 @@ const handleFileUpload = (event) => {
   });
 }
 ```
+```go
+file, _, err := r.FormFile("uploaded-file")
+result, err := backend.StoreFile(token, file)
+fmt.Println("ID", result.ID, "URL", result.URL)
+```
 
 **Response**:
 
 ```json
-"https://cdn.staticbackend.com/{id}/{repo}/{fileid}.ext"
+{
+  "id": "unique id to store for later deletion",
+  "url": "https://cdn.staticbackend.com/{id}/{repo}/{fileid}.ext"
 ```

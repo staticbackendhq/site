@@ -1,11 +1,18 @@
 +++
-title				= "Realtime collaborative editing example"
+title				= "Realtime collaborative editing example in JavaScript"
 publishDate	= "2021-01-23"
 slug				= "realtime-collaboration-example"
+vid = "/videos/realtime-example.mp4"
+
+metadesc = "This sample demonstrates the usage of the real-time database events and the channel-based communication of StaticBackend."
+cardimg = "https://staticbackend.com/img/blog/realtime-sample.png"
 +++
 
 Let's discover how the real-time capabilities of StaticBackend can help you 
 build collaborative applications.
+
+You may find the source code on the 
+[GitHub repository](https://github.com/staticbackendhq/realtime-collaboration-example).
 
 For this sample, we'll build a simple application for two person to collaborate 
 on a piece of code. Here are the functionalities we'll make:
@@ -44,8 +51,8 @@ $> backend server
 You may clone this example and run the following to see it in action.
 
 ```shell
-$> git clone git@github.com:staticbackendhq/realtime-example.git
-$> cd realtime-example
+$> git clone git@github.com:staticbackendhq/realtime-collaboration-example.git
+$> cd realtime-collaboration-example
 $> npm install
 $> npm run build
 $> npm start
@@ -78,7 +85,7 @@ our [user session token](https://staticbackend.com/docs/).
 </form>
 ```
 
-Since StaticBackend both the login and register endpoints accept an email and a 
+Since both the `login` and `register` endpoints accept an email and a 
 password, we can use the same form with two different buttons.
 
 Let's handle this in JavaScript:
@@ -115,12 +122,12 @@ login.addEventListener("click", async (e) => {
 });
 ```
 
-We're attaching a click event to the login button, and we're calling the login 
+We're attaching a click event to the login button, and we're calling the `login` 
 function of our local backend. Notice how we're saving the session token to the 
 browser's local storage so we can retrieve it later.
 
 We redirect the user to the page where the fun begins. The register handler is 
-the same except it's calling the register function.
+the same except it's calling the `register` function.
 
 ## Define the state of our application.
 
@@ -207,7 +214,7 @@ create.addEventListener("click", async (e) => {
 There are a form and two buttons on the user interface. We see the handler for 
 the button that creates a new room.
 
-We create a document with the needed value and call the create function of 
+We create a document with the needed value and call the `create` function of 
 StaticBackend's JavaScript helper.
 
 We're using a room name and a PIN as session identifier for someone to join our 
@@ -266,7 +273,7 @@ join.addEventListener("click", async (e) => {
 });
 ```
 
-We do that by calling the query function. The backend query engine is case 
+We do that by calling the `query` function. The backend query engine is case 
 sensitive, so the user will have to type the same room name and PIN to connect.
 
 If we can find the room, we'll update it with our current user's name so the 
@@ -299,7 +306,7 @@ this execution and will connect for real-time communication.
 
 ## Establishing the connection
 
-It's simple to connect your user.
+It's simple to connect your users.
 
 ```javascript
 const initWebSocket = () => {
@@ -307,7 +314,7 @@ const initWebSocket = () => {
 }
 ```
 
-You need to pass three parameters to the connect function. The session token 
+You need to pass three parameters to the `connect` function. The session token 
 for the current user. A callback function for when authentication is successful. 
 And a callback function to handle incoming messages.
 
@@ -336,7 +343,7 @@ const onWSAuth = (tok) => {
 ```
 
 Joining a channel is straightforward. Notice the naming convention for the 
-database events channel. It's using the "DB-" prefix followed by the repository 
+database events channel. It's using the `"db-"` prefix followed by the repository 
 name.
 
 ## Processing incoming messages
@@ -428,3 +435,7 @@ editor.addEventListener("keyup", (e) => {
 We're using Doherty's thresholds of 400ms to throttle the update in batch. We 
 don't want to send each frame on KeyUp.
 
+
+Everything you see in this sample is live, and you can try it for free by 
+installing our CLI and running your local development backend server. Let us 
+know if you do, we'll be happy to hear what you think.
