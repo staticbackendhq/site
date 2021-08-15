@@ -6,8 +6,6 @@ compsub = "Connect your users and build collaborative live applications."
 submenu = "ws"
 +++
 
-*This feature is in beta and not publicly available.*
-
 We've implemented an excellent communication mechanism for your application. 
 You have full WebSocket capabilities augmented with channels where you may opt-in 
 your user to receive live data updates.
