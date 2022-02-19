@@ -10,8 +10,8 @@ allowing you to perform CRUD operations. Here's how to manage your user's data.
 
 ### Indexed per account by default
 
-Each repository you'll create will always have an `accountId` field, which is an 
-index for performance reasons and security.
+Each repository (collection, "table") you'll create will always have an 
+`accountId` field, which is an index for performance reasons and security.
 
 This `accountId` is automatically set for you from the authenticated user's 
 information.
@@ -78,6 +78,7 @@ fields.
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
@@ -136,6 +137,7 @@ desc | `bool` | Get result by descending order of creation (default to ascending
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
@@ -198,6 +200,8 @@ Fetch for a specific document.
 
 **Example**:
 
+
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
@@ -272,6 +276,7 @@ Supported operations: `==`, `!=`, `<`, `>`, `<=`, `>=`, `in`, `!in`.
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
@@ -335,6 +340,7 @@ the fields.*
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
@@ -385,6 +391,7 @@ Delete a repository document.
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \

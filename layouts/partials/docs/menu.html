@@ -142,6 +142,38 @@
 		</span>
 	</a>
 	{{end}}
+	{{ if eq .Params.submenu "email"}}
+	<a href="/docs/sendmail"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Send email
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/sendmail"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Send email
+		</span>
+	</a>
+	{{end}}
+	{{ if eq .Params.submenu "cache"}}
+	<a href="/docs/cache"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Cache
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/cache"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Cache
+		</span>
+	</a>
+	{{end}}
 	{{ if eq .Params.submenu "form"}}
 	<a href="/docs/forms"
 		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
@@ -155,6 +187,22 @@
 		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
 		<span class="truncate">
 			Forms
+		</span>
+	</a>
+	{{end}}
+	{{ if eq .Params.submenu "root"}}
+	<a href="/docs/root-token"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Root token
+		</span>
+	</a>
+	{{else}}
+	<a href="/docs/root-token"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Root token
 		</span>
 	</a>
 	{{end}}

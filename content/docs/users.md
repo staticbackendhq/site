@@ -34,6 +34,7 @@ password | `string` | User's password
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
@@ -80,6 +81,7 @@ password | `string` | User's password
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
@@ -118,7 +120,7 @@ This token will be valid for 12 hours.
 
 ### Reset password
 
-Generate and send a reset code by email.
+[With root token](/docs/root-token): Generate and send a reset code by email.
 
 **HTTP request**:
 
@@ -134,18 +136,50 @@ email | `string` | User's email address
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer root-token" \
      -X POST \
      -d '{"email": "new@user.com"}' \
      https://na1.staticbackend.com/password/send
+```
+```javascript
+import { Backend } from "@staticbackend/js";
+const bkn = new Backend("public-token", "dev");
+
+const res = await bkn.getPasswordResetCode("user@email.com");
+if (!res.ok) {
+  alert(res.content);
+  return;
+}
+
+// res.content contains the reset code you may send by email
+```
+```go
+import (
+  "github.com/staticbackendhq/backend-go"
+)
+
+func init() {
+  backend.PublicKey = os.Getenv("SB_PUB_KEY")
+	backend.Region = os.Getenv("SB_REGION")
+}
+
+func main() {
+  code, err := backend.GetPasswordResetCode(rootToken, email)
+  if err != nil {
+    log.Fatal(err)
+  }
+  // code can be sent by email
+}
 ```
 
 **Response**:
 
 ```json
-true
+"reset code you sent by email"
 ```
 
 Once the user returns with their unique code, you may request a password reset.
@@ -166,12 +200,21 @@ password | `string` | User's new password
 
 **Example**:
 
+{{< langtabs >}}
 ```bash
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -X POST \
      -d '{"email": "new@user.com", "code": "1234", "password": "newpw852"}' \
      https://na1.staticbackend.com/password/reset
+```
+```javascript
+const res = await bkn.resetPassword(email, code, newPass);
+```
+```go
+if err := backend.ResetPassword(email, code, password); err != nil {
+  //...
+}
 ```
 
 **Response**:

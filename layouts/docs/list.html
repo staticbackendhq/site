@@ -42,6 +42,24 @@
 			if (btn) {
 				btn.innerText = "Language: " + lng;
 			}
+
+			var tabs = document.querySelectorAll(".lng-tab");
+			tabs.forEach(function(t) {
+				t.classList.remove("bg-gray-100");
+				t.classList.remove("text-gray-700");
+
+				t.classList.add("text-gray-500");
+				t.classList.add("hover:text-gray-700")
+			});
+
+			var curTabs = document.querySelectorAll(".lng-" + lng.toLowerCase());
+			curTabs.forEach(function(t) {
+				t.classList.remove("text-gray-500");
+				t.classList.remove("hover:text-gray-700")				
+
+				t.classList.add("bg-gray-100");
+				t.classList.add("text-gray-700");
+			});
 	
 			localStorage.setItem("lng", lng);
 	

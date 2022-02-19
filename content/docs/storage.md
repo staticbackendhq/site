@@ -20,6 +20,7 @@ Upload a file. Maximum file size depends on your plan.
 
 **Example**:
 
+{{< langtabs >}}
 ```javascript
 document.querySelector('#file').addEventListener('change', event => {
   handleFileUpload(event);
@@ -52,6 +53,9 @@ file, _, err := r.FormFile("uploaded-file")
 result, err := backend.StoreFile(token, file)
 fmt.Println("ID", result.ID, "URL", result.URL)
 ```
+```bash
+n/a
+```
 
 **Response**:
 
@@ -59,4 +63,43 @@ fmt.Println("ID", result.ID, "URL", result.URL)
 {
   "id": "unique id to store for later deletion",
   "url": "https://cdn.staticbackend.com/{id}/{repo}/{fileid}.ext"
+```
+
+
+### Delete file
+
+Delete a file
+
+**HTTP request**:
+
+`GET /sudostorage/delete?id=${id}`
+
+**Querystring parameters**:
+
+name | type | description
+----:|:-----|:------------
+id | `string` | Id of the file to delete
+
+**Example**:
+
+{{< langtabs >}}
+```javascript
+const res = await bkn.deleteFile(rootToken, fileId);
+```
+```go
+if err := backend.DeleteFile(rootToken, fileID); err != nil {
+  //...
+}
+```
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer root-token" \
+     https://na1.staticbackend.com/sudostorage/delete?id=unique_id_here
+```
+
+**Response**:
+
+```json
+true
 ```

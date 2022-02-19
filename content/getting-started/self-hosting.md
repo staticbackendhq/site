@@ -92,7 +92,7 @@ Either copy the binary in that directory or build the server (see later).
 
 ## Configure the necessary environment variables
 
-StaticBackend relies heavily on MongoDB, Redis. 
+StaticBackend relies heavily on either PostgreSQL or MongoDB, and Redis. 
 
 Here are the environment variables you'll need.
 
@@ -100,7 +100,8 @@ Here are the environment variables you'll need.
 APP_ENV=dev
 MAIL_PROVIDER=dev or ses
 STORAGE_PROVIDER=local or s3
-DATABASE_URL=localhost
+DATABASE_URL=mongodb://localhost:27017 or user=postgres password=postgres dbname=postgres sslmode=disable
+DATA_STORE=mongo or pg
 REDIS_HOST=localhost:6379
 REDIS_PASSWORD=your-redis-pw
 FROM_EMAIL=you@domain.com
@@ -121,6 +122,10 @@ AWS_S3_BUCKET=your.bucketname.here
 AWS_CDN_URL=https://your.cdnurlhere.com
 ```
 
+The `DATA_STORE` determines if StaticBackend stores its data in PostgreSQL or 
+MongoDB. Therefore, the `DATABASE_URL` should match your choice of data 
+persistence.
+
 For the `local` file storage you'll need this one:
 
 ```
@@ -132,22 +137,31 @@ for each variables.
 
 ## Provide services via docker or natively installed
 
-The simplest way to provides the necessary services (MongoDB and Redis) is via 
-Docker.
+The simplest way to provides the necessary services (PostgreSQL or MongoDB and 
+Redis) is via Docker.
 
 ```shell
 $> docker-compose up
 ```
 
+This will start a PostgreSQL and Redis servers.
+
+For MongoDB you may use the proper `docker-compose` file:
+
+```shell
+$> docker-compose -f docker-compose-mongo.yml up
+```
+
+This will start a MongoDB and Redis servers that are needed by StaticBackend.
+
 _Please note_: The `docker-compose-demo.yml` is used to run all services and 
 the backend server. If you're using a binary or compiling the source you 
 may use the `docker-compose.yml` file.
 
-This will start a MongoDB and Redis servers that are needed by StaticBackend.
 
-You may install and run native MongoDB and Redis servers if you do not have 
-access to Docker. Please refer to MongoDB and Redis for how to install native 
-servers on your development computer.
+You may install and run native PostgreSQL or MongoDB and Redis servers if you 
+do not have access to Docker. Please refer to PostgreSQL, MongoDB, and Redis 
+own documentation for how to install native servers on your development computer.
 
 ## Compile and start the server
 

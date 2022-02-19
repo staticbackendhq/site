@@ -50,6 +50,7 @@ real-time database events.
 
 Use the `connect` function of our JavaScript helper library.
 
+{{< langtabs >}}
 ```javascript
 import { Backend } from "@staticbackend/js"
 const bkn = new Backend("your-pub-key", "na1");
@@ -64,11 +65,24 @@ const onMessage = (payload) => {
 
 bkn.connect("user-session-token", OnAuth, onMessage);
 ```
+```go
+// not implemented in server libraries
+```
+```bash
+n/a
+```
 
 You can use the `echo` command to test your connection.
 
+{{< langtabs >}}
 ```javascript
 bkn.send(bkn.types.echo, "hello");
+```
+```go
+// not implemented on server-side library
+```
+```bash
+n/a
 ```
 
 The `onMessage` callback fires and prints this:
@@ -93,10 +107,17 @@ after a call to [register or login](/docs/users).
 
 Your `onAuth` callback fires on successful authentication.
 
+{{< langtabs >}}
 ```javascript
 const onAuth = (tok) => {
   // it's safe to use the bkn.send command.
 }
+```
+```go
+// not implemented on server-side libraries
+```
+```bash
+n/a
 ```
 
 If the authentication failed you'll receive this message:
@@ -120,8 +141,15 @@ application, you might have one channel per project for team to discuss. A
 unique name with letters and digits would be a great choice here, say 
 `25ti97wIt56swf5210aPo854Uoma`.
 
+{{< langtabs >}}
 ```javascript
 bkn.send(bkn.types.join, "25ti97wIt56swf5210aPo854Uoma");
+```
+```go
+// not implemented on server-side libraries
+```
+```bash
+n/a
 ```
 
 This is the confirmation message:
@@ -136,8 +164,15 @@ This is the confirmation message:
 
 To send message:
 
+{{< langtabs >}}
 ```javascript
 bkn.send(bkn.types.chanIn, "hello all", "25ti97wIt56swf5210aPo854Uoma");
+```
+```go
+// not implemented on server-side libraries
+```
+```bash
+n/a
 ```
 
 You should specify the type `chanIn` and `channel` parameters to send a message 
@@ -147,6 +182,7 @@ A reply with the `type` field's value of `ok` is returned on successful message
 sent.
 
 New messages from channels your user are members of looks like this:
+
 
 ```json
 {
@@ -160,6 +196,7 @@ New messages from channels your user are members of looks like this:
 Feel free to use JSON objects inside your message. For instance, if you would 
 want to have the name of the sender, the `data` field can be this:
 
+{{< langtabs >}}
 ```javascript
 var payload = {
   name: "dominic",
@@ -167,6 +204,12 @@ var payload = {
   sentAt: new Date()
 }
 bkn.send(bkn.types.chanIn, JSON.stringify(payload), "25ti97wIt56swf5210aPo854Uoma");
+```
+```go
+// not implemented on server-side libraries
+```
+```bash
+n/a
 ```
 
 *You'd need to `JSON.parse` the data field value when you receive it.*
@@ -180,8 +223,15 @@ You must join specially named channels to receive database events. For instance,
 if you have a `tasks_760_` repository and want some users to receive database 
 events, you join the channel `db-tasks_760_`.
 
+{{< langtabs >}}
 ```javascript
 bkn.send(bkn.types.join, "db-tasks_760_")
+```
+```go
+// not implemented on server-side libraries
+```
+```bash
+n/a
 ```
 
 All documents created, updated, and deleted this user has **access to read** will 

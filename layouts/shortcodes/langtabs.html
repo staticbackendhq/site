@@ -1,0 +1,30 @@
+<div>
+	<div class="sm:hidden">
+		<label for="tabs" class="sr-only">Select a language</label>
+		<!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+		<select name="tabs"
+			class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+			@change="showRightCodeLanguage($event.target.value)">
+			<option value="JavaScript">JavaScript</option>
+			<option value="Go">Go</option>
+			<option value="Bash">CURL</option>
+		</select>
+	</div>
+	<div class="hidden sm:block">
+		<nav class="flex space-x-4" aria-label="Tabs">
+			<!-- Current: "bg-gray-100 text-gray-700", Default: "text-gray-500 hover:text-gray-700" -->
+			<button class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md lng-tab lng-javascript" onclick="showRightCodeLanguage('JavaScript')">
+				JavaScript
+			</button>
+
+			<button class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md lng-tab lng-go" onclick="showRightCodeLanguage('Go')">
+				Go
+			</button>
+
+			<button class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md lng-tab lng-bash" onclick="showRightCodeLanguage('bash')">
+				CURL
+			</button>
+
+		</nav>
+	</div>
+</div>

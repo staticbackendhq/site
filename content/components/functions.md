@@ -6,8 +6,6 @@ compsub = "Create server-side functions. Publish and react to event messages."
 submenu = "fn"
 +++
 
-*This feature is in beta and not publicly available.*
-
 While most actions occur on your frontend code, sometimes it's helpful to have 
 functions running server-side.
 
