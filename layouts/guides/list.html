@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{{ partial "header/meta.html" . }}
+</head>
+
+<body>
+
+	{{ partial "header/mainnav.html" .}}
+
+	<div class="mx-auto container py-8">
+		<div class="text-center">
+			<h1 class="text-gray-900 text-5xl pb-4">Guides</h1>
+			<p class="text-gray-600">
+				Follow guides on familiar frontend frameworks to get started quickly.
+			</p>
+		</div>
+
+		<div class="p-20 md:flex">
+			<div class="w-full md:w-1/3 lg:w-1/4 xl:w-1/5">
+				{{ partial "guides/menu.html"}}
+			</div>
+			<div class="w-full md:w-2/3 lg:w-3/4 xl:w-4/5">
+				<div class="prose prose-lg text-gray-600 mx-auto">
+					{{.Content}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ partial "footer/footer.html"}}
+
+	<script>
+		window.addEventListener("DOMContentLoaded", function (e) {
+			var lng = localStorage.getItem("lng") || "JavaScript";
+			showRightCodeLanguage(lng);
+		});
+	
+		function showRightCodeLanguage(lng) {
+			var btn = document.getElementById("options-lng");
+			if (btn) {
+				btn.innerText = "Language: " + lng;
+			}
+
+			var tabs = document.querySelectorAll(".lng-tab");
+			tabs.forEach(function(t) {
+				t.classList.remove("bg-gray-100");
+				t.classList.remove("text-gray-700");
+
+				t.classList.add("text-gray-500");
+				t.classList.add("hover:text-gray-700")
+			});
+
+			var curTabs = document.querySelectorAll(".lng-" + lng.toLowerCase());
+			curTabs.forEach(function(t) {
+				t.classList.remove("text-gray-500");
+				t.classList.remove("hover:text-gray-700")				
+
+				t.classList.add("bg-gray-100");
+				t.classList.add("text-gray-700");
+			});
+	
+			localStorage.setItem("lng", lng);
+	
+			var codes = document.querySelectorAll("[data-lang]");
+			if (!codes) {
+				return;
+			}
+	
+			codes.forEach(function (el) {
+				if (el.dataset["lang"] != "json") { 
+					el.parentElement.parentElement.style.display = "none";
+				}
+			});
+	
+			var codelng = document.querySelectorAll('[data-lang="' + lng.toLowerCase() + '"]');
+			codelng.forEach(function (el) {
+				el.parentElement.parentElement.style.display = "block";
+			})
+		}
+	
+	</script>
+</body>
+
+</html>
