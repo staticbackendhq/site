@@ -78,7 +78,7 @@ more manual setup.
 
 You may use the 
 [pre-built binaries](https://github.com/staticbackendhq/core/releases) for 
-Linux, Mac and Windows we provide on the release page on our GitHub repo.
+Linux, MacOS and Windows we provide on the release page on our GitHub repo.
 
 You will need to clone or download the code:
 
@@ -167,7 +167,7 @@ own documentation for how to install native servers on your development computer
 
 If you've downloaded the binary for your OS you don't need to compile the source.
 
-You'll need `Go` installed to compile the `core` project. 
+You'll need `Go` 1.16+ installed to compile the `core` project. 
 [Refer to this page](https://golang.org/doc/install) to install Go.
 
 If you are running Linux you most certainly have `make` available. Here's how 
@@ -187,10 +187,13 @@ Your StaticBackend instance runs under `http://localhost:8099`
 If you do not have `make` available.
 
 1. Make sure that the environment variables are available in your current terminal session.
-2. Compile the server with: `go build`
-3. Run the server with `./staticbackend`
+2. Compile the server with:
 
-Replace `./staticbackend` for `staticbackend.exe` if you're on Windows.
+```shell
+$> cd cmd && go build -o staticbackend && ./staticbackend
+```
+
+_Replace `./staticbackend` for `staticbackend.exe` if you're on Windows._
 
 ## Create an account on your instance
 

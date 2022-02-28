@@ -3,6 +3,9 @@ title = "Quickstart guide: React + StaticBackend"
 
 docsub = "Use React and StaticBackend to build great SPA"
 submenu = "react"
+
+metadesc = "Learn how to integrate StaticBackend to a React application created from scratch."
+cardimg = "https://staticbackend.com/img/blog/react-wiki.png"
 +++
 
 **GitHub repository**: 
