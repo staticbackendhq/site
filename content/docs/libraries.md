@@ -12,9 +12,9 @@ preferred language.
 ### Client libraries
 
 * JavaScript: [https://github.com/staticbackendhq/backend-js](https://github.com/staticbackendhq/backend-js)
-* Elm: coming soon
 
 ### Server libraries
 
 * Node: [https://github.com/staticbackendhq/backend-node](https://github.com/staticbackendhq/backend-node)
 * Go: [https://github.com/staticbackendhq/backend-go](https://github.com/staticbackendhq/backend-go)
+* Python (WIP): [https://github.com/staticbackendhq/backend-python](https://github.com/staticbackendhq/backend-python)

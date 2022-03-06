@@ -26,4 +26,9 @@ integrations to keep state, for instance.
 **Send emails**: Your application can now send emails. Proper for all types of 
 applications.
 
+**Resize images**: You may specify a maximum width for images your users upload. 
+The original width and the max width ratio's apply to the 
+height. Only the resized image is saved. You receive the ID and the URL 
+of the resized image.
+
 If you need something specifics, do not hesitate to let us know.
