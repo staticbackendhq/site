@@ -16,11 +16,21 @@ functionalities.
 
 ### Installation
 
+#### Via NPM
+
+You may install the CLI globally via `npm`:
+
+```shell
+$> npm install -g @staticbackend/cli
+```
+
+#### Manual installation
+
 You may download the latest version from the 
 [GitHub release page](https://github.com/staticbackendhq/cli/releases).
 
-There's a binary version for Linux, Mac and Windows for 32 and 64 bit 
-architecture. If you're not sure, you probably want the 64 bit version.
+There's a binary version for Linux, MacOS and Windows for 64 bit 
+architecture. If you're looking for a 32-bit build, please build from source.
 
 You can also download it via a `curl` call:
 
@@ -28,11 +38,11 @@ You can also download it via a `curl` call:
 $ curl -L -o backend.gz \
 https://github.com/staticbackendhq/cli
 /releases/download/{{< param cliversion >}}/
-binary-for-linux-64-bit.gz
+linux-amd64-backend.gz
 ```
 
-Replace `linux` with `mac` or `windows` in the URL above. For Windows add 
-`.exe` between `bit` and `.gz` example: `binary-for-windows-64-bit.exe.gz`.
+Replace `linux` with `darwin` or `windows` in the URL above. For Windows add 
+`.exe` before `.gz` example: `windows-amd64-backend.exe.gz`.
 
 The downloaded file is compressed to make it faster to download.
 

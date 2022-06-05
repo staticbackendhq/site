@@ -26,9 +26,16 @@ integrations to keep state, for instance.
 **Send emails**: Your application can now send emails. Proper for all types of 
 applications.
 
+**Send SMS text messages**: You can send SMS text messages. You'll require a 
+Twilio account with an active phone number.
+
 **Resize images**: You may specify a maximum width for images your users upload. 
 The original width and the max width ratio's apply to the 
 height. Only the resized image is saved. You receive the ID and the URL 
 of the resized image.
+
+**Convert URL to PDF and PNG**: You may convert a URL (web page) to a complete 
+PDF or a PNG screenshot. This function is helpful to create reports from HTML 
+page you'd like to send to your users,
 
 If you need something specifics, do not hesitate to let us know.

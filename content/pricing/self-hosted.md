@@ -2,7 +2,7 @@
 title = "Pricing for self-hosted solution"
 
 pricingmenu = "self"
-lead = "Manage your own deployment."
+lead = "Manage your own deployment and infrastructure."
 +++
 
 <div class="pt-12"></div>
@@ -17,16 +17,16 @@ lead = "Manage your own deployment."
           On your infrastructure
         </h2>
         <p class="mt-2 text-2xl font-extrabold text-gray-900 sm:text-3xl">
-					High performance is limited only by your infrastructure
+					High performance is limited only by your infrastructure and budget.
 				</p>
         <dl class="mt-12 space-y-10">
           <div class="flex">
             <div class="ml-4">
               <dt class="text-lg leading-6 font-medium text-gray-900">
-                No database document limit
+                No database size limit
               </dt>
               <dd class="mt-2 text-base text-gray-500">
-                Host your database server(s) and remove the database document 
+                Host your database server(s) and remove the database size 
 								limits from our managed plans.
               </dd>
             </div>
@@ -60,8 +60,8 @@ lead = "Manage your own deployment."
                 Requirements
               </dt>
               <dd class="mt-2 text-base text-gray-500">
-                An x64 Linux server, a Redis server, a MongoDB 4+ server, and 
-								an AWS account.
+                An x64 Linux server, a Redis server, either a PostgreSQL 13+ or 
+                MongoDB 4+ server, and an AWS account.
               </dd>
             </div>
           </div>
@@ -75,7 +75,9 @@ lead = "Manage your own deployment."
           <p class="relative grid grid-cols-2">
             <span class="flex flex-col text-center">
               <span class="text-5xl font-extrabold text-white tracking-tight">$499</span>
-              <span class="mt-2 text-base font-medium text-gray-100">Initial purchase</span>
+              <span class="mt-2 text-base font-medium text-gray-100">
+                Installation by us
+              </span>
               <span class="sr-only">plus</span>
             </span>
             <span class="pointer-events-none absolute h-12 w-full flex items-center justify-center" aria-hidden="true">
@@ -83,29 +85,43 @@ lead = "Manage your own deployment."
             <span>
               <span class="flex flex-col text-center">
                 <span class="text-5xl font-extrabold text-white tracking-tight">$329</span>
-                <span class="mt-2 text-base font-medium text-gray-100">Per year</span>
+                <span class="mt-2 text-base font-medium text-gray-100">
+                  New releases installation
+                </span>
               </span>
             </span>
           </p>
         </div>
         <ul class="bg-gray-600 bg-opacity-50 rounded sm:grid sm:grid-cols-2 sm:grid-rows-3 sm:grid-flow-col">
           <li class="py-4 px-4 flex items-center space-x-3 text-base text-white">
-            <span>self-hosted license</span>
+            <span>
+              we handle the initial setup
+            </span>
           </li>
           <li class="border-t border-gray-800 border-opacity-25 py-4 px-4 flex items-center space-x-3 text-base text-white">
-            <span>5 applications</span>
+            <span>
+              ready in 2 business days
+            </span>
           </li>
           <li class="border-t border-gray-800 border-opacity-25 py-4 px-4 flex items-center space-x-3 text-base text-white">
-            <span>use your infrastructure</span>
+            <span>
+              deploy on your infrastructure
+            </span>
           </li>
           <li class="border-t border-gray-800 border-opacity-25 py-4 px-4 flex items-center space-x-3 text-base text-white sm:border-t-0 sm:border-l">
-            <span>12 months of updates</span>
+            <span>
+              12 months of updates by us
+            </span>
           </li>
           <li class="border-t border-gray-800 border-opacity-25 py-4 px-4 flex items-center space-x-3 text-base text-white sm:border-l">
-            <span>12 months of support</span>
+            <span>
+              new releases installed for you
+            </span>
           </li>
           <li class="border-t border-gray-800 border-opacity-25 py-4 px-4 flex items-center space-x-3 text-base text-white sm:border-l">
-            <span>Deployment support</span>
+            <span>
+              Priority support
+            </span>
           </li>
         </ul>
         <a href="/contact/" class="bg-sb border border-transparent rounded-md w-full px-8 py-4 flex items-center justify-center text-lg leading-6 font-medium text-white hover:bg-red-500 md:px-10">
@@ -130,13 +146,13 @@ lead = "Manage your own deployment."
 	</p>
 	<div class="py-8 lg:flex">
 		<div class="w-full lg:w-1/2 lg:pr-4">
-			<h3>Is it complicated to deploy?</h3>
+			<h3>Can we deploy it ourselves?</h3>
 			<p>
-				A Linux server is required. Either behind a load balancer or a reverse 
-				proxy server like nginx. A Redis and MongoDB servers accessible from the 
-				server hosting the StaticBackend process. Ideally, you want a cluster 
-				for your MongoDB servers. If the basics sound familiar, you should not 
-				have an issue with the deployment.
+				Of course. A Linux server is required. Either behind a load balancer or 
+        a reverse proxy server like nginx. A Redis server and either a 
+        PostgreSQL 13+ or MongoDB 4+ servers accessible from the server hosting 
+        the StaticBackend process. If the basics sound familiar, you 
+        should not have an issue with the deployment.
 			</p>
 			<p>
 				You may have a look at our documentation on how to run your instance. 
@@ -149,7 +165,7 @@ lead = "Manage your own deployment."
 			<p>
 				Your initial purchase comes with 12 months of free updates and support. 
 				If you want to keep getting updates and support, you'll need to renew 
-				your license each year.
+				your subscription each year.
 			</p>
 			<p>
 				At any time, you may download the latest version of the binary. We're 

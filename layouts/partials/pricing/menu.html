@@ -13,11 +13,20 @@
 		<nav class="flex space-x-4" aria-label="Tabs">
 			{{ if eq .Params.pricingmenu "home"}}
 			<a href="/pricing" class="bg-sb text-white hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
-				Managed
+				Shared (managed)
 			</a>
 			{{else}}
 			<a href="/pricing" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
-				Managed
+				Shared (managed)
+			</a>
+			{{end}}
+			{{if eq .Params.pricingmenu "dedicated"}}
+			<a href="/pricing/dedicated" class="bg-sb text-white px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
+				Dedicated (managed)
+			</a>
+			{{else}}
+			<a href="/pricing/dedicated" class="text-gray-500 px-3 py-2 font-medium text-sm rounded-md">
+				Dedicated (managed)
 			</a>
 			{{end}}
 			{{ if eq .Params.pricingmenu "self"}}
@@ -27,15 +36,6 @@
 			{{else}}
 			<a href="/pricing/self-hosted" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
 				Self-hosted
-			</a>
-			{{end}}
-			{{if eq .Params.pricingmenu "source"}}
-			<a href="/pricing/source-code" class="bg-sb text-white px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
-				Source code
-			</a>
-			{{else}}
-			<a href="/pricing/source-code" class="text-gray-500 px-3 py-2 font-medium text-sm rounded-md">
-				Source code
 			</a>
 			{{end}}
 		</nav>

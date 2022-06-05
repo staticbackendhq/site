@@ -22,8 +22,9 @@ Sometimes you need repositories that can be read by all your users. Editing and
 deleting a record is only allowed for the record owner.
 
 Prefixing the name of the repository with `pub_` will turn a repository as 
-public. Note that users are not required to be authenticated to read public 
-repositories.
+public. _Note that users are not required to be authenticated to read public 
+repositories_.
+
 
 Use public repositories only in scenario where you need to display data to 
 users that are not signed up yet.
@@ -59,6 +60,17 @@ the read access, you must use the `pub_` prefix.
 *Make sure you plan ahead and choose your permissions carefully as they cannot 
 be changed at this moment*. Once a repository is created you cannot change its 
 permissions.
+
+### Operations on behalf of your users
+
+Pieces of your application will need to impersonate users to perform database 
+operations. Think, for instance, of a daily job that processes your trial 
+expiration. You might want to remove data on behalf of the expire user.
+
+Due to this, we have introduced `Sudo` actions that can only be called from a 
+server-side environment. For example, the following database operations can be 
+executed from a specific route using the `ROOT_TOKEN` authentication. Refer to 
+the [root token page](/docs/root-token) for more detail.
 
 
 ### Create a document
@@ -420,3 +432,41 @@ err := backend.Delete(token, "tasks", id)
 ```
 
 *Returns the number of document deleted.*
+
+### Create database index
+
+[Requires a root token](/docs/root-token): Create database indexes
+
+**HTTP request**:
+
+`POST /sudo/index`
+
+**Format**: JSON
+
+**Query string**:
+
+name | type | description
+----:|:-----|:------------
+col | `string` | The collection / repository ex: `tasks`
+field | `string` | Top-level field to index
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer root-token" \
+		 -X POST \
+     https://na1.staticbackend.com/sudo/index?col=tasks&field=done
+```
+```javascript
+const res = await bkn.sudoAddIndex(rootToken, "tasks", "done");
+```
+```go
+err := backend.SudoAddIndex(rootToken, "tasks", "done")
+```
+
+**Response**:
+
+HTTP status > 299 means error.

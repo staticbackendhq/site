@@ -13,7 +13,7 @@ users to Stripe, and you're able to get the value once they're back.
 
 ### Cache set
 
-[Requires a root token]("/docs/root-token"): Store an item on the cache
+[Requires a root token](/docs/root-token): Store an item on the cache
 
 **HTTP request**:
 
@@ -58,7 +58,7 @@ true
 
 ### Cache get
 
-[Requires a root token]("/docs/root-token"): Get an object from cache
+[Requires a root token](/docs/root-token): Get an object from cache
 
 **HTTP request**:
 

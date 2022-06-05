@@ -50,3 +50,79 @@ fmt.Println("ID", result.ID, "URL", result.URL)
 ```bash
 n/a
 ```
+
+**Response**:
+
+```json
+{
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "done":false,
+  "id":"5e185aceb1374eaf8b994bf6",
+  "url":"https://url-for-the-resized-image.jpg"
+}
+```
+
+### Convert URL (web page) to PDF or PNG
+
+**HTTP request**:
+
+`POST /extra/htmltox`
+
+**Format**: JSON
+
+**Body**:
+
+name | type | description
+----:|:-----|:------------
+toPDF | `bool` | Output is a PDF, otherwise PNG if `false`
+url | `string` | A publicaly available URL
+fullpage | `string` | For PNG, indicates if the screenshot takes the entire page.
+
+
+**Example**:
+
+{{< langtabs >}}
+```javascript
+let data = {
+  toPDF: true,
+  url: "https://staticbackend.com
+};
+const res = await bkn.convertURLToX(token, data);
+if (!res.ok) {
+  //handle error res.content
+  return;
+}
+// file id: res.content.id
+// file url: res.content.url
+```
+```go
+data := backend.ConvertParam{
+  ToPDF: true,
+  URL: "https://staticbackend.com",
+}
+result, err := backend.ConvertURLToX(token, data)
+if err != nil {
+  //handle error
+}
+fmt.Println("file id: ", res.ID)
+fmt.Println("file URL: ", res.URL)
+```
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X POST \
+     -d '{"toPDF": true, "url": "https://staticbackend.com"}' \
+     https://na1.staticbackend.com/extra/htmltox
+```
+
+**Response**:
+
+```json
+{
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "done":false,
+  "id":"5e185aceb1374eaf8b994bf6",
+  "url":"https://url-of-the-converted-output.pdf"
+}
+```

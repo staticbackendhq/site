@@ -78,4 +78,4 @@ fmt.Println(task)
 ```
 
 Those functions are avaialble only from your server-side functions/backend 
-using the server-side client library.
+using the server-side client libraries.
