@@ -1,5 +1,5 @@
 +++
-title			= "Join the waiting list"
+title			= "SignUp to StaticBackend"
 +++
 
 <div class="max-w-full lg:max-w-lg xl:max-w-xl mx-auto py-12">

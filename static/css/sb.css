@@ -1805,6 +1805,11 @@ div.content a {
   background-color: transparent;
 }
 
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
@@ -1858,6 +1863,11 @@ div.content a {
 .hover\:bg-gray-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgba(55, 65, 81, var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-50:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(254, 242, 242, var(--tw-bg-opacity));
 }
 
 .hover\:bg-red-500:hover {
@@ -2096,8 +2106,16 @@ div.content a {
   justify-content: space-between;
 }
 
+.flex-1 {
+  flex: 1 1 0%;
+}
+
 .flex-shrink-0 {
   flex-shrink: 0;
+}
+
+.order-3 {
+  order: 3;
 }
 
 .font-lato {
@@ -2550,6 +2568,10 @@ div.content a {
   padding-right: 0.5rem;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .pl-2 {
   padding-left: 0.5rem;
 }
@@ -2625,6 +2647,10 @@ div.content a {
   pointer-events: none;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .absolute {
   position: absolute;
 }
@@ -2684,6 +2710,10 @@ div.content a {
 
 .left-full {
   left: 100%;
+}
+
+.resize {
+  resize: both;
 }
 
 * {
@@ -2966,6 +2996,10 @@ div.content a {
 
 .tracking-wider {
   letter-spacing: 0.05em;
+}
+
+.w-0 {
+  width: 0px;
 }
 
 .w-5 {
@@ -3582,6 +3616,10 @@ div.content a {
     justify-content: space-between;
   }
 
+  .sm\:order-2 {
+    order: 2;
+  }
+
   .sm\:h-6 {
     height: 1.5rem;
   }
@@ -3636,6 +3674,10 @@ div.content a {
     margin-right: auto;
   }
 
+  .sm\:mt-0 {
+    margin-top: 0px;
+  }
+
   .sm\:mt-4 {
     margin-top: 1rem;
   }
@@ -3660,6 +3702,10 @@ div.content a {
     max-width: 32rem;
   }
 
+  .sm\:p-3 {
+    padding: 0.75rem;
+  }
+
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -3673,6 +3719,10 @@ div.content a {
   .sm\:py-24 {
     padding-top: 6rem;
     padding-bottom: 6rem;
+  }
+
+  .sm\:pb-5 {
+    padding-bottom: 1.25rem;
   }
 
   .sm\:pb-32 {
@@ -3692,6 +3742,10 @@ div.content a {
 
   .sm\:text-center {
     text-align: center;
+  }
+
+  .sm\:w-auto {
+    width: auto;
   }
 
   .sm\:gap-6 {
