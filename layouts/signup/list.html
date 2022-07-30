@@ -56,7 +56,7 @@
 			</div>
 			<div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
 				<div class="max-w-lg mx-auto lg:max-w-none">
-					<form id="signupForm" action="#" method="POST" class="grid grid-cols-1 gap-y-6">
+					<form id="signupForm" action="https://na1.staticbackend.com/account/init" method="POST" class="grid grid-cols-1 gap-y-6">
 						<div class="hidden">
 							<input type="text" id="_hp_" name="_hp_" />
 						</div>
@@ -114,20 +114,22 @@
 		document.body.onload = function () {
 			var form = document.forms["signupForm"];
 			form.onsubmit = function (e) {
-				e.preventDefault();
-				e.stopPropagation();
-
 				var hp = form["_hp_"].value;
 				if (hp) {
+					e.preventDefault();
+					e.stopPropagation();
 					return;
 				}
 
 				var answer = form.initials.value.toLowerCase();
 				if (answer != "7") {
 					form.initials.focus();
+					e.preventDefault();
+					e.stopPropagation();
 					return;
 				}
 
+				/*
 				var email = encodeURIComponent(form.email.value);
 
 				var url = "https://na1.staticbackend.com/account/init?email=" + email;
@@ -145,6 +147,7 @@
 					}).catch((err) => {
 						alert("Sorry, an error occured, please contact us.\n\n" + err);
 					});
+					*/
 			}
 		}
 	</script>
