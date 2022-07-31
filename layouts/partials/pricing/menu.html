@@ -29,6 +29,15 @@
 				Dedicated (managed)
 			</a>
 			{{end}}
+			{{if eq .Params.pricingmenu "self"}}
+			<a href="/pricing/self-hosted" class="bg-sb text-white px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
+				Self-hosted (free)
+			</a>
+			{{else}}
+			<a href="/pricing/self-hosted" class="text-gray-500 px-3 py-2 font-medium text-sm rounded-md">
+				Self-hosted (free)
+			</a>
+			{{end}}
 		</nav>
 	</div>
 </div>
