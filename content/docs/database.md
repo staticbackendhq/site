@@ -131,6 +131,68 @@ err := backend.Create(token, "tasks", task, &task)
 }
 ```
 
+### Create documents in bulk
+
+Adds multiple documents to a repository.
+
+_This is recommended vs. looping and calling the single create document endpoint._
+
+**HTTP request**:
+
+`POST /db/{repository-name}?bulk=1`
+
+**Format**: JSON
+
+**Body**:
+
+An array of documents.
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X POST \
+     -d '[{"name": "task 1", "done": false}, {"name": "task 2", "done": true}]' \
+     https://na1.staticbackend.com/db/tasks?bulk=1
+```
+```javascript
+const docs = [{
+  name: "task 1",
+  done: false
+}, {
+  name: "task 2",
+  done: true
+}];
+const result = await bkn.createBulk(session_token, "tasks", docs);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+// true or false
+console.log(result.content);
+```
+```go
+tasks := []Task{Task{
+  Name: "task 1",
+  Done: false,
+},
+Task{
+  Name: "task 2",
+  Done: true,
+}}
+
+ok, err := backend.CreateBulk(token, "tasks", tasks)
+```
+
+**Response**:
+
+```json
+true
+```
+
 ### List documents
 
 List documents for a repository.
@@ -391,6 +453,87 @@ fmt.Println(task)
 
 ```json
 true
+```
+
+### Update documents in bulk
+
+Update multiple documents at the same time matching filters.
+
+**HTTP request**:
+
+`PUT /db/{repository-name}?bulk=1`
+
+**Format**: JSON
+
+**Body**:
+
+name | type | description
+----:|:-----|:------------
+update | `object` | The update fields to apply
+clauses | `array` | The filters to target documents
+
+The `clauses` is exactly the same as the **Query** endpoint:
+
+name | type | description
+----:|:-----|:------------
+field | `string` | The field name.
+op | `string` | Operator, one of (==, !=, >, <, >=, <=, in, !in)
+value | any | Filter field on that value based on operator.
+
+*This should be formatted like this*:
+
+```json
+[
+  ["done", "==", true],
+  ["field", "!=", "value"]
+]
+```
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X PUT
+     -d '{"update": {"done": true}, "clauses": [["assignTo", "==", "dominic"]]}'
+     https://na1.staticbackend.com/db/tasks?bulk=1
+```
+```javascript
+const data = {
+  update: {
+    done: true
+  },
+  clauses: [
+    ["assignTo", "==", "dominic"]
+  ]
+};
+const result = await bkn.updateBulk(session_token, "tasks", data);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+// prints number of document updated
+console.log(result.content);
+```
+```go
+data := struct {
+  Update: struct {
+    Done: true,
+  } `json:"update"`
+  Clauses: []backend.QueryItem{
+    backend.QueryItem{"assignTo", backend.QueryEqual, "dominic"},
+  } `json:"clauses"`
+}
+updated, err := backend.UpdateBulk(token, "tasks", data)
+fmt.Printf("%d document updated", updated)
+```
+
+**Response**:
+
+```json
+15
 ```
 
 ### Delete documents
