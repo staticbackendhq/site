@@ -223,3 +223,132 @@ if err := backend.ResetPassword(email, code, password); err != nil {
 true
 ```
 From here they can login with their new password.
+
+### Send magic link
+
+Let your users receive a magic link to sign-in without password.
+
+**HTTP request**:
+
+`POST /login/magic`
+
+**Format**: JSON
+
+**Body**:
+
+name | type | description
+----:|------|-------------
+fromEmail | `string` | Mail will be sent from this email
+fromName | `string` | Mail will use this name as display name
+email | `string` | User's email
+subject | `string` | Mail subject
+body | `string` | HTML body of the email. **Requries** a [link] placeholder
+link | `string` | Your app link which get calls from their email (with the code appended as query string)
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -X POST \
+     -d '{"fromEmail": "my@app.com", "email": "user@email.com", "body": "<p>Click [link]</p>"}' \
+     https://na1.staticbackend.com/login/magic
+```
+
+```javascript
+const data = {
+  fromEmail: "my@app.com",
+  fromName: "My app name",
+  email: "user@email.com",
+  subject: "Your sign-in link for Our Awesome App",
+  body: "<p>Hello there,</p><p>Click here to sign-in<br />[link]</p>",
+  link: "https://ourapp.com/magic-custom-url"
+}
+const res = await bkn.magicLinkInit(data);
+```
+```go
+data := backend.MagicLinkData{
+  FromEmail: "my@app.com",
+  FromName: "My app name",
+  Email: "user@email.com",
+  Subject: "Your sign-in link for Our Awesome App",
+  Body: "<p>Hello there,</p><p>Click here to sign-in<br />[link]</p>",
+  Link: "https://ourapp.com/magic-custom-url"
+}
+if err := backend.MagicLinkInit(data); err != nil {
+  //...
+}
+```
+
+**Response**:
+
+The initialization takes the `link` provided and append the following query string 
+to it:
+
+https://ourapp.com/magic-custom-url **?code=456789&email=user@email.com**
+
+Once they click the link, you'll be able to get their session token in exchange 
+of their email and code.
+
+```json
+true
+```
+
+### Magic link to session token
+
+Your application custom URL gets called when the user clicks on the link from 
+their email. You'll receive two important query string parameters:
+
+1. **code**: Their unique code
+2. **email**: Their email
+
+You can now _exchange_ those to get a session token.
+
+**HTTP request**:
+
+GET /login/magic?code=received-code&email=user@email.com`
+
+**Format**: JSON
+
+**Querystring parameters**:
+
+name | type | description
+----:|:-----|:------------
+code | `string` | The code your app received via the magic link query string 
+email | `string` | The email of the user
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     https://na1.staticbackend.com/login/magic?code=123456&email=user@email.com
+```
+
+```javascript
+const res = await bkn.magicLinkExchange(code, email);
+if (!res.ok) {
+  console.error(res.content);
+  return;
+}
+sessionToken = res.content;
+// they're good to go with their session token
+}
+```
+```go
+token, err := backend.MagicLinkExchange(code, email)
+if err != nil {
+  return err
+}
+fmt.Println(token)
+// they're good to go with their session token
+```
+
+**Response**:
+
+
+```json
+"their-session-token-is-return-on-successful-exchange"
+```

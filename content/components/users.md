@@ -14,6 +14,8 @@ You can:
 
 * Create new accounts and users.
 * Authenticate users via email and password.
+* Authenticate users via external OAuth providers.
+* Authenticate users via magic link.
 * Let them reset their password.
 
 The `/register` and `/login` endpoints return a session token that you must use for 
