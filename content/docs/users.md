@@ -5,6 +5,14 @@ docsub = "The center of all application"
 submenu = "user"
 +++
 
+Quick links:
+
+* [Register new user](#register-new-user)
+* [Login user](#login-user)
+* [Reset password](#reset-password)
+* [Send magic link](#send-magic-link)
+* [Get current user](#get-current-user)
+
 Since all requests need to be authenticated, you'll need to get a user token 
 for each of your users.
 
@@ -351,4 +359,53 @@ fmt.Println(token)
 
 ```json
 "their-session-token-is-return-on-successful-exchange"
+```
+
+### Get current user
+
+Sometimes it's useful to get the current user, most often use case is to 
+validate their `role` and determine if they are authorized to perform an action.
+
+**HTTP request**:
+
+GET /me
+
+**Format**: JSON
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer session-token-here" \
+     https://na1.staticbackend.com/me
+```
+
+```javascript
+const res = await bkn.me(token);
+if (!res.ok) {
+  console.log(res.content);
+  return;
+}
+console.log(res.content);
+```
+
+```go
+cu, err := backend.Me(token)
+if err != nil {
+  return err
+}
+fmt.Println(cu)
+```
+
+**Response**:
+
+```json
+{
+  "accountId": "user-acct-id",
+  "userId": "user-id",
+  "email": "user@email.com",
+  "role": 50
+}
 ```

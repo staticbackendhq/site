@@ -53,6 +53,35 @@ events in a server-side function and perform other important tasks.*
 Those are the functions we provide to help you interact with your StaticBackend 
 resources from your functions.
 
+**Please note**: all functions that return something will wrap the return object 
+inside an object like this:
+
+```
+{
+  result: true,
+  content: {
+    status: 200,
+    body: "response body"
+  }
+}
+```
+
+This is compatible with the JavaScript/Node API client, you'll write 
+your code similar to this:
+
+```
+function handle(body, qs, headers) {
+  log("my function is running");
+  var res = getById("tasks", body.id);
+  if (!res.ok) {
+    log("error: ", res.content);
+    return;
+  }
+
+  log("all good, got the task", res.id);
+}
+```
+
 #### Helper functions
 
 **log("item 1", item2, true, ...)**
@@ -62,6 +91,19 @@ execution of your function. When viewing the execution history, you will see
 all output produced by the log function.
 
 You may specify multiple objects and they'll all get printed.
+
+**fetch(url, params)**
+
+This allow your function to perform HTTP requests.
+
+*Arguments*:
+
+name | type | description
+----:|:-----|:------------
+url | `string` | The target URL to call
+params | `object`  | A browser's `fetch` compatible object
+
+*Returns*: `{staus: 200, body: "response body"}`
 
 #### Database releated functions
 

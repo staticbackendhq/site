@@ -5,6 +5,20 @@ docsub = "Database without the management, backup and scaling."
 submenu = "db"
 +++
 
+Quick links:
+
+* [Permissions](#permissions)
+* [Operations on behalf of your users](#operations-on-behalf-of-your-users)
+* [Create a document](#create-a-document)
+* [Create documents in bulk](#create-documents-in-bulk)
+* [List documents](#list-documents)
+* [Get a document](#get-a-document)
+* [Query for documents](#query-for-documents)
+* [Update a document](#update-a-document)
+* [Update documents in bulk](#update-documents-in-bulk)
+* [Delete documents](#delete-documents)
+* [Create database index](#create-database-index)
+
 At its core, StaticBackend's primary offering is a database as a service 
 allowing you to perform CRUD operations. Here's how to manage your user's data.
 
