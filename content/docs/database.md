@@ -17,6 +17,7 @@ Quick links:
 * [Update a document](#update-a-document)
 * [Update documents in bulk](#update-documents-in-bulk)
 * [Delete documents](#delete-documents)
+* [Count documents](#count-documents)
 * [Create database index](#create-database-index)
 
 At its core, StaticBackend's primary offering is a database as a service 
@@ -589,6 +590,75 @@ err := backend.Delete(token, "tasks", id)
 ```
 
 *Returns the number of document deleted.*
+
+### Count documents
+
+Count numbers of document in a repository with optional filters.
+
+**HTTP request**:
+
+`POST /db/count/{repository-name}`
+
+**Format**: JSON
+
+**Body**:
+
+Array of filters.
+
+Exactly the same as the **Query** endpoint:
+
+name | type | description
+----:|:-----|:------------
+field | `string` | The field name.
+op | `string` | Operator, one of (==, !=, >, <, >=, <=, in, !in)
+value | any | Filter field on that value based on operator.
+
+*This should be formatted like this*:
+
+```json
+[
+  ["done", "==", true],
+  ["field", "!=", "value"]
+]
+```
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X POST \
+     -d '[["done", "=", true]]' \
+     https://na1.staticbackend.com/db/count/tasks
+```
+```javascript
+const filters = [["assignTo", "=", "dominic", "done", "=", false]];
+const result = await bkn.count(session_token, "tasks", filters);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+// prints numbers of documents
+console.log(result.content.count);
+```
+```go
+filters := []backend.QueryItem{
+  backend.QueryItem{"assignTo", backend.QueryEqual, "dominic"},
+  backend.QueryItem{"done", backend.QueryEqual, false},
+}
+n, err := backend.Count(token, "tasks", filters)
+fmt.Printf("%d document(s) matches", n)
+```
+
+**Response**:
+
+```json
+{
+  "count": 123
+}
+```
 
 ### Create database index
 
