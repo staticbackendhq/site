@@ -36,9 +36,7 @@ You can also download it via a `curl` call:
 
 ```bash
 $ curl -L -o backend.gz \
-https://github.com/staticbackendhq/cli
-/releases/download/{{< param cliversion >}}/
-linux-amd64-backend.gz
+https://github.com/staticbackendhq/cli/releases/download/{{< param cliversion >}}/linux-amd64-backend.gz
 ```
 
 Replace `linux` with `darwin` or `windows` in the URL above. For Windows add 
