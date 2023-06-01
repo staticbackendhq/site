@@ -1,4 +1,5 @@
 <nav>
+	<strong>Full guides</strong>
 	{{ if eq .Params.submenu "react"}}
 	<a href="/guides/react"
 		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
@@ -12,6 +13,59 @@
 		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
 		<span class="truncate">
 			React
+		</span>
+	</a>
+	{{end}}
+
+	<strong class="pt-8">Tutorials</strong>
+
+	{{ if eq .Params.submenu "react"}}
+	<a href="/guides/intro"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Before starting
+		</span>
+	</a>
+	{{else}}
+	<a href="/guides/intro"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Before starting
+		</span>
+	</a>
+	{{end}}
+
+	{{ if eq .Params.submenu "react"}}
+	<a href="/guides/tut1-login"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Login
+		</span>
+	</a>
+	{{else}}
+	<a href="/guides/tut1-login"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Login
+		</span>
+	</a>
+	{{end}}
+
+	{{ if eq .Params.submenu "react"}}
+	<a href="/guides/tut2-create-doc"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Create a document
+		</span>
+	</a>
+	{{else}}
+	<a href="/guides/tut2-create-doc"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Create a document
 		</span>
 	</a>
 	{{end}}

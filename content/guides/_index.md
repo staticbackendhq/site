@@ -10,3 +10,11 @@ See how you can integrate StaticBackend into a React application using the stand
 `create-react-app` tool.
 
 [View the React guide](/guides/react)
+
+### Tutorials
+
+Small and focused tutorials on specific actions. You may change the code and 
+execute it on your browser. You'll need to run an instance of the backend API on your 
+local machine to execute code.
+
+[Start learning](/guides/intro)

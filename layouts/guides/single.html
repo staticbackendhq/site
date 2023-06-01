@@ -3,6 +3,8 @@
 
 <head>
 	{{ partial "header/meta.html" . }}
+
+	<script src="/js/backend.js"></script>
 </head>
 
 <body>
@@ -23,6 +25,21 @@
 			</div>
 			<div class="w-full md:w-2/3 lg:w-3/4 xl:w-4/5">
 				<div class="prose prose-lg text-gray-600 mx-auto">
+					{{if strings.Contains .Params.submenu "tut"}}
+						<div class="w-full">
+							<textarea id="code" class="w-full" rows="10">code goes here</textarea>
+						</div>
+						<div class="w-full pt-4 pb-12">
+							<button id="exec-code"
+							class="inline-flex justify-center py-4 px-4 border border-transparent text-lg leading-6 font-medium rounded-md text-white bg-sb hover:bg-red-600 focus:outline-none focus:border-red-700 focus:ring active:bg-sb transition duration-150 ease-in-out"
+							>
+							Execute code
+						</button>
+
+							<pre id="results"></pre>
+						</div>
+					{{end}}
+					
 					{{.Content}}
 				</div>
 			</div>
@@ -30,6 +47,9 @@
 	</div>
 
 	{{ partial "footer/footer.html"}}
+
+	<script src="/js/tut.js"></script>
+	<script src="/js/{{.Params.submenu}}.js"></script>
 </body>
 
 </html>

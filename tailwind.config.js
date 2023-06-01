@@ -1,8 +1,5 @@
 module.exports = {
-  purge: {
-    enabled: true,
-    content: ["./**/*.html"]
-  },
+  content: ["./**/*.html"],
 
   theme: {
     extend: {
@@ -11,22 +8,22 @@ module.exports = {
         merri: ["merriweather"],
       },
       margin: {
-        '96': '24rem',
-        '128': '32rem',
+        96: "24rem",
+        128: "32rem",
       },
       colors: {
         sb: "#DD0000",
       },
       maxWidth: {
         lg2: "1024px",
-        xl2: "1280px"
+        xl2: "1280px",
       },
     },
   },
   variants: {},
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),    
-  ]
-}
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
+  ],
+};

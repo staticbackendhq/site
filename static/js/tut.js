@@ -1,0 +1,54 @@
+let token = "";
+const bkn = new sb.Backend("dev_memory_pk", "dev");
+
+const codeEditor = document.getElementById("code");
+const result = document.getElementById("results");
+const execCode = document.getElementById("exec-code");
+
+(function () {
+  const oldcl = console.log;
+  console.log = function (args) {
+    oldcl(args);
+
+    let s = args.toString();
+    if (typeof args == "object") {
+      s = "{\n";
+      for (var key in args) {
+        s += ` ${key}: ${args[key]}\n`;
+      }
+      s += " }";
+    }
+    result.textContent += s + "\n";
+  };
+})();
+
+execCode.addEventListener("click", function () {
+  const code = codeEditor.value;
+  result.textContent = "";
+  tryCode(code);
+});
+
+function tryCode(code) {
+  try {
+    eval(code);
+  } catch (ex) {
+    console.log("error running the code:");
+    console.log(ex);
+  }
+}
+
+if (!sessionStorage.getItem("token")) {
+  (async () => {
+    const res = await bkn.login("admin@dev.com", "devpw1234");
+    if (!res.ok) {
+      alert(
+        "You'll need a local API instance running to execute the tutorials."
+      );
+      return;
+    }
+
+    sessionStorage.setItem("token", res.content);
+  })();
+}
+
+token = sessionStorage.getItem("token");

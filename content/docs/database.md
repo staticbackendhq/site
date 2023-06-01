@@ -16,7 +16,8 @@ Quick links:
 * [Query for documents](#query-for-documents)
 * [Update a document](#update-a-document)
 * [Update documents in bulk](#update-documents-in-bulk)
-* [Delete documents](#delete-documents)
+* [Delete document](#delete-document)
+* [Delete documents in bulk](#delete-documents-in-bulk)
 * [Count documents](#count-documents)
 * [Create database index](#create-database-index)
 
@@ -551,9 +552,9 @@ fmt.Printf("%d document updated", updated)
 15
 ```
 
-### Delete documents
+### Delete document
 
-Delete a repository document.
+Delete a document from a repository.
 
 **HTTP request**
 
@@ -587,6 +588,57 @@ err := backend.Delete(token, "tasks", id)
 
 ```json
 1
+```
+
+*Returns the number of document deleted.*
+
+### Delete documents in bulk
+
+Delete multiple documents matching filters.
+
+**HTTP request**:
+
+`DELETE /db/{repository-name}?bulk=1&x=filters-as-base64`
+
+**Format**: JSON
+
+**Querystring parameters**:
+
+name | type | description
+----:|:-----|:------------
+bulk | `number` | 1 to indicate it's a buld delete
+x | `string` | A base64 encoded JSON of the filters array (see [Query for documents](#query-for-documents))
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X DELETE
+     "https://na1.staticbackend.com/db/tasks?bulk=1&x=base64-here"
+```
+```javascript
+const filters = [["done", "=", true]];
+const result = await bkn.deleteBulk(session_token, "tasks", filters);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+filters := []backend.QueryItem{
+  {Field: "done", Op: "=", Value: true},
+}
+err := backend.DeleteBulk(token, "tasks", filters)
+```
+
+**Response**:
+
+```json
+5
 ```
 
 *Returns the number of document deleted.*
