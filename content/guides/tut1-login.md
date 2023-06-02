@@ -18,4 +18,4 @@ Same function signature and returns a token, you may test it:
 // const res = await bkn.login("a@b.com", "pass1234");
 const res = await bkn.register("new-user@domain.com", "passwd123");
 ```
-Next: [Tutorial 2: Create documents](/guides/tut1-login)
+Next: [Tutorial 2: Add another user to an account](/guides/tut1-add-another-user)

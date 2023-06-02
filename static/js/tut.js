@@ -10,16 +10,36 @@ const execCode = document.getElementById("exec-code");
   console.log = function (args) {
     oldcl(args);
 
-    let s = args.toString();
-    if (typeof args == "object") {
-      s = "{\n";
-      for (var key in args) {
-        s += ` ${key}: ${args[key]}\n`;
-      }
-      s += " }";
-    }
+    let s = JSON.stringify(args, null, 2);
     result.textContent += s + "\n";
   };
+
+  function str(args) {
+    var s = "";
+    if (typeof args === "object") {
+      if (Array.isArray(args)) {
+        s += "[\n";
+        for (var i = 0; i <= args.length; i++) {
+          s += str(args[i]);
+        }
+        s += "]\n";
+      } else {
+        s = objToStr(args);
+      }
+      return s;
+    }
+
+    return args.toString();
+  }
+
+  function objToStr(v) {
+    var s = "{\n";
+    for (var key in args) {
+      s += ` ${key}: ${str(args[key])}\n`;
+    }
+    s += " }";
+    return s;
+  }
 })();
 
 execCode.addEventListener("click", function () {

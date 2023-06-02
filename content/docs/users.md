@@ -12,6 +12,9 @@ Quick links:
 * [Reset password](#reset-password)
 * [Send magic link](#send-magic-link)
 * [Get current user](#get-current-user)
+* [Add user to account](#add-user-to-account)
+* [Remove user from account](#remove-user-from-account)
+* [List account users](#list-account-users)
 
 Since all requests need to be authenticated, you'll need to get a user token 
 for each of your users.
@@ -408,4 +411,142 @@ fmt.Println(cu)
   "email": "user@email.com",
   "role": 50
 }
+```
+
+### Add user to account
+
+Add user to an account.
+
+**HTTP request**:
+
+`POST /account/users`
+
+**Format**: JSON
+
+**Body**:
+
+name | type | description
+----:|------|-------------
+email | `string` | User's email address
+password | `string` | User's password
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X POST \
+     -d '{"email": "new@user.com", "password": "userpw"}' \
+     https://na1.staticbackend.com/account/users
+```
+```javascript
+const result = await bkn.addUser(token, email, pass);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log("user added");
+```
+
+```go
+if err := backend.AddUser(token, "email", "password"); err != nil {
+  // err
+}
+fmt.Println("new user added")
+```
+
+**Response**:
+
+```json
+true
+```
+
+### Remove user from account
+
+Permanently removes a user from the account.
+
+**HTTP request**:
+
+`DELETE /account/users/{user-id}`
+
+**Format**: JSON
+
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X DELETE \
+     https://na1.staticbackend.com/account/users/user-id-to-delete
+```
+```javascript
+const result = await bkn.removeUser(token, userId);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log("user removed");
+```
+
+```go
+if err := backend.RemoveUser(token, "user-id-to-delete"); err != nil {
+  // err
+}
+fmt.Println("user removed")
+```
+
+**Response**:
+
+```json
+true
+```
+
+### List account users
+
+Get a list of all users on the account.
+
+**HTTP request**:
+
+`GET /account/users`
+
+**Format**: JSON
+
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X DELETE \
+     https://na1.staticbackend.com/account/users
+```
+```javascript
+const result = await bkn.users(token);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content); 
+// [{id: "", accountId: "", email: "", role: 50}, ...]
+```
+
+```go
+users, err := backend.Users(token)
+if err != nil {
+  // err
+}
+// users is a slice of users: []backend.CurrentUser
+```
+
+**Response**:
+
+```json
+true
 ```

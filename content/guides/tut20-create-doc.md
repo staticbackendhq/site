@@ -2,7 +2,7 @@
 title = "Tutorial 2: Create documents"
 
 docsub = "You have collections of documents as data structure."
-submenu = "tut2"
+submenu = "tut20"
 
 metadesc = "Learn how to create document via StaticBackend API."
 +++

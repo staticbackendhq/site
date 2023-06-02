@@ -1,16 +1,19 @@
 codeEditor.value = `
 (async () => {
-  const person = {
-    firstName: "Dominic",
-    lastName: "St-Pierre",
-    project: "StaticBackend"
-  }
-
-  const res = await bkn.create(token, "people", person);
+  const res = await bkn.addUser(token, "user2@doamin.com", "passwd123");
   if (!res.ok) {
-    console.log("API returns an error, make sure you have the API running")
     console.log(res.content);
     return;
   }
-  console.log(res.content);
-})()`;
+
+  const res2 = await bkn.users(token);
+  if (!res2.ok) {
+    console.log(res2.content);
+    return;
+  }
+  res2.each((u) => {
+    console.log({e: u.email, role: u.role});
+  });
+
+})();
+`;

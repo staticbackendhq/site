@@ -53,8 +53,25 @@
 	</a>
 	{{end}}
 
-	{{ if eq .Params.submenu "react"}}
-	<a href="/guides/tut2-create-doc"
+	{{ if eq .Params.submenu "tut2"}}
+	<a href="/guides/tut2-add-another-user"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Add user to account
+		</span>
+	</a>
+	{{else}}
+	<a href="/guides/tut2-add-another-user"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Add user to account
+		</span>
+	</a>
+	{{end}}
+
+	{{ if eq .Params.submenu "tut20"}}
+	<a href="/guides/tut20-create-doc"
 		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
 		aria-current="page">
 		<span class="truncate">
@@ -62,7 +79,7 @@
 		</span>
 	</a>
 	{{else}}
-	<a href="/guides/tut2-create-doc"
+	<a href="/guides/tut20-create-doc"
 		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
 		<span class="truncate">
 			Create a document
