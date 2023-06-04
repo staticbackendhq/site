@@ -9,8 +9,8 @@ gsmenu = "local"
 We've built a development server that has an exact mapping of the production 
 API.
 
-You can build your application against StaticBackend without paying a 
-subscription while you're in the build phase.
+You may develop your application locally and deploy to your self-hosted 
+StaticBackend API server or use our managed services.
 
 Make sure your current working directory is the root of your project and run 
 the following command:
@@ -26,18 +26,21 @@ a port to the `server` command:
 backend server -p 8088
 ```
 
-### No data persistence
+### Ddata persistence
 
-The development database has no data persistence. When the server has stopped, 
-the data you've added and modified is destroyed.
+By default, the development server will use a non-persistant in-memory database.
+All data will be removed when the server shutdowns.
 
-Let us know if you'd like to have an option to persist your data from server 
-restarts. We're still in beta and are curious to know what makes your 
-experience better.
+To persist your development data across restarts, use the following flag:
+
+```bash
+$ backend server --persist-data
+```
 
 ### Limitations
 
-The `/query/table-name` endpoint only supports equal and not equal clauses.
+The in-memory database provider have some slight limitations regarding querying 
+of data using `in` and `!in` operators.
 
-You can still use `>`, `<=`, etc, but they will not have an effect on the 
-filtering of results.
+For a full experience uses the `--persist-data` which uses SQLite as database 
+engine and all query operators are supported.

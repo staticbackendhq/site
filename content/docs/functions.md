@@ -26,8 +26,23 @@ The function entry point is named `handle`. You're required to have a function
 with that name to have a valid executable function.
 
 ```
+// for trigger: web 
 function handle(body, qs, headers) {
+  // body is an object from the HTTP request body
+  // qs is query string map
+  // headers is the HTTP headers map
+  
   // implement your logic here
+}
+
+// for trigger: topic
+function handle(channel, type, data) {
+  // channel is the channel used to this message
+  // type is the type of message (i.e. db_created)
+  // data is an object from the message
+
+  // implement your logic here
+}
 }
 ```
 
@@ -217,3 +232,29 @@ data | 'object' | The data that's being sent with the message
 channel | 'string' | Where to send this message
 
 *Returns*: A `boolean`
+
+### Search 
+
+**indexDocument(col, id, text)**
+
+Index the collection `id` with that searchable text. The collection name must 
+be the same in which this id belongs to.
+
+name | type | description
+----:|:-----|:------------
+col  | `string` | The collection the document can be found by `id`
+id   | `string` | The id of the document
+text | `string` | The searchable text
+
+**Returns**: `boolean`
+
+**search(col, keywords)**
+
+Search the indexed text for this collection.
+
+name | type | description
+----:|:-----|:------------
+col | `string` | The collection to search in.
+keywords | `string` | The keywords to search
+
+**Returns**: `[{your doc}]`
