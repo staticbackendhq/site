@@ -73,7 +73,7 @@ inside an object like this:
 
 ```
 {
-  result: true,
+  ok: true,
   content: {
     status: 200,
     body: "response body"
@@ -119,6 +119,59 @@ url | `string` | The target URL to call
 params | `object`  | A browser's `fetch` compatible object
 
 *Returns*: `{staus: 200, body: "response body"}`
+
+**cacheSet(key, value)**
+
+Set this value for this key in the cache.
+
+*Arguments*:
+
+name | type | description
+----:|:-----|:------------
+key  | `string` | The key to use in the cache
+value| `string` | The value for that key
+
+*Returns*: `true`
+
+**cacheGet(key)**
+
+Get the value for this key in the cache.
+
+*Arguments*:
+
+name | type | description
+----:|:-----|:------------
+key  | `string` | The key to get the value of
+
+*Returns*: `string value of the item if exists`
+
+**inc(key, n)** or **dec(key, n)**
+
+Increment (inc) or decrement (dec) a value (this is an atomic incrementation).
+
+*Arguments*:
+
+name | type | description
+----:|:-----|:------------
+key  | `string` | The key in the cache
+n    | `number` | The number to increment or decrement (starting number if key does not exists)
+
+*Returns:* `number` = the new value after the operation.
+
+
+**publish(channel, type, data)**
+
+Publish message that triggers another server-side functions.
+
+*Arguments*:
+
+name | type | description
+----:|:-----|:------------
+channel | `string` | The channel to send the message to
+type    | `string` | The type of message (useful to control if function run or not)
+data    | `object` | The data that will be posted
+
+*Returns*: `true`
 
 #### Database releated functions
 

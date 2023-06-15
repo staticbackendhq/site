@@ -98,3 +98,62 @@ if err := backend.CacheGet(rootToken, "key", &val); err != nil {
 	"c": true
 }
 ```
+
+### Publish message
+
+Publish a message that could trigger a server-side function.
+
+**HTTP request**:
+
+`POST /publish`
+
+**Format**: JSON
+
+**Body**:
+
+name | type | description
+----:|:-----|:------------
+channel | `string` | The destination channel to receive the message
+type    | `string` | A custom type you may refer to in the server-side function
+data    | `object` | The data for this message
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+		 -X POST \
+		 -d '{"channel": "unlock-action", \
+		   "type": "xyz-created", \
+			 "data": {"id": "123456"}}' \
+     https://na1.staticbackend.com/publish
+```
+```javascript
+const data = {
+  id: "some-id-related-to-what-user-is-doing"
+};
+const res = await bkn.cacheGet(token, 
+  "unlock-action", 
+  "xyz-created", 
+  data);
+// !res.ok => failed
+// res.ok => message published
+```
+```go
+data := new(struct{ID string `json:"id"`})
+data.ID = "some-id-related-to-what-user-is-doing"
+if err := backend.Publish(
+  token, 
+  "unlock-action", "xyz-created", 
+  data); err != nil {
+	//...
+}
+```
+
+**Response**:
+
+```json
+true
+```
