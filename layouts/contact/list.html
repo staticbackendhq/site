@@ -86,11 +86,12 @@
 							</div>
 						</div>
 						<div>
-							<label for="phone" class="sr-only">Phone</label>
+							<label for="phone" class="sr-only">Subject</label>
 							<div class="relative rounded-md shadow-sm">
-								<input id="phone" name="phone"
+								<input id="subject" name="subject"
 									class="form-input block w-full py-3 px-4 placeholder-gray-500 transition ease-in-out duration-150"
-									placeholder="Phone">
+									placeholder="Subject"
+									required>
 							</div>
 						</div>
 						<div>
@@ -126,13 +127,17 @@
 				e.preventDefault();
 				e.stopPropagation();
 
-				var data = new FormData(form);
+				var fd = new FormData(form);
+				let data = new URLSearchParams();
+				for (const [key, value] of fd) {
+					data.append(key, value);
+				}
 
 				fetch("https://na1.staticbackend.com/postform/contact",
 					{
 						body: data,
 						headers: {
-							"SB-PUBLIC-KEY": "5e1329a58adac5859ca911d6",
+							"SB-PUBLIC-KEY": "6496e4008ece505514d0dfa0",
 						},
 						method: "POST"
 					}).then((res) => {
