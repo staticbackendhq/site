@@ -1,4 +1,4 @@
-baseURL = "https://staticbackend.com"
+baseURL = "https://staticbackend.dev"
 languageCode = "en-ca"
 title = "StaticBackend - backend as a service"
 enableRobotsTXT = true
