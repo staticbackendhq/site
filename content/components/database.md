@@ -6,33 +6,63 @@ compsub = "A scalable database managed for you."
 submenu = "db"
 +++
 
-A web or mobile application that would not save any data to a database would be 
-boring. Managing, backing up, and scaling database servers are stealing precious 
-time from building your application.
+Start storing your app's data immediately—no database setup, no migrations, no configuration. Just save and query your data from your first line of code.
 
-We're offering a 100% done-for-you database as a service where we handle your 
-backend infrastructure, including a scalable and secure database.
+Perfect for AI coding assistants like Claude Code and Cursor. Your assistant can build features while StaticBackend handles the database infrastructure.
 
-We currently support the following features:
+### Start saving data in seconds
 
-* Create, retrieve, update, and delete documents.
-* Query documents based on a set of operators.
-* Configure granular permissions for reading and writing operations.
-* Use our CLI to manage your database.
+```javascript
+// Save a todo item
+const res = await backend.create(authToken, 'todos', {
+  title: 'Launch my app',
+  completed: false
+});
+// res.content is the created entity with {id: string, accountId: string} fields.
 
-### Repositories are indexed per account by default
+// Query your data
+const res = await backend.query(authToken, 'todos',[
+  ["completed", "==", false]
+]);
+// res.content is {page: 1, size: 25, total: 3, results: Array<T>}
+// So res.content.results is an array of your entities.
+```
 
-Another aspect you can free your mind off is database indexes. By default, all 
-your repositories have an index on the `accountId` field.
+That's it. No database server to install. No schema to define. No connection strings to manage.
 
-We have processes in place to have indexes on the fields you're querying the 
-most. At this moment, you cannot handle indexes. It's fully managed for you.
+### What you can build
 
-### Granular permissions
+- **SaaS applications** - Store user data, settings, and app state
+- **Todo apps** - Save tasks, projects, and notes
+- **CRM systems** - Manage customers, contacts, and deals
+- **Content platforms** - Store articles, posts, and comments
+- **Dashboards** - Save analytics, reports, and metrics
 
-All documents created have an owner and is linked with the AccountID of that user. By default, all users inside the same account can read documents. Only the owner can edit and delete their documents.
+### How it works
 
-You may decide to have specifics permissions per repository. For instance, you may want only the document owner to read and write. Or you may want to let all users inside an account read and write. You have full control over permissions per level. Refer to our documentation for more details.
+Data is organized in **collections** (we call them repositories). Think of a collection like a folder for similar items:
 
+- `todos` - All your todo items
+- `users` - User profiles and settings
+- `projects` - Project data
+- `posts` - Blog posts or content
+
+Each item you save is a **document** (like a JSON object). You can create, read, update, and delete documents using simple API calls.
+
+### Built-in features
+
+**Flexible queries** - Find documents using conditions like equals, greater than, contains, and more. No SQL required.
+
+**Smart permissions** - By default, users can read data in their account but only edit their own documents. You can customize this per collection.
+
+**Automatic indexing** - We handle database indexes for you. Your queries stay fast as your data grows.
+
+**Data ownership** - Never locked in. Export your data anytime in standard formats.
+
+### Ready to use from any framework
+
+Works with React, Vue, Svelte, vanilla JavaScript, or any frontend framework. Our REST API also works with Python, Go, or any language.
+
+→ [View database documentation](/docs/database) for detailed API reference and advanced features.
 
 Next component is [file storage](/components/storage).

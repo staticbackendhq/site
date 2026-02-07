@@ -2,40 +2,122 @@
 title = "Backend helper functions"
 
 comptitle = "Cache, send email, etc"
-compsub = "Access a growing list of commun web applications helper functions."
+compsub = "Access a growing list of common web application helper functions."
 submenu = "helper"
 +++
 
-We want StaticBackend to have a rich set of re-usable common functionalities 
-for typical web applications. Now that the core pieces are there, we can bring 
-you more value for your applications.
+Common backend utilities built-in and ready to use. Send emails, cache data, resize images, and generate PDFs without managing external services.
 
-Some of those advanced features are only available from the server-side for 
-security reasons. You have multiple options. You can have an effortless 
-server-side application between your frontend app and StaticBacken. Or you 
-might opt to use an existing function-as-a-service provider that calls 
-StaticBackend API.
+These helpers are available in your server-side functions or via API calls, giving you powerful backend capabilities without the infrastructure complexity.
 
-Here are the functionalities that are available today. Since we're also using 
-StaticBackend to build SaaS, we're adding new functions as we encounter the 
-need.
+### Available helpers
 
-**Caching**: You may store objects in a cache. It's handy for external 
-integrations to keep state, for instance.
+**Send emails** - Transactional emails without managing SMTP servers:
 
-**Send emails**: Your application can now send emails. Proper for all types of 
-applications.
+```javascript
+// Send a welcome email
+await backend.sendEmail({
+  to: 'user@example.com',
+  subject: 'Welcome to our app',
+  body: 'Thanks for signing up!'
+});
+```
 
-**Send SMS text messages**: You can send SMS text messages. You'll require a 
-Twilio account with an active phone number.
+Perfect for confirmations, notifications, password resets, and receipts.
 
-**Resize images**: You may specify a maximum width for images your users upload. 
-The original width and the max width ratio's apply to the 
-height. Only the resized image is saved. You receive the ID and the URL 
-of the resized image.
+**Cache data** - Store temporary data for fast access:
 
-**Convert URL to PDF and PNG**: You may convert a URL (web page) to a complete 
-PDF or a PNG screenshot. This function is helpful to create reports from HTML 
-page you'd like to send to your users,
+```javascript
+// Cache API responses or session data
+await backend.cacheSet('user-session-123', userData, 3600); // 1 hour
 
-If you need something specifics, do not hesitate to let us know.
+// Retrieve cached data
+const data = await backend.cacheGet('user-session-123');
+```
+
+Great for rate limiting, temporary state, API response caching, and external integrations.
+
+**Resize images** - Automatically resize uploaded images:
+
+```javascript
+// Resize to max width of 800px (maintains aspect ratio)
+const resized = await backend.resizeImage(file, { maxWidth: 800 });
+// Returns: { url: 'https://...', width: 800, height: 600 }
+```
+
+Optimize profile pictures, thumbnails, and user-uploaded images automatically.
+
+**Generate PDFs** - Convert web pages to PDF documents:
+
+```javascript
+// Convert a URL to PDF
+const pdf = await backend.urlToPDF('https://myapp.com/invoice/123');
+// Returns: { url: 'https://cdn.../invoice.pdf' }
+```
+
+Create invoices, reports, certificates, and downloadable documents from HTML.
+
+**Generate screenshots** - Capture web pages as images:
+
+```javascript
+// Convert a URL to PNG screenshot
+const screenshot = await backend.urlToPNG('https://myapp.com/dashboard');
+// Returns: { url: 'https://cdn.../screenshot.png' }
+```
+
+Generate preview images, social media cards, or visual reports.
+
+**Send SMS** - Text message notifications (requires Twilio account):
+
+```javascript
+// Send SMS notification
+await backend.sendSMS({
+  to: '+1234567890',
+  message: 'Your verification code is 123456'
+});
+```
+
+Two-factor authentication, delivery notifications, and urgent alerts.
+
+### How to use
+
+**In server-side functions:**
+All helpers are available directly in your functions:
+
+```javascript
+function onUserRegistered(event) {
+  // Send welcome email
+  backend.sendEmail({
+    to: event.user.email,
+    subject: 'Welcome!',
+    body: 'Thanks for joining!'
+  });
+}
+```
+
+**From your frontend (via API):**
+Some helpers can be called from your frontend code:
+
+```javascript
+// Resize image on upload
+const file = input.files[0];
+const resized = await backend.resizeImage(file, { maxWidth: 1200 });
+```
+
+**Security note:** Sensitive operations (like sending emails) should be called from server-side functions to protect API keys and prevent abuse.
+
+### Growing library
+
+We're continuously adding new helpers based on common needs. Currently planned:
+
+- Payment processing helpers (Stripe integration)
+- Image filters and transformations
+- CSV/Excel generation
+- QR code generation
+- Geolocation utilities
+
+Need something specific? [Let us know](/contact) - we prioritize features our users need most.
+
+→ [View helper functions documentation](/docs/helpers) for detailed API reference and examples.
+
+Next component is [forms](/components/forms).
