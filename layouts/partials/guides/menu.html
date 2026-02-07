@@ -1,25 +1,25 @@
 <nav>
-	<strong>Full guides</strong>
-	{{ if eq .Params.submenu "react"}}
-	<a href="/guides/react"
+	<strong>Complete Tutorials</strong>
+	{{ if eq .Params.submenu "todo"}}
+	<a href="/guides/todo-app"
 		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
 		aria-current="page">
 		<span class="truncate">
-			React
+			Build a Todo App
 		</span>
 	</a>
 	{{else}}
-	<a href="/guides/react"
+	<a href="/guides/todo-app"
 		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
 		<span class="truncate">
-			React
+			Build a Todo App
 		</span>
 	</a>
 	{{end}}
 
-	<strong class="pt-8">Tutorials</strong>
+	<strong class="pt-8 block">Interactive Tutorials</strong>
 
-	{{ if eq .Params.submenu "react"}}
+	{{ if eq .Params.submenu "intro"}}
 	<a href="/guides/intro"
 		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
 		aria-current="page">
@@ -36,7 +36,7 @@
 	</a>
 	{{end}}
 
-	{{ if eq .Params.submenu "react"}}
+	{{ if eq .Params.submenu "tut1"}}
 	<a href="/guides/tut1-login"
 		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
 		aria-current="page">
@@ -83,6 +83,44 @@
 		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
 		<span class="truncate">
 			Create a document
+		</span>
+	</a>
+	{{end}}
+
+	<strong class="pt-8 block">Framework Guides</strong>
+
+	{{ if eq .Params.submenu "react"}}
+	<a href="/guides/react"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			React
+		</span>
+	</a>
+	{{else}}
+	<a href="/guides/react"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			React
+		</span>
+	</a>
+	{{end}}
+
+	<strong class="pt-8 block">Self-Hosting Guides</strong>
+
+	{{ if eq .Params.submenu "go-selfhost"}}
+	<a href="/guides/go-selfhost"
+		class="group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-900 rounded-md bg-gray-100 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150"
+		aria-current="page">
+		<span class="truncate">
+			Go Self-Host
+		</span>
+	</a>
+	{{else}}
+	<a href="/guides/go-selfhost"
+		class="mt-1 group flex items-center px-3 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition ease-in-out duration-150">
+		<span class="truncate">
+			Go Self-Host
 		</span>
 	</a>
 	{{end}}

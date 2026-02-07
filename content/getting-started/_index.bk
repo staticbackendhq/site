@@ -1,0 +1,103 @@
++++
+title = "Getting started with StaticBackend"
+gsmenu = "start"
++++
+
+Welcome! Let's get you up and running with StaticBackend. Choose the path that fits your needs:
+
+## 🚀 Try Managed Hosting (Recommended)
+
+**Best for:** Building and shipping apps fast, AI-assisted development, no DevOps
+
+Get a working backend in **5 minutes**. Perfect for:
+- Testing StaticBackend with your project
+- Building production apps without managing infrastructure
+- Working with AI coding assistants (Claude Code, Cursor, etc.)
+
+**What you get:**
+- Instant database, authentication, and file storage
+- 30-day free trial (credit card required after trial)
+- No setup, no servers to manage
+- Deploy anywhere (Vercel, Netlify, your own hosting)
+
+→ **[5-Minute Quickstart](/getting-started/quickstart)** ← Start here!
+
+---
+
+## 💻 Self-Host StaticBackend
+
+**Best for:** Full control, custom deployments, open source enthusiasts
+
+Run StaticBackend on your own infrastructure. Perfect for:
+- Projects requiring complete data control
+- Custom deployment scenarios
+- Contributing to the open source project
+- Learning how StaticBackend works internally
+
+**What you need:**
+- Docker (easiest) or Go 1.16+
+- PostgreSQL or MongoDB
+- Redis
+- 30 minutes for setup
+
+→ [Self-Hosting Guide](/getting-started/self-hosting)
+
+---
+
+## 🛠️ Install the CLI
+
+**Best for:** Local development, managing your backend, deploying functions
+
+The CLI lets you:
+- Run a local development server (no account needed)
+- Manage your backend from the command line
+- Deploy server-side functions
+- Work offline during development
+
+→ [Install the CLI](/getting-started/cli)
+
+---
+
+## 📚 Want to learn first?
+
+Not ready to start yet? That's fine!
+
+- **[Browse Components](/components)** - See what StaticBackend offers
+- **[View Tutorials](/guides)** - Step-by-step examples with code
+- **[Read the Docs](/docs)** - Complete API reference
+
+---
+
+## Quick Comparison
+
+| Feature | Managed Hosting | Self-Hosted |
+|---------|----------------|-------------|
+| Setup time | 5 minutes | 30 minutes |
+| Infrastructure management | ✅ Done for you | ❌ You manage |
+| Cost | Free trial, then paid plans | Free (your hosting costs) |
+| Updates | ✅ Automatic | Manual |
+| Scalability | ✅ Automatic | You configure |
+| Data location | US (na1 region) | Your choice |
+| Best for | Shipping apps fast | Full control |
+
+---
+
+## Need help deciding?
+
+**Start with managed hosting if:**
+- You want to build and test quickly
+- You're using AI coding assistants
+- You don't want to manage servers
+- You value automatic updates and scaling
+
+**Choose self-hosting if:**
+- You need data in specific regions
+- You have existing infrastructure
+- You want complete control
+- You're comfortable with DevOps
+
+Still unsure? Try managed hosting first—it's the fastest way to see if StaticBackend fits your project. You can always self-host later.
+
+---
+
+**Ready to start?** → [5-Minute Quickstart](/getting-started/quickstart)

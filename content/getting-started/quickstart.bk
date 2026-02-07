@@ -1,0 +1,174 @@
++++
+title = "5-Minute Quickstart"
+gsmenu = "quickstart"
++++
+
+Get your first StaticBackend app running in 5 minutes. No infrastructure setup, no configuration—just start building.
+
+## Step 1: Create your account (2 minutes)
+
+1. Go to [StaticBackend Sign Up](/signup)
+2. Enter your email and create a password
+3. Add your credit card (30-day free trial, cancel anytime)
+4. Create your first app
+
+You'll receive your API keys immediately:
+- **Public Key** - Safe to use in frontend code
+- **Root Token** - Keep secret, use for server-side operations
+
+**Save these keys!** You'll need them in the next step.
+
+## Step 2: Install the JavaScript library (1 minute)
+
+In your project directory:
+
+```bash
+npm install @staticbackend/js
+```
+
+Or use the CDN for quick testing:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@staticbackend/js/dist/bundle.min.js"></script>
+```
+
+## Step 3: Write your first code (2 minutes)
+
+Here's a complete example that registers a user, logs them in, and saves data:
+
+```javascript
+import { Backend } from '@staticbackend/js';
+
+// Initialize with your keys
+const backend = new Backend('your-public-key-here', 'na1');
+
+// Register a new user
+async function registerUser() {
+  const result = await backend.register('user@example.com', 'password123');
+
+  if (result.ok) {
+    const authToken = result.content;
+    console.log('User registered! Auth token:', authToken);
+    return authToken;
+  } else {
+    console.error('Registration failed:', result.content);
+  }
+}
+
+// Save some data
+async function saveData(authToken) {
+  const result = await backend.create(authToken, 'todos', {
+    title: 'My first todo',
+    completed: false
+  });
+
+  if (result.ok) {
+    console.log('Todo created:', result.content);
+  } else {
+    console.error('Failed to create todo:', result.content);
+  }
+}
+
+// Run it
+async function main() {
+  const authToken = await registerUser();
+  await saveData(authToken);
+}
+
+main();
+```
+
+**That's it!** You now have:
+- ✅ User authentication working
+- ✅ Database storing data
+- ✅ A fully functional backend
+
+## What you just did
+
+1. **Registered a user** - Authentication is handled automatically
+2. **Saved data** - No database setup required
+3. **Got instant results** - Everything just works
+
+## Next steps
+
+### Build something real
+
+Now that you have the basics working, try building:
+
+**Todo App** - Add, update, and delete todos
+```javascript
+// List all todos
+const todos = await backend.list(authToken, 'todos');
+
+// Update a todo
+await backend.update(authToken, 'todos', todoId, { completed: true });
+
+// Delete a todo
+await backend.delete(authToken, 'todos', todoId);
+```
+
+**User Profile** - Save user preferences and settings
+```javascript
+await backend.create(authToken, 'profiles', {
+  name: 'John Doe',
+  avatar: 'https://example.com/avatar.jpg',
+  preferences: { theme: 'dark', notifications: true }
+});
+```
+
+**File Upload** - Let users upload profile pictures
+```javascript
+const fileInput = document.querySelector('#avatar');
+const file = fileInput.files[0];
+
+const result = await backend.uploadFile(authToken, file);
+console.log('File URL:', result.url);
+```
+
+### Explore the components
+
+Learn what else StaticBackend can do:
+
+- **[Real-time features](/components/websocket)** - Add live chat and updates
+- **[Server functions](/components/functions)** - Automate tasks and workflows
+- **[Forms](/components/forms)** - Capture contact form submissions
+- **[Helper functions](/components/helper-functions)** - Send emails, resize images, generate PDFs
+
+### Deploy your app
+
+Your frontend can be deployed anywhere:
+
+- **Vercel** - `vercel deploy`
+- **Netlify** - `netlify deploy`
+- **Your own server** - Upload via FTP/SFTP
+- **GitHub Pages** - For static sites
+
+Just remember to use your production keys in your deployed app (not in your git repo!).
+
+## Common questions
+
+**Q: Do I need a server?**
+A: No! StaticBackend is your server. Deploy your frontend anywhere.
+
+**Q: Can I use this with React/Vue/Svelte?**
+A: Yes! Works with any framework or vanilla JavaScript.
+
+**Q: Can AI coding assistants use this?**
+A: Absolutely! Claude Code, Cursor, and others can build complete apps using StaticBackend's API.
+
+**Q: What happens after the free trial?**
+A: Choose a paid plan or your account is paused. Your data is never deleted.
+
+**Q: Can I export my data?**
+A: Yes, anytime. You're never locked in.
+
+## Need help?
+
+- **[Join GitHub Discussions](https://github.com/staticbackendhq/core/discussions)** - Ask questions, share projects
+- **[Read the docs](/docs)** - Complete API reference
+- **[View tutorials](/guides)** - Step-by-step examples
+- **[Contact us](/contact)** - We're here to help
+
+---
+
+**Ready to build something bigger?** Check out our [complete tutorials](/guides) or dive into the [full documentation](/docs).

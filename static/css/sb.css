@@ -1710,6 +1710,14 @@ div.content a {
   pointer-events: none;
 }
 
+.collapse {
+  visibility: collapse;
+}
+
+.static {
+  position: static;
+}
+
 .fixed {
   position: fixed;
 }
@@ -2036,6 +2044,10 @@ div.content a {
 
 .grow {
   flex-grow: 1;
+}
+
+.border-collapse {
+  border-collapse: collapse;
 }
 
 .origin-top-right {
@@ -2805,6 +2817,10 @@ div.content a {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.line-through {
+  text-decoration-line: line-through;
 }
 
 .antialiased {

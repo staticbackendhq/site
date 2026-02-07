@@ -1,23 +1,352 @@
 +++
-title			= "Self hosting"
-
+title = "Self-Hosting Guide"
 gsmenu = "selfhost"
 +++
 
-### Self hosting our open source backend
+Run StaticBackend on your own infrastructure with full control over your data and deployment.
 
-We've released StaticBackend as an 
-[open source project](https://github.com/staticbackendhq/core) you may self host 
-for free.
+StaticBackend is [open source](https://github.com/staticbackendhq/core) and free to self-host. You can deploy it on any server, cloud platform, or local machine.
 
-**Here are the steps you need to do to have a local version working**:
+## Why self-host?
 
-1. [Up and running in 30 seconds with Docker](#up-and-running-in-30-seconds-with-docker)
-2. [Use the binaries or clone the repository](#use-the-binaries-or-clone-the-repository)
-3. [Configure the necessary environment variables](#configure-the-necessary-environment-variables)
-4. [Provide services via docker or natively installed](#provide-services-via-docker-or-natively-installed)
-5. [Compile and start the server](#compile-and-start-the-server)
-6. [Create an account on your instance](#create-an-account-on-your-instance)
+**You should self-host if you need:**
+- Complete control over data location and compliance
+- Custom deployment environments
+- Integration with existing infrastructure
+- No monthly costs (just your hosting)
+- Ability to modify the source code
+
+**Consider managed hosting if you:**
+- Want to ship faster without DevOps
+- Prefer automatic updates and scaling
+- Don't want to manage servers
+- [See comparison](/getting-started) for more details
+
+## Choose your setup method
+
+We offer three ways to self-host, from easiest to most customizable:
+
+### 🐳 Option 1: Docker (Recommended - 5 minutes)
+
+**Best for:** Quick setup, development, production
+
+Uses Docker Compose to run everything with one command. No manual configuration needed.
+
+→ [Jump to Docker setup](#docker-setup)
+
+### 📦 Option 2: Pre-built Binary (10 minutes)
+
+**Best for:** Lightweight deployments, specific OS requirements
+
+Download a ready-to-run binary for Linux, macOS, or Windows. You manage the database separately.
+
+→ [Jump to binary setup](#binary-setup)
+
+### 🛠️ Option 3: Build from Source (15 minutes)
+
+**Best for:** Contributing to the project, custom modifications
+
+Clone the repository and build with Go. Full control and customization.
+
+→ [Jump to source build](#source-build)
+
+---
+
+## Docker Setup
+
+The fastest way to get StaticBackend running. Everything included.
+
+### Requirements
+
+- Docker and Docker Compose installed
+- 5 minutes
+
+### Step 1: Clone the repository
+
+```bash
+git clone https://github.com/staticbackendhq/core.git
+cd core
+```
+
+### Step 2: Configure environment
+
+Copy the demo environment file:
+
+```bash
+cp .demo.env .env
+```
+
+The defaults work for development. For production, update `.env` with your settings.
+
+### Step 3: Build the image
+
+If you have `make`:
+
+```bash
+make docker
+```
+
+Otherwise:
+
+```bash
+docker build . -t staticbackend:latest
+```
+
+### Step 4: Start everything
+
+```bash
+docker-compose -f docker-compose-demo.yml up
+```
+
+**That's it!** StaticBackend is now running at `http://localhost:8099`
+
+### Step 5: Create your first app
+
+1. Open your browser to [http://localhost:8099](http://localhost:8099)
+2. Enter your email and click "Create app"
+3. Check the terminal output for your API keys and tokens
+
+**Save these credentials** - you'll need them to connect your app.
+
+### What's included?
+
+The Docker setup includes:
+- StaticBackend API server
+- PostgreSQL database
+- Redis for caching
+- All configuration handled automatically
+
+---
+
+## Binary Setup
+
+Download a pre-built binary and run it with your own database.
+
+### Requirements
+
+- PostgreSQL or MongoDB
+- Redis
+- 10 minutes
+
+### Step 1: Download the binary
+
+Get the latest release for your OS:
+[GitHub Releases](https://github.com/staticbackendhq/core/releases)
+
+Available for:
+- Linux (amd64, arm64)
+- macOS (amd64, arm64)
+- Windows (amd64)
+
+### Step 2: Set up services
+
+**Option A: Use Docker for services only**
+
+```bash
+# PostgreSQL + Redis
+docker-compose up
+
+# Or MongoDB + Redis
+docker-compose -f docker-compose-mongo.yml up
+```
+
+**Option B: Install natively**
+
+Install PostgreSQL (or MongoDB) and Redis on your system. Refer to their official documentation.
+
+### Step 3: Configure environment variables
+
+Create a `.env` file with your settings:
+
+```bash
+APP_ENV=dev
+DATABASE_URL=postgresql://user:password@localhost:5432/staticbackend
+# Or for MongoDB: mongodb://localhost:27017
+DATA_STORE=pg  # or 'mongo' for MongoDB
+REDIS_HOST=localhost:6379
+REDIS_PASSWORD=your-redis-password
+FROM_EMAIL=you@domain.com
+FROM_NAME=Your Name
+JWT_SECRET=your-secret-key-here
+MAIL_PROVIDER=dev  # or 'ses' for AWS SES
+STORAGE_PROVIDER=local  # or 's3' for AWS S3
+LOCAL_STORAGE_URL=http://localhost:8099
+```
+
+### Step 4: Run the server
+
+Make the binary executable (Linux/macOS):
+
+```bash
+chmod +x staticbackend
+./staticbackend
+```
+
+Windows:
+
+```bash
+staticbackend.exe
+```
+
+StaticBackend is now running at `http://localhost:8099`
+
+### Step 5: Create your app
+
+Follow the same process as Docker setup to create your first app.
+
+---
+
+## Source Build
+
+Build StaticBackend from source for complete control.
+
+### Requirements
+
+- Go 1.16 or later
+- Git
+- PostgreSQL or MongoDB
+- Redis
+- 15 minutes
+
+### Step 1: Clone and setup
+
+```bash
+git clone https://github.com/staticbackendhq/core.git
+cd core
+```
+
+### Step 2: Configure environment
+
+Create your `.env` file (see Binary Setup for example).
+
+### Step 3: Start services
+
+Use Docker for services:
+
+```bash
+docker-compose up
+```
+
+Or install PostgreSQL/MongoDB and Redis natively.
+
+### Step 4: Build and run
+
+With `make` (Linux/macOS):
+
+```bash
+make start
+```
+
+Or manually:
+
+```bash
+cd cmd
+go build -o staticbackend
+./staticbackend
+```
+
+Windows:
+
+```bash
+cd cmd
+go build -o staticbackend.exe
+staticbackend.exe
+```
+
+---
+
+## Production deployment
+
+### Environment variables for production
+
+Update your `.env` file for production:
+
+```bash
+APP_ENV=production
+DATABASE_URL=your-production-db-url
+# Use AWS SES for emails
+MAIL_PROVIDER=ses
+AWS_ACCESS_KEY_ID=your-aws-key
+AWS_SECRET_ACCESS_KEY=your-aws-secret
+AWS_SES_ENDPOINT=https://email.us-east-1.amazonaws.com
+AWS_REGION=us-east-1
+# Use S3 for file storage
+STORAGE_PROVIDER=s3
+AWS_S3_BUCKET=your-bucket-name
+AWS_CDN_URL=https://your-cdn-url.com
+```
+
+### Security checklist
+
+Before deploying to production:
+
+- ✅ Use strong `JWT_SECRET` (random 32+ characters)
+- ✅ Secure your database with password
+- ✅ Enable SSL/TLS for HTTPS
+- ✅ Set up firewalls and security groups
+- ✅ Use production database (not dev mode)
+- ✅ Configure backups
+- ✅ Set up monitoring and logging
+
+### Deployment platforms
+
+StaticBackend runs anywhere Go applications run:
+
+- **AWS** - EC2, ECS, or Lambda
+- **Google Cloud** - Compute Engine or Cloud Run
+- **DigitalOcean** - Droplets or App Platform
+- **Heroku** - With database add-ons
+- **Your own VPS** - Any Linux server
+- **Kubernetes** - For large scale
+
+---
+
+## Managing your self-hosted instance
+
+### Using the CLI
+
+Install the [CLI](/getting-started/cli) to manage your instance:
+
+```bash
+npm install -g @staticbackend/cli
+```
+
+Create a `.backend.yml` file in your project:
+
+```yaml
+region: dev
+```
+
+Create an account:
+
+```bash
+backend account create your@email.com
+```
+
+Manage your database, users, and functions via CLI commands.
+
+### Updating StaticBackend
+
+To update your self-hosted instance:
+
+1. Pull the latest code: `git pull`
+2. Rebuild: `docker build . -t staticbackend:latest` or recompile
+3. Restart: `docker-compose restart` or restart the binary
+
+---
+
+## Getting help
+
+- **[GitHub Discussions](https://github.com/staticbackendhq/core/discussions)** - Community support
+- **[GitHub Issues](https://github.com/staticbackendhq/core/issues)** - Bug reports and features
+- **[Documentation](/docs)** - API reference
+- **[Source Code](https://github.com/staticbackendhq/core)** - Read the code
+
+---
+
+**Need simpler setup?** Try [managed hosting](/getting-started/quickstart) - same features, zero DevOps.
+
+**Questions?** Check our [GitHub Discussions](https://github.com/staticbackendhq/core/discussions) or [contact us](/contact).
 
 
 ## Up and running in 30 seconds with Docker

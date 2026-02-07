@@ -16,24 +16,44 @@
 -->
 <div>
 	<div class="sm:hidden">
-		<label for="tabs" class="sr-only">Select a tab</label>
-		<select id="tabs" name="tabs"
+		<label for="tabs" class="sr-only">Select a section</label>
+		<select id="tabs" name="tabs" onchange="window.location.href=this.value"
 			class="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-			<option>My Account</option>
-			<option>Company</option>
-			<option selected>Team Members</option>
-			<option>Billing</option>
+			<option value="/getting-started" {{ if eq .Params.gsmenu "start"}}selected{{end}}>Overview</option>
+			<option value="/getting-started/quickstart" {{ if eq .Params.gsmenu "quickstart"}}selected{{end}}>Quickstart</option>
+			<option value="/getting-started/self-hosting" {{ if eq .Params.gsmenu "selfhost"}}selected{{end}}>Self-Hosting</option>
+			<option value="/getting-started/cli" {{ if eq .Params.gsmenu "cli"}}selected{{end}}>CLI</option>
+			<option value="/getting-started/local-dev" {{ if eq .Params.gsmenu "local"}}selected{{end}}>Local Dev</option>
+			<option value="/getting-started/deploy" {{ if eq .Params.gsmenu "deploy"}}selected{{end}}>Deploy</option>
 		</select>
 	</div>
 	<div class="hidden sm:block">
 		<nav class="flex space-x-4" aria-label="Tabs">
-			{{ if eq .Params.gsmenu "example"}}
+			{{ if eq .Params.gsmenu "start"}}
 			<a href="/getting-started" class="bg-sb text-white hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
-				Example
+				Overview
 			</a>
 			{{else}}
 			<a href="/getting-started" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
-				Example
+				Overview
+			</a>
+			{{end}}
+			{{ if eq .Params.gsmenu "quickstart"}}
+			<a href="/getting-started/quickstart" class="bg-sb text-white hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
+				Quickstart
+			</a>
+			{{else}}
+			<a href="/getting-started/quickstart" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
+				Quickstart
+			</a>
+			{{end}}
+			{{if eq .Params.gsmenu "selfhost"}}
+			<a href="/getting-started/self-hosting" class="bg-sb text-white px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
+				Self-Hosting
+			</a>
+			{{else}}
+			<a href="/getting-started/self-hosting" class="text-gray-500 px-3 py-2 font-medium text-sm rounded-md">
+				Self-Hosting
 			</a>
 			{{end}}
 			{{ if eq .Params.gsmenu "cli"}}
@@ -47,29 +67,20 @@
 			{{end}}
 			{{if eq .Params.gsmenu "local"}}
 			<a href="/getting-started/local-dev" class="bg-sb text-white px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
-				Local development
+				Local Dev
 			</a>
 			{{else}}
 			<a href="/getting-started/local-dev" class="text-gray-500 px-3 py-2 font-medium text-sm rounded-md">
-				Local development
-			</a>
-			{{end}}
-			{{if eq .Params.gsmenu "selfhost"}}
-			<a href="/getting-started/self-hosting" class="bg-sb text-white px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
-				Self hosting
-			</a>
-			{{else}}
-			<a href="/getting-started/self-hosting" class="text-gray-500 px-3 py-2 font-medium text-sm rounded-md">
-				Self hosting
+				Local Dev
 			</a>
 			{{end}}
 			{{if eq .Params.gsmenu "deploy"}}
 			<a href="/getting-started/deploy" class="bg-sb text-white hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md" aria-current="page">
-				Local to production
+				Deploy
 			</a>
 			{{else}}
 			<a href="/getting-started/deploy" class="text-gray-500 hover:text-gray-700 px-3 py-2 font-medium text-sm rounded-md">
-				Local to production
+				Deploy
 			</a>
 			{{end}}
 		</nav>

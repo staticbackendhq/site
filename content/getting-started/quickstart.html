@@ -1,0 +1,329 @@
++++
+title = "5-Minute Quickstart"
+layout = "single-hero"
+gsmenu = "quickstart"
++++
+
+<!-- Hero Section -->
+<div class="bg-sb text-white py-20 px-5 text-center">
+	<div class="max-w-4xl mx-auto">
+		<h1 class="text-5xl font-bold mb-6 leading-tight">5-Minute Quickstart</h1>
+		<p class="text-xl opacity-95 leading-relaxed">Get your first StaticBackend app running in 5 minutes. No infrastructure setup, no configuration—just start building.</p>
+	</div>
+</div>
+
+<!-- Progress Indicator -->
+<div class="max-w-4xl mx-auto -mt-8 mb-16 px-5">
+	<div class="bg-white rounded-xl p-6 shadow-xl flex flex-wrap justify-between items-center gap-4">
+		<div class="text-center flex-1 min-w-[150px]">
+			<div class="text-3xl font-bold text-sb">Step 1</div>
+			<div class="text-gray-600 mt-1">Create Account</div>
+			<div class="text-gray-400 text-sm mt-1">~2 minutes</div>
+		</div>
+		<div class="text-gray-300 text-2xl hidden sm:block">→</div>
+		<div class="text-center flex-1 min-w-[150px]">
+			<div class="text-3xl font-bold text-sb">Step 2</div>
+			<div class="text-gray-600 mt-1">Install Library</div>
+			<div class="text-gray-400 text-sm mt-1">~1 minute</div>
+		</div>
+		<div class="text-gray-300 text-2xl hidden sm:block">→</div>
+		<div class="text-center flex-1 min-w-[150px]">
+			<div class="text-3xl font-bold text-sb">Step 3</div>
+			<div class="text-gray-600 mt-1">Write Code</div>
+			<div class="text-gray-400 text-sm mt-1">~2 minutes</div>
+		</div>
+	</div>
+</div>
+
+<!-- Main Content -->
+<div class="max-w-5xl mx-auto mb-20 px-5">
+
+	<!-- Step 1 -->
+	<div class="bg-white rounded-2xl p-12 mb-10 shadow-lg hover:shadow-xl transition-all duration-300 border-l-8 border-sb">
+		<div class="w-10 h-10 bg-sb text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">1</div>
+		<h2 class="text-4xl font-bold mb-4 text-gray-900">Create Your Account</h2>
+		<p class="text-lg text-gray-600 leading-relaxed mb-8">Get started with your free 30-day trial. 
+			Credit card required upfront.
+		</p>
+
+		<div class="bg-gray-50 rounded-xl p-8 mb-6">
+			<ol class="list-decimal list-inside text-gray-700 space-y-3 text-base">
+				<li><strong>Go to <a href="https://na1.staticbackend.dev/signup" class="text-sb font-semibold hover:underline">StaticBackend Sign Up</a></strong></li>
+				<li>Enter your email and create your app</li>
+				<li>Add your credit card (30-day free trial, cancel anytime)</li>
+				<li>Get your API keys via email</li>
+			</ol>
+		</div>
+
+		<div class="bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-lg mb-6">
+			<div class="flex items-start gap-3">
+				<span class="text-2xl">💡</span>
+				<div>
+					<div class="font-semibold text-yellow-900 mb-1">Save Your Keys!</div>
+					<div class="text-yellow-800 leading-relaxed">You'll receive two keys immediately:
+						<ul class="list-disc list-inside mt-2 space-y-1">
+							<li><strong>Public Key</strong> - Safe to use in frontend code</li>
+							<li><strong>Root Token</strong> - Keep secret, use for server-side operations</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="text-center space-x-2">
+			<span class="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">✓ Account Created</span>
+			<span class="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">✓ API Keys Received</span>
+		</div>
+	</div>
+
+	<!-- Step 2 -->
+	<div class="bg-white rounded-2xl p-12 mb-10 shadow-lg hover:shadow-xl transition-all duration-300 border-l-8 border-green-600">
+		<div class="w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">2</div>
+		<h2 class="text-4xl font-bold mb-4 text-gray-900">Install the JavaScript Library</h2>
+		<p class="text-lg text-gray-600 leading-relaxed mb-8">Add StaticBackend to your project in seconds.</p>
+
+		<div class="mb-8">
+			<h3 class="text-lg font-semibold text-gray-900 mb-4">Option 1: NPM (Recommended)</h3>
+			<div class="bg-gray-900 rounded-lg p-5 overflow-x-auto">
+				<pre class="text-gray-100 font-mono text-sm">npm install @staticbackend/js</pre>
+			</div>
+		</div>
+
+		<div class="mb-6">
+			<h3 class="text-lg font-semibold text-gray-900 mb-4">Option 2: CDN (For Quick Testing)</h3>
+			<div class="bg-gray-900 rounded-lg p-5 overflow-x-auto">
+				<pre class="text-gray-100 font-mono text-sm">&lt;script src="https://cdn.jsdelivr.net/npm/@staticbackend/js/dist/bundle.min.js"&gt;&lt;/script&gt;</pre>
+			</div>
+		</div>
+
+		<div class="text-center">
+			<span class="inline-block bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">✓ Library Installed</span>
+		</div>
+	</div>
+
+	<!-- Step 3 -->
+	<div class="bg-white rounded-2xl p-12 mb-10 shadow-lg hover:shadow-xl transition-all duration-300 border-l-8 border-yellow-600">
+		<div class="w-10 h-10 bg-yellow-600 text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">3</div>
+		<h2 class="text-4xl font-bold mb-4 text-gray-900">Write Your First Code</h2>
+		<p class="text-lg text-gray-600 leading-relaxed mb-8">Here's a complete example that registers a user and saves data. Copy and run it!</p>
+
+		<div class="bg-gray-900 rounded-lg p-6 overflow-x-auto mb-8">
+			<pre class="text-gray-100 font-mono text-sm leading-relaxed">import { Backend } from '@staticbackend/js';
+
+// Initialize with your keys
+const backend = new Backend('your-public-key-here', 'na1');
+
+// Register a new user
+async function registerUser() {
+  const result = await backend.register('user@example.com', 'password123');
+
+  if (result.ok) {
+    const authToken = result.content;
+    console.log('User registered! Auth token:', authToken);
+    return authToken;
+  } else {
+    console.error('Registration failed:', result.content);
+  }
+}
+
+// Save some data
+async function saveData(authToken) {
+  const result = await backend.create(authToken, 'todos', {
+    title: 'My first todo',
+    completed: false
+  });
+
+  if (result.ok) {
+    console.log('Todo created:', result.content);
+  } else {
+    console.error('Failed to create todo:', result.content);
+  }
+}
+
+// Run it
+async function main() {
+  const authToken = await registerUser();
+  await saveData(authToken);
+}
+
+main();</pre>
+		</div>
+
+		<div class="bg-green-50 border-l-4 border-green-600 p-6 rounded-lg">
+			<div class="text-4xl mb-4 text-center">🎉</div>
+			<h3 class="text-2xl font-semibold text-green-900 mb-4 text-center">Congratulations! You now have:</h3>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+				<div class="text-center">
+					<span class="text-green-600 text-3xl block mb-2">✓</span>
+					<div class="text-green-900 font-semibold">User Authentication</div>
+				</div>
+				<div class="text-center">
+					<span class="text-green-600 text-3xl block mb-2">✓</span>
+					<div class="text-green-900 font-semibold">Database Storage</div>
+				</div>
+				<div class="text-center">
+					<span class="text-green-600 text-3xl block mb-2">✓</span>
+					<div class="text-green-900 font-semibold">Functional Backend</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!-- Next Steps Section -->
+<div class="bg-gray-50 py-20 px-5">
+	<div class="max-w-6xl mx-auto">
+		<h2 class="text-4xl font-bold text-center mb-12 text-gray-900">What's Next?</h2>
+
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+			<!-- Build Something Real -->
+			<div class="bg-white rounded-2xl p-10 shadow-md hover:shadow-lg transition-all duration-300">
+				<div class="text-5xl mb-5">🚀</div>
+				<h3 class="text-2xl font-bold mb-4 text-gray-900">Build Something Real</h3>
+				<p class="text-gray-600 leading-relaxed mb-6">Try building a complete todo app with CRUD operations:</p>
+
+				<div class="bg-gray-900 rounded-lg p-4 overflow-x-auto mb-5">
+					<pre class="text-gray-100 font-mono text-xs leading-relaxed">// List all todos
+const todos = await backend.list(authToken, 'todos');
+
+// Update a todo
+await backend.update(authToken, 'todos', todoId,
+  { completed: true });
+
+// Delete a todo
+await backend.delete(authToken, 'todos', todoId);</pre>
+				</div>
+			</div>
+
+			<!-- Add Features -->
+			<div class="bg-white rounded-2xl p-10 shadow-md hover:shadow-lg transition-all duration-300">
+				<div class="text-5xl mb-5">⚡</div>
+				<h3 class="text-2xl font-bold mb-4 text-gray-900">Add More Features</h3>
+				<p class="text-gray-600 leading-relaxed mb-6">Explore what else StaticBackend can do:</p>
+				<ul class="space-y-2 text-gray-700 leading-loose">
+					<li><a href="/components/websocket" class="text-sb hover:underline font-medium">Real-time updates</a> - Live chat & notifications</li>
+					<li><a href="/components/functions" class="text-sb hover:underline font-medium">Server functions</a> - Automate tasks</li>
+					<li><a href="/components/forms" class="text-sb hover:underline font-medium">Forms</a> - Contact submissions</li>
+					<li><a href="/components/helper-functions" class="text-sb hover:underline font-medium">Helper functions</a> - Email, PDFs, images</li>
+				</ul>
+			</div>
+
+			<!-- Deploy -->
+			<div class="bg-white rounded-2xl p-10 shadow-md hover:shadow-lg transition-all duration-300">
+				<div class="text-5xl mb-5">🌍</div>
+				<h3 class="text-2xl font-bold mb-4 text-gray-900">Deploy Your App</h3>
+				<p class="text-gray-600 leading-relaxed mb-6">Your frontend can be deployed anywhere:</p>
+				<ul class="space-y-2 text-gray-700 leading-loose">
+					<li><strong>Vercel</strong> - <code class="bg-gray-100 px-2 py-1 rounded text-sm">vercel deploy</code></li>
+					<li><strong>Netlify</strong> - <code class="bg-gray-100 px-2 py-1 rounded text-sm">netlify deploy</code></li>
+					<li><strong>Your server</strong> - Upload via FTP/SFTP</li>
+					<li><strong>GitHub Pages</strong> - For static sites</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Quick Examples -->
+		<div class="bg-white rounded-2xl p-12 shadow-md mb-10">
+			<h3 class="text-3xl font-bold mb-8 text-gray-900 text-center">Quick Code Examples</h3>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div>
+					<h4 class="text-lg font-semibold text-gray-900 mb-3">📝 User Profile</h4>
+					<div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+						<pre class="text-gray-100 font-mono text-xs leading-relaxed">await backend.create(authToken, 'profiles', {
+  name: 'John Doe',
+  avatar: 'https://example.com/avatar.jpg',
+  preferences: {
+    theme: 'dark',
+    notifications: true
+  }
+});</pre>
+					</div>
+				</div>
+
+				<div>
+					<h4 class="text-lg font-semibold text-gray-900 mb-3">📁 File Upload</h4>
+					<div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+						<pre class="text-gray-100 font-mono text-xs leading-relaxed">const fileInput = document.querySelector('#avatar');
+const file = fileInput.files[0];
+
+const result = await backend.uploadFile(
+  authToken,
+  file
+);
+console.log('File URL:', result.url);</pre>
+					</div>
+				</div>
+
+				<div>
+					<h4 class="text-lg font-semibold text-gray-900 mb-3">🔍 Query Data</h4>
+					<div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
+						<pre class="text-gray-100 font-mono text-xs leading-relaxed">const result = await backend.list(
+  authToken,
+  'todos',
+  { completed: false },
+  { orderBy: 'created', desc: true }
+);
+console.log('Active todos:', result.results);</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- FAQ Section -->
+<div class="max-w-4xl mx-auto py-20 px-5">
+	<h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Common Questions</h2>
+
+	<div class="space-y-6">
+		<div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
+			<h3 class="text-lg font-semibold text-gray-900 mb-3">❓ Do I need a server?</h3>
+			<p class="text-gray-600 leading-relaxed"><strong>No!</strong> StaticBackend is your server. Deploy your frontend anywhere (Vercel, Netlify, your own hosting).</p>
+		</div>
+
+		<div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
+			<h3 class="text-lg font-semibold text-gray-900 mb-3">⚛️ Can I use this with React/Vue/Svelte?</h3>
+			<p class="text-gray-600 leading-relaxed"><strong>Yes!</strong> Works with any framework or vanilla JavaScript. The library is framework-agnostic.</p>
+		</div>
+
+		<div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
+			<h3 class="text-lg font-semibold text-gray-900 mb-3">🤖 Can AI coding assistants use this?</h3>
+			<p class="text-gray-600 leading-relaxed"><strong>Absolutely!</strong> Claude Code, Cursor, and other AI assistants can build complete apps using StaticBackend's API.</p>
+		</div>
+
+		<div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
+			<h3 class="text-lg font-semibold text-gray-900 mb-3">💰 What happens after the free trial?</h3>
+			<p class="text-gray-600 leading-relaxed">Choose a paid plan or your account is paused. <strong>Your data is never deleted.</strong> You can export everything anytime.</p>
+		</div>
+
+		<div class="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300">
+			<h3 class="text-lg font-semibold text-gray-900 mb-3">📤 Can I export my data?</h3>
+			<p class="text-gray-600 leading-relaxed"><strong>Yes, anytime.</strong> You're never locked in. Export all your data whenever you want.</p>
+		</div>
+	</div>
+</div>
+
+<!-- Final CTA -->
+<div class="bg-sb text-white py-20 px-5 text-center">
+	<div class="max-w-4xl mx-auto">
+		<h2 class="text-4xl font-bold mb-6">Ready to Build Something Bigger?</h2>
+		<p class="text-lg opacity-95 leading-relaxed mb-10">Explore complete tutorials or dive into the full documentation.</p>
+
+		<div class="flex flex-wrap justify-center gap-5 mb-12">
+			<a href="/guides" class="inline-block bg-white text-sb py-4 px-8 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 no-underline">View Tutorials</a>
+			<a href="/docs" class="inline-block bg-transparent text-white py-4 px-8 rounded-lg font-semibold border-2 border-white hover:bg-white hover:text-sb transition-all duration-300 no-underline">Read the Docs</a>
+		</div>
+
+		<div class="pt-8 border-t border-white border-opacity-20">
+			<h3 class="text-xl font-semibold mb-4">Need Help?</h3>
+			<div class="flex flex-wrap justify-center gap-8 text-base opacity-90">
+				<a href="https://github.com/staticbackendhq/core/discussions" class="text-white hover:underline no-underline">💬 GitHub Discussions</a>
+				<a href="/contact" class="text-white hover:underline no-underline">✉️ Contact Us</a>
+				<a href="/guides/todo-app" class="text-white hover:underline no-underline">📚 Complete Tutorial</a>
+			</div>
+		</div>
+	</div>
+</div>
