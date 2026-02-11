@@ -1,20 +1,18 @@
 +++
-title				= "Realtime collaborative editing example in JavaScript"
-publishDate	= "2021-01-23"
-slug				= "realtime-collaboration-example"
-vid = "/videos/realtime-example.mp4"
-
-metadesc = "This sample demonstrates the usage of the real-time database events and the channel-based communication of StaticBackend."
-cardimg = "https://staticbackend.com/img/blog/realtime-sample.png"
+title = "Build Real-time Collaboration"
+docsub = "Learn WebSocket channels and database events with a collaborative code editor"
+submenu = "realtime"
 +++
 
 Let's discover how the real-time capabilities of StaticBackend can help you 
 build collaborative applications.
 
-You may find the source code on the 
+You may find the source code on the
 [GitHub repository](https://github.com/staticbackendhq/realtime-collaboration-example).
 
-For this sample, we'll build a simple application for two person to collaborate 
+{{< video src="/videos/realtime-example.mp4" caption="Watch the real-time collaboration in action" >}}
+
+For this sample, we'll build a simple application for two person to collaborate
 on a piece of code. Here are the functionalities we'll make:
 
 1. A collaborator will be able to join a room by entering the room's mane and a 

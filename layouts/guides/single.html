@@ -24,7 +24,7 @@
 				{{ partial "guides/menu.html" .}}
 			</div>
 			<div class="w-full md:w-2/3 lg:w-3/4 xl:w-4/5">
-				<div class="prose prose-lg text-gray-600 mx-auto">
+				<main class="prose prose-lg text-gray-600 mx-auto">
 					{{if strings.Contains .Params.submenu "tut"}}
 						<div class="w-full">
 							<textarea id="code" class="w-full" rows="10">code goes here</textarea>
@@ -41,7 +41,7 @@
 					{{end}}
 					
 					{{.Content}}
-				</div>
+					</main>
 			</div>
 		</div>
 	</div>

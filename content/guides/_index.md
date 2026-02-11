@@ -22,6 +22,34 @@ Build a complete todo list application with authentication and database operatio
 
 ---
 
+### [Build Real-time Collaboration](/guides/realtime-collaboration)
+
+Create a collaborative code editor where two people can work together in real-time.
+
+**You'll learn:**
+- WebSocket connections and channels
+- Real-time database events
+- Channel-based communication
+- Managing collaborative state
+
+**Time:** 45 minutes
+
+---
+
+### [Build a Live Chat with Server Functions](/guides/server-functions-chat)
+
+Build a live chat application with message persistence using server-side functions.
+
+**You'll learn:**
+- Server-side functions and event triggers
+- WebSocket channel communication
+- Persisting chat messages to database
+- Event-driven architecture
+
+**Time:** 45 minutes
+
+---
+
 ## 🚀 Interactive Tutorials
 
 Hands-on tutorials you can run directly in your browser. Perfect for quick learning.
@@ -101,11 +129,11 @@ Share your tutorials in [GitHub Discussions](https://github.com/staticbackendhq/
 **Popular tutorial ideas:**
 - Vue.js integration guide
 - Svelte integration guide
-- Building a chat application
 - File upload tutorial
 - Real-time dashboard
 - Authentication with OAuth
-- Server-side functions examples
+- Multi-tenant SaaS app
+- Blog with public posts and authenticated comments
 
 ---
 

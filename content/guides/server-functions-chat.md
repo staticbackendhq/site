@@ -1,25 +1,17 @@
 +++
-title				= "Server-side functions & task scheduler example"
-publishDate	= "2021-08-17"
-slug				= "server-side-functions-task-scheduler-example"
-
-
-metadesc = ""
-cardimg = "https://staticbackend.com/img/blog/self-hosted-gs-snip.png"
+title = "Build a Live Chat with Server Functions"
+docsub = "Learn server-side functions, WebSocket channels, and event-driven architecture"
+submenu = "serverfn"
 +++
 
 The source code for this tutorial can be found 
 [here](https://github.com/staticbackendhq/serverside-functions-tasks-example).
 
-Here's a quick video demonstrating the live chat in action.
-
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/StaticBackend?ref_src=twsrc%5Etfw">@StaticBackend</a> in all its glory.<br><br>216 lines of code for a ~dirty live chat page <a href="https://twitter.com/hashtag/jamstack?src=hash&amp;ref_src=twsrc%5Etfw">#jamstack</a>:<br><br>✅ Login / Register<br>🗨️ Websockets / channel based<br>🔒 Data persistence<br><br>Also note that the 202 LoC is mostly React ceremony here... I think I&#39;m building something of high value and no fluff <a href="https://t.co/3fX4nuYkBE">pic.twitter.com/3fX4nuYkBE</a></p>&mdash; Dominic St-Pierre (@dominicstpierre) <a href="https://twitter.com/dominicstpierre/status/1427713961366020098?ref_src=twsrc%5Etfw">August 17, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 Today in this tutorial, we'll build a simple live chat page where users join a 
 channel and send and receive messages.
 
 It will be similar to our 
-[real-time collaboration tutorial](/blog/realtime-collaboration-example/). But 
+[real-time collaboration tutorial](/guides/realtime-collaboration/). But 
 we're going to see a new component of SataticBackend, the server-side function.
 
 All messages persist to the database via a server-side function called each 
