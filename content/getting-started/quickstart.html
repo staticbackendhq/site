@@ -259,11 +259,11 @@ console.log('File URL:', result.url);</pre>
 				<div>
 					<h4 class="text-lg font-semibold text-gray-900 mb-3">🔍 Query Data</h4>
 					<div class="bg-gray-900 rounded-lg p-4 overflow-x-auto">
-						<pre class="text-gray-100 font-mono text-xs leading-relaxed">const result = await backend.list(
+						<pre class="text-gray-100 font-mono text-xs leading-relaxed">const result = await backend.query(
   authToken,
   'todos',
-  { completed: false },
-  { orderBy: 'created', desc: true }
+  [["completed", "==", true]],
+  { desc: true }
 );
 console.log('Active todos:', result.results);</pre>
 					</div>
@@ -321,7 +321,7 @@ console.log('Active todos:', result.results);</pre>
 			<h3 class="text-xl font-semibold mb-4">Need Help?</h3>
 			<div class="flex flex-wrap justify-center gap-8 text-base opacity-90">
 				<a href="https://github.com/staticbackendhq/core/discussions" class="text-white hover:underline no-underline">💬 GitHub Discussions</a>
-				<a href="/contact" class="text-white hover:underline no-underline">✉️ Contact Us</a>
+				<!-- a href="/contact" class="text-white hover:underline no-underline">✉️ Contact Us</a -->
 				<a href="/guides/todo-app" class="text-white hover:underline no-underline">📚 Complete Tutorial</a>
 			</div>
 		</div>
