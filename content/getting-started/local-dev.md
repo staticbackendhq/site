@@ -3,70 +3,123 @@ title = "Local Development Server"
 gsmenu = "local"
 +++
 
-Develop your app locally with the CLI development server. No account needed, no setup required—just start building.
+Develop your app locally with the CLI development server. No hosted account is required.
+
+The local server is a full StaticBackend BaaS runtime running on your machine. By default it uses the in-memory database and cache providers from the core project, so it is fast to start and easy to reset.
 
 ## Quick start
 
-Make sure you've [installed the CLI](/getting-started/cli), then run:
+Make sure you have [installed the CLI](/getting-started/cli), then start the local server:
 
 ```bash
 backend server
 ```
 
-Your local StaticBackend API is now running at `http://localhost:8099`
+The local StaticBackend API is now running at `http://localhost:8099`.
+
+In another terminal, create a CLI config file for local development:
+
+```bash
+backend login --dev
+```
+
+This writes a `.backend.yml` file in the current directory with local development credentials:
+
+```yaml
+pubKey: dev_memory_pk
+region: dev
+rootToken: safe-to-use-in-dev-root-token
+email: admin@dev.com
+password: devpw1234
+authToken: generated-auth-token
+```
+
+Add `.backend.yml` to `.gitignore` if it is not already ignored.
 
 ## What you can do
 
 With the local development server, you can:
 
-- ✅ Build your entire app offline
-- ✅ Test authentication, database, and file storage
-- ✅ Develop without consuming your managed hosting quota
-- ✅ Work on planes, trains, or anywhere without internet
+- Build your app without a hosted account
+- Test authentication, database CRUD, users, forms, functions, cache, and local file storage
+- Use CLI commands against the local server
+- Develop without consuming managed hosting quota
+- Work offline after the CLI is installed
 
-The local server has the **exact same API** as production, so your code works the same everywhere.
+The local server maps to the same StaticBackend API surface as hosted and self-hosted environments, so your application code can keep the same backend calls when you switch regions.
 
-## Using with your app
+## Use it from your app
 
-Initialize StaticBackend in your code with the "dev" region:
+Initialize StaticBackend in your code with the `dev` region:
 
 ```javascript
 import { Backend } from '@staticbackend/js';
 
-// Use "dev" region for local development
-const backend = new Backend('any-pub-key', 'dev');
-
-// The library will automatically connect to localhost:8099
+const backend = new Backend('dev_memory_pk', 'dev');
 ```
 
-The public key can be any value when using the dev server—it's not validated locally.
+The `dev` region points client libraries to `http://localhost:8099`.
 
-## Data persistence
+Use the built-in local admin user when you need an email and password:
 
-### Default: In-Memory (Temporary)
+```text
+admin@dev.com
+devpw1234
+```
 
-By default, data is stored in memory and **cleared when the server stops**. Perfect for quick tests and experimentation.
+## Use it from the CLI
+
+Keep the server running in one terminal:
 
 ```bash
 backend server
-# Data will be lost on restart
 ```
 
-### Persistent: SQLite (Recommended for development)
+Use another terminal in the same project directory:
 
-To keep your data across restarts, use the `--persist-data` flag:
+```bash
+backend login --dev
+backend db create tasks '{"name":"Write docs","done":false}'
+backend db list tasks
+backend users add user@example.com a-password
+```
+
+The CLI reads `.backend.yml` from the current directory by default. Use `--config` if your config file lives somewhere else:
+
+```bash
+backend --config ./path/to/.backend.yml db list tasks
+```
+
+## Data persistence
+
+### Default: in memory
+
+By default, data is stored in memory and cleared when the server stops:
+
+```bash
+backend server
+```
+
+This is the fastest mode and is useful for quick tests, demos, and clean development runs.
+
+### Persistent: SQLite
+
+To keep data across restarts, use `--persist-data`:
 
 ```bash
 backend server --persist-data
 ```
 
-This uses SQLite to store data permanently on your local machine. Your development data persists until you manually delete it.
+This switches the local database provider to SQLite and writes to `local.db` in the directory where you started the server. The cache still uses the in-memory development provider.
 
-**When to use persistent mode:**
-- Building a feature over multiple sessions
-- Testing with realistic data
-- Demonstrating your app to someone
-- Want to avoid re-creating test data
+Use persistent mode when:
+
+- You are building a feature over multiple sessions
+- You need realistic seed data
+- You are demonstrating an app
+- You want to avoid recreating test data after each restart
+
+Delete `local.db` when you want to reset persistent local data.
 
 ## Custom port
 
@@ -79,17 +132,18 @@ backend server -p 8088
 Update your app to connect to the new port:
 
 ```javascript
-const backend = new Backend('any-pub-key', 'dev', 'http://localhost:8088');
+const backend = new Backend('dev_memory_pk', 'dev', 'http://localhost:8088');
 ```
 
-## Limitations
+For local file uploads, prefer the default `8099` port. The current CLI server still builds local file URLs with `http://localhost:8099`.
 
-The in-memory database has minor limitations:
+## Logging
 
-- `in` and `!in` query operators have reduced functionality
-- No file upload persistence (files lost on restart)
+Use `--no-log` to reduce request and response logging:
 
-**Solution:** Use `--persist-data` mode for full feature parity with production.
+```bash
+backend server --no-log
+```
 
 ## Stop the server
 
@@ -97,55 +151,61 @@ Press `Ctrl+C` in the terminal where the server is running.
 
 ## Switching to production
 
-When you're ready to deploy:
+When you are ready to deploy:
 
 1. [Create a managed account](/getting-started/quickstart) or [self-host](/getting-started/self-hosting)
-2. Get your production API keys
-3. Change the region from `"dev"` to `"na1"` in your code:
+2. Get your production public key and root token
+3. Run `backend login` to create a production `.backend.yml`
+4. Change your app region from `dev` to your hosted region or self-hosted URL
 
 ```javascript
 // Development
-const backend = new Backend('any-pub-key', 'dev');
+const backend = new Backend('dev_memory_pk', 'dev');
 
-// Production (managed hosting)
+// Managed hosting
 const backend = new Backend('your-real-public-key', 'na1');
-```
 
-**That's it!** Your app now uses the production backend with zero code changes.
+// Self-hosted
+const backend = new Backend('your-real-public-key', 'https://api.yourdomain.com');
+```
 
 ## Common workflows
 
-### Test then deploy
+### Clean memory run
 
 ```bash
-# 1. Develop locally
-backend server --persist-data
-
-# 2. Test your app at http://localhost:3000 (or your dev server)
-
-# 3. When ready, change region to 'na1' and deploy
+backend server
+backend login --dev
 ```
+
+Stop and restart the server to clear all data.
+
+### Persistent local run
+
+```bash
+backend server --persist-data
+backend login --dev
+```
+
+Delete `local.db` to reset data.
 
 ### Multiple projects
 
-Each project can run its own dev server on different ports:
+Each project can run its own dev server on a different port:
 
 ```bash
 # Project 1
 cd ~/projects/app1
 backend server -p 8099
 
-# Project 2 (different terminal)
+# Project 2
 cd ~/projects/app2
 backend server -p 8088
 ```
 
 ## Next steps
 
-- **[View quickstart](/getting-started/quickstart)** - Set up production hosting
-- **[Read tutorials](/guides)** - Build real features
-- **[See CLI commands](/getting-started/cli)** - Learn more CLI features
-
----
-
-**Need help?** Join our [GitHub Discussions](https://github.com/staticbackendhq/core/discussions)
+- [See CLI commands](/getting-started/cli)
+- [View quickstart](/getting-started/quickstart)
+- [Read tutorials](/guides)
+- [Join GitHub Discussions](https://github.com/staticbackendhq/core/discussions)

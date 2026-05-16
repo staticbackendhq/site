@@ -1,129 +1,181 @@
 +++
-title			= "Install our CLI"
-
+title = "Install our CLI"
 gsmenu = "cli"
 +++
 
-### StaticBackend CLI {{< param cliversion >}}
+## StaticBackend CLI {{< param cliversion >}}
 
-We've created a CLI (command-line interface) which offers the following 
-functionalities.
+The StaticBackend CLI is the main tool for local development and terminal-based backend management.
 
-* A local development server.
-* Managing your backend resources.
-* Managing your account.
+It can:
 
+- Run the local development server
+- Create a local `.backend.yml` file for development
+- Manage database documents, users, forms, and server-side functions
+- Manage account and billing commands for hosted environments
+- Proxy local requests to a hosted backend when you want to test against production
 
-### Installation
+## Installation
 
-#### Via NPM
+### Via NPM
 
-You may install the CLI globally via `npm`:
+Install the CLI globally with `npm`:
 
 ```shell
-$> npm install -g @staticbackend/cli
+npm install -g @staticbackend/cli
 ```
 
-#### Manual installation
+Check that it installed correctly:
 
-You may download the latest version from the 
-[GitHub release page](https://github.com/staticbackendhq/cli/releases).
-
-There's a binary version for Linux, MacOS and Windows for 64 bit 
-architecture. If you're looking for a 32-bit build, please build from source.
-
-You can also download it via a `curl` call:
-
-```bash
-$ curl -L -o backend.gz \
-https://github.com/staticbackendhq/cli/releases/download/{{< param cliversion >}}/linux-amd64-backend.gz
+```shell
+backend --version
+backend --help
 ```
 
-Replace `linux` with `darwin` or `windows` in the URL above. For Windows add 
-`.exe` before `.gz` example: `windows-amd64-backend.exe.gz`.
+The npm package downloads the matching binary from the [GitHub release page](https://github.com/staticbackendhq/cli/releases) during installation.
 
-The downloaded file is compressed to make it faster to download.
+### Manual installation
 
-This next command decompresses it, replacing `backend.gz` with `backend`.
+You may also download the CLI binary directly from the [GitHub release page](https://github.com/staticbackendhq/cli/releases).
 
-```bash
-gunzip backend.gz
+Release assets follow this naming pattern:
 
-or
-
-gzip -d backend.gz
+```text
+linux-amd64-backend
+linux-arm64-backend
+linux-386-backend
+linux-arm-backend
+darwin-amd64-backend
+darwin-arm64-backend
+windows-amd64-backend.exe
+windows-386-backend.exe
+freebsd-amd64-backend
 ```
 
-Every file has "permissions" about whether it can be read, written, or executed.
-
-So before we use this file, we need to mark this file as executable:
+For example, on Linux amd64:
 
 ```bash
+curl -L -o backend \
+https://github.com/staticbackendhq/cli/releases/download/{{< param cliversion >}}/linux-amd64-backend
 chmod +x backend
+./backend --help
 ```
 
-The `backend` file is now executable. That means running `./backend --help`
-should work.
-
-But we want to be able to say `backend --help` without specifying the full file
-path every time. We can do this by moving the `backend` binary to one of the
-directories listed in your `PATH` environment variable:
+To make `backend` available from any directory, move it to a directory in your `PATH`:
 
 ```bash
-sudo mv backend /usr/local/bin
+sudo mv backend /usr/local/bin/backend
 ```
 
-### Usage
+For macOS, replace `linux` with `darwin`. For Windows, download the `windows-*-backend.exe` asset.
 
-You may run `backend` to see the usage. 
+## Local development
 
-You can start building your application locally using the `server` command.
+Start the local StaticBackend server:
 
 ```shell
-$> backend server
+backend server
 ```
 
-### Create your account
+The development server runs at `http://localhost:8099` by default.
 
-Create your account once you're ready to test the production environment.
+In another terminal, create a local development config file:
 
 ```shell
-$> backend account create "your-email@here.com"
+backend login --dev
 ```
 
-You'll get a link to enter a credit card to start your trial and get an 
-email with the keys needed in the configuration file.
-
-### Configuration file
-
-You need a `.backend.yml` configuration file at the root of your project:
+This writes `.backend.yml` in the current directory with the local development credentials:
 
 ```yml
-region: na1
-pubKey: your-public-key
-rootToken: your-root-token
+pubKey: dev_memory_pk
+region: dev
+rootToken: safe-to-use-in-dev-root-token
+email: admin@dev.com
+password: devpw1234
+authToken: generated-auth-token
 ```
 
-At this time we only support `na1` as region. The public key and your root token 
-will be sent by email when you create your account.
+Keep `.backend.yml` out of version control. It can contain root tokens for local, hosted, or self-hosted backends.
 
-### Managing your resources
+## Common commands
 
-Once your configuration file is setup you can execute command like:
+Run `backend --help` to see the top-level command list.
 
 ```shell
-$> backend db list "repository-name"
+backend --help
 ```
 
-
-Make sure to check the available commands via:
+Useful command groups:
 
 ```shell
-$> backend --help
-$> backend db --help
+backend server --help
+backend login --help
+backend db --help
+backend users --help
+backend function --help
+backend form --help
+backend proxy --help
+backend account --help
 ```
 
-We are actively working on this tool to make sure you have the best experience 
-possible building and managing your applications.
+Create and list local database documents after `backend server` and `backend login --dev` are running:
 
-Any feedback is highly appreciated.
+```shell
+backend db create tasks '{"name":"task 1","done":false}'
+backend db list tasks
+```
+
+Create an application user:
+
+```shell
+backend users add user@example.com a-password
+```
+
+## Configuration file
+
+The CLI reads `.backend.yml` from the current directory by default. You can pass a different file with `--config`:
+
+```shell
+backend --config ./path/to/.backend.yml db list tasks
+```
+
+For hosted or self-hosted backends, run:
+
+```shell
+backend login
+```
+
+The command prompts for:
+
+- Public key
+- Host URL or region
+- Root token
+- Email
+- Password
+
+The resulting `.backend.yml` has the same shape as the local development file.
+
+## Hosted account commands
+
+Create a hosted account when you are ready to use managed hosting:
+
+```shell
+backend account create your-email@example.com
+```
+
+The command returns a billing setup link. Your account unlocks after you add a payment method.
+
+## Production proxy
+
+If your app is configured for the local development URL but you want requests to reach a hosted backend, use the proxy command:
+
+```shell
+backend proxy
+```
+
+The proxy listens on `http://localhost:8099` by default and forwards requests to the region configured in `.backend.yml`.
+
+## More local development
+
+See [Local Development Server](/getting-started/local-dev) for the full local memory BaaS workflow.

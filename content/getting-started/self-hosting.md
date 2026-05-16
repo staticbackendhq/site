@@ -26,35 +26,35 @@ StaticBackend is [open source](https://github.com/staticbackendhq/core) and free
 
 We offer three ways to self-host, from easiest to most customizable:
 
-### 🐳 Option 1: Docker (Recommended - 5 minutes)
+### Docker (Recommended - 5 minutes)
 
 **Best for:** Quick setup, development, production
 
-Uses Docker Compose to run everything with one command. No manual configuration needed.
+Uses Docker Compose to run the API, PostgreSQL, and Redis with one command. No manual configuration needed.
 
-→ [Jump to Docker setup](#docker-setup)
+[Jump to Docker setup](#docker-setup)
 
-### 📦 Option 2: Pre-built Binary (10 minutes)
+### Pre-built Binary (10 minutes)
 
 **Best for:** Lightweight deployments, specific OS requirements
 
-Download a ready-to-run binary for Linux, macOS, or Windows. You manage the database separately.
+Download a ready-to-run binary for Linux, macOS, or Windows. You manage the database and Redis separately.
 
-→ [Jump to binary setup](#binary-setup)
+[Jump to binary setup](#binary-setup)
 
-### 🛠️ Option 3: Build from Source (15 minutes)
+### Build from Source (15 minutes)
 
 **Best for:** Contributing to the project, custom modifications
 
 Clone the repository and build with Go. Full control and customization.
 
-→ [Jump to source build](#source-build)
+[Jump to source build](#source-build)
 
 ---
 
 ## Docker Setup
 
-The fastest way to get StaticBackend running. Everything included.
+The fastest way to get StaticBackend running. Everything is included.
 
 ### Requirements
 
@@ -76,7 +76,7 @@ Copy the demo environment file:
 cp .demo.env .env
 ```
 
-The defaults work for development. For production, update `.env` with your settings.
+The defaults work for local development. For production, update `.env` with your own secrets and service URLs.
 
 ### Step 3: Build the image
 
@@ -95,10 +95,16 @@ docker build . -t staticbackend:latest
 ### Step 4: Start everything
 
 ```bash
+docker compose -f docker-compose-demo.yml up
+```
+
+If your Docker installation still uses the older Compose command, run:
+
+```bash
 docker-compose -f docker-compose-demo.yml up
 ```
 
-**That's it!** StaticBackend is now running at `http://localhost:8099`
+StaticBackend is now running at `http://localhost:8099`.
 
 ### Step 5: Create your first app
 
@@ -106,26 +112,27 @@ docker-compose -f docker-compose-demo.yml up
 2. Enter your email and click "Create app"
 3. Check the terminal output for your API keys and tokens
 
-**Save these credentials** - you'll need them to connect your app.
+Save these credentials. You'll need them to connect your app.
 
 ### What's included?
 
 The Docker setup includes:
 - StaticBackend API server
 - PostgreSQL database
-- Redis for caching
-- All configuration handled automatically
+- Redis for caching and pub/sub
+- Local file storage
+- Development email output in the terminal
 
 ---
 
 ## Binary Setup
 
-Download a pre-built binary and run it with your own database.
+Download a pre-built binary and run it with your own database and Redis services.
 
 ### Requirements
 
-- PostgreSQL or MongoDB
-- Redis
+- PostgreSQL, MongoDB, SQLite, or the in-memory development provider
+- Redis, unless you use the in-memory development cache
 - 10 minutes
 
 ### Step 1: Download the binary
@@ -134,7 +141,7 @@ Get the latest release for your OS:
 [GitHub Releases](https://github.com/staticbackendhq/core/releases)
 
 Available for:
-- Linux (amd64, arm64)
+- Linux (amd64)
 - macOS (amd64, arm64)
 - Windows (amd64)
 
@@ -142,17 +149,23 @@ Available for:
 
 **Option A: Use Docker for services only**
 
-```bash
-# PostgreSQL + Redis
-docker-compose up
+PostgreSQL and Redis:
 
-# Or MongoDB + Redis
-docker-compose -f docker-compose-mongo.yml up
+```bash
+docker compose up
 ```
+
+MongoDB and Redis:
+
+```bash
+docker compose -f docker-compose-mongo.yml up
+```
+
+Use `docker-compose` instead of `docker compose` if your Docker installation requires it.
 
 **Option B: Install natively**
 
-Install PostgreSQL (or MongoDB) and Redis on your system. Refer to their official documentation.
+Install PostgreSQL or MongoDB and Redis on your system. Refer to their official documentation.
 
 ### Step 3: Configure environment variables
 
@@ -160,22 +173,47 @@ Create a `.env` file with your settings:
 
 ```bash
 APP_ENV=dev
-DATABASE_URL=postgresql://user:password@localhost:5432/staticbackend
-# Or for MongoDB: mongodb://localhost:27017
-DATA_STORE=pg  # or 'mongo' for MongoDB
+APP_SECRET=a-very-long-random-key
+APP_URL=http://localhost:8099
+
+# PostgreSQL with the provided docker-compose.yml service
+DATABASE_URL=host=localhost user=postgres password=postgres dbname=sb sslmode=disable
+DATA_STORE=pg
+
+# Or MongoDB:
+# DATABASE_URL=mongodb://localhost:27017
+# DATA_STORE=mongo
+
+# Or SQLite:
+# DATABASE_URL=dev.db
+# DATA_STORE=sqlite
+
+JWT_SECRET=another-long-random-key
+
+# Redis can be configured with REDIS_URL or REDIS_HOST/REDIS_PASSWORD.
 REDIS_HOST=localhost:6379
-REDIS_PASSWORD=your-redis-password
+REDIS_PASSWORD=
+# REDIS_URL=redis://localhost:6379
+
+MAIL_PROVIDER=dev
 FROM_EMAIL=you@domain.com
 FROM_NAME=Your Name
-JWT_SECRET=your-secret-key-here
-MAIL_PROVIDER=dev  # or 'ses' for AWS SES
-STORAGE_PROVIDER=local  # or 's3' for AWS S3
+
+STORAGE_PROVIDER=local
 LOCAL_STORAGE_URL=http://localhost:8099
+```
+
+For a quick local-only process without external services, use the in-memory providers:
+
+```bash
+DATABASE_URL=mem
+DATA_STORE=mem
+REDIS_HOST=mem
 ```
 
 ### Step 4: Run the server
 
-Make the binary executable (Linux/macOS):
+Make the binary executable on Linux or macOS:
 
 ```bash
 chmod +x staticbackend
@@ -188,7 +226,7 @@ Windows:
 staticbackend.exe
 ```
 
-StaticBackend is now running at `http://localhost:8099`
+StaticBackend is now running at `http://localhost:8099`.
 
 ### Step 5: Create your app
 
@@ -202,10 +240,10 @@ Build StaticBackend from source for complete control.
 
 ### Requirements
 
-- Go 1.16 or later
+- Go 1.25 or later
 - Git
-- PostgreSQL or MongoDB
-- Redis
+- PostgreSQL, MongoDB, SQLite, or the in-memory development provider
+- Redis, unless you use the in-memory development cache
 - 15 minutes
 
 ### Step 1: Clone and setup
@@ -217,21 +255,27 @@ cd core
 
 ### Step 2: Configure environment
 
-Create your `.env` file (see Binary Setup for example).
+Create your `.env` file. You can start from `.demo.env` for the Docker demo, `.local.env` for local development, or use the Binary Setup example above.
 
 ### Step 3: Start services
 
-Use Docker for services:
+Use Docker for PostgreSQL and Redis:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
-Or install PostgreSQL/MongoDB and Redis natively.
+Or use Docker for MongoDB and Redis:
+
+```bash
+docker compose -f docker-compose-mongo.yml up
+```
+
+You may also install PostgreSQL, MongoDB, SQLite, or Redis natively.
 
 ### Step 4: Build and run
 
-With `make` (Linux/macOS):
+With `make` on Linux or macOS:
 
 ```bash
 make start
@@ -263,30 +307,68 @@ Update your `.env` file for production:
 
 ```bash
 APP_ENV=production
+APP_SECRET=your-long-random-app-secret
+APP_URL=https://api.yourdomain.com
+JWT_SECRET=your-long-random-jwt-secret
+
 DATABASE_URL=your-production-db-url
-# Use AWS SES for emails
+DATA_STORE=pg
+
+REDIS_URL=redis://user:password@redis-host:6379
+
 MAIL_PROVIDER=ses
+FROM_EMAIL=you@domain.com
+FROM_NAME=Your Name
 AWS_ACCESS_KEY_ID=your-aws-key
 AWS_SECRET_ACCESS_KEY=your-aws-secret
-AWS_SES_ENDPOINT=https://email.us-east-1.amazonaws.com
-AWS_REGION=us-east-1
-# Use S3 for file storage
+
 STORAGE_PROVIDER=s3
-AWS_S3_BUCKET=your-bucket-name
-AWS_CDN_URL=https://your-cdn-url.com
+S3_ACCESSKEY=your-access-key
+S3_SECRETKEY=your-secret-key
+S3_ENDPOINT=s3.amazonaws.com
+S3_REGION=us-east-1
+S3_BUCKET=your-bucket-name
+S3_CDN_URL=https://your-cdn-url.com
+```
+
+The `ses` mail provider uses the AWS SDK credential chain, so `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` are the simplest environment variables for a self-hosted server. StaticBackend also uses `S3_REGION` as the SES region.
+
+For S3-compatible providers such as DigitalOcean Spaces or MinIO, set `S3_ENDPOINT`, `S3_REGION`, `S3_BUCKET`, `S3_ACCESSKEY`, `S3_SECRETKEY`, and `S3_CDN_URL` for that provider.
+
+### Optional environment variables
+
+```bash
+# Use Mailpit instead of terminal-only dev email output.
+MAIL_PROVIDER=local
+MAILPIT_SMTP_ADDR=localhost:1025
+MAILPIT_API_URL=http://localhost:8025
+
+# Put the full-text search index on persistent storage.
+FTS_INDEX_FILE=/var/lib/staticbackend/sb.fts
+
+# If you run more than one instance, only the primary runs scheduled jobs.
+PRIMARY_INSTANCE_HOSTNAME=server1.yourdomain.com
+
+# Write logs to a file and control console verbosity.
+LOG_FILENAME=/var/log/staticbackend.log
+LOG_CONSOLE_LEVEL=info
+
+# Load compiled plugins from a specific directory.
+PLUGINS_PATH=/opt/staticbackend/plugins
 ```
 
 ### Security checklist
 
 Before deploying to production:
 
-- ✅ Use strong `JWT_SECRET` (random 32+ characters)
-- ✅ Secure your database with password
-- ✅ Enable SSL/TLS for HTTPS
-- ✅ Set up firewalls and security groups
-- ✅ Use production database (not dev mode)
-- ✅ Configure backups
-- ✅ Set up monitoring and logging
+- Use strong, different values for `APP_SECRET` and `JWT_SECRET`
+- Secure your database and Redis with passwords and network restrictions
+- Enable SSL/TLS for HTTPS
+- Set `APP_URL` to the public backend URL
+- Use production database and cache services, not the in-memory providers
+- Put `FTS_INDEX_FILE` and local uploads on persistent storage if needed
+- Configure backups
+- Set up monitoring and logging
 
 ### Deployment platforms
 
@@ -331,7 +413,9 @@ To update your self-hosted instance:
 
 1. Pull the latest code: `git pull`
 2. Rebuild: `docker build . -t staticbackend:latest` or recompile
-3. Restart: `docker-compose restart` or restart the binary
+3. Restart: `docker compose restart` or restart the binary
+
+Use `docker-compose restart` if your Docker installation requires the older command.
 
 ---
 
@@ -342,227 +426,4 @@ To update your self-hosted instance:
 - **[Documentation](/docs)** - API reference
 - **[Source Code](https://github.com/staticbackendhq/core)** - Read the code
 
----
-
-**Need simpler setup?** Try [managed hosting](/getting-started/quickstart) - same features, zero DevOps.
-
-**Questions?** Check our [GitHub Discussions](https://github.com/staticbackendhq/core/discussions) or [contact us](/contact).
-
-
-## Up and running in 30 seconds with Docker
-
-If you already have a working Docker and Docker Compose environment you can be 
-up and running with a fully working development mode instance.
-
-Clone or download our [core repository](https://github.com/staticbackendhq/core)
-
-```shell
-$> git clone git@github.com:staticbackendhq/core.git
-$> cd core
-```
-
-Create a `.env` file. You may start from the provided `.demo.env`:
-
-```shell
-$> cp .demo.env .env
-```
-
-Build the `staticbackend:latest` image.
-
-If you have `make` available
-
-```shell
-$> make docker
-```
-
-Otherwise
-
-```shell
-$> docker build . -t staticbackend:latest
-```
-
-Run the backend and all required services via the demo docker-compose file we 
-provide:
-
-```shell
-$> docker-compose -f docker-compose-demo.yml up
-```
-
-Leave the terminal open as you'll need it to grab your app tokens.
-
-1. Open a browser and navigate to [http://localhost:8099](http://localhost:8099).
-2. Create your first app by entering your email and click on "Create app" button.
-3. Return to the terminal where you started docker-compose and look for the 
-output to get all your credentials and tokens.
-
-From there you're fully setup to start building your app.
-
-Check out our [documentation](/docs) and select your desired programming 
-language.
-
-## Use the binaries or clone the repository
-
-If you don't have or want to use Docker, here's how you can get started with a 
-more manual setup.
-
-You may use the 
-[pre-built binaries](https://github.com/staticbackendhq/core/releases) for 
-Linux, MacOS and Windows we provide on the release page on our GitHub repo.
-
-You will need to clone or download the code:
-
-```shell
-$> git clone git@github.com:staticbackendhq/core.git
-$> cd core
-```
-
-Either copy the binary in that directory or build the server (see later).
-
-
-## Configure the necessary environment variables
-
-StaticBackend relies heavily on either PostgreSQL or MongoDB, and Redis. 
-
-Here are the environment variables you'll need.
-
-```
-APP_ENV=dev
-MAIL_PROVIDER=dev or ses
-STORAGE_PROVIDER=local or s3
-DATABASE_URL=mongodb://localhost:27017 or user=postgres password=postgres dbname=postgres sslmode=disable
-DATA_STORE=mongo or pg
-REDIS_HOST=localhost:6379
-REDIS_PASSWORD=your-redis-pw
-FROM_EMAIL=you@domain.com
-FROM_NAME=your-name
-JWT_SECRET=something-here
-```
-
-If you're going to use the AWS implementation for sending email (`ses`) and file 
-storage (`s3`) you'll need those environment variables:
-
-```
-AWS_ACCESS_KEY_ID=your-aws-key
-AWS_SECRET_ACCESS_KEY=your-aws-secret
-AWS_SECRET_KEY=your-aws-key
-AWS_SES_ENDPOINT=https://email.us-east-1.amazonaws.com
-AWS_REGION=us-east-1
-AWS_S3_BUCKET=your.bucketname.here
-AWS_CDN_URL=https://your.cdnurlhere.com
-```
-
-The `DATA_STORE` determines if StaticBackend stores its data in PostgreSQL or 
-MongoDB. Therefore, the `DATABASE_URL` should match your choice of data 
-persistence.
-
-For the `local` file storage you'll need this one:
-
-```
-LOCAL_STORAGE_URL=http://your.domain.com
-```
-
-Create an `.env` file at the root of the `core` project with the proper values 
-for each variables.
-
-## Provide services via docker or natively installed
-
-The simplest way to provides the necessary services (PostgreSQL or MongoDB and 
-Redis) is via Docker.
-
-```shell
-$> docker-compose up
-```
-
-This will start a PostgreSQL and Redis servers.
-
-For MongoDB you may use the proper `docker-compose` file:
-
-```shell
-$> docker-compose -f docker-compose-mongo.yml up
-```
-
-This will start a MongoDB and Redis servers that are needed by StaticBackend.
-
-_Please note_: The `docker-compose-demo.yml` is used to run all services and 
-the backend server. If you're using a binary or compiling the source you 
-may use the `docker-compose.yml` file.
-
-
-You may install and run native PostgreSQL or MongoDB and Redis servers if you 
-do not have access to Docker. Please refer to PostgreSQL, MongoDB, and Redis 
-own documentation for how to install native servers on your development computer.
-
-## Compile and start the server
-
-If you've downloaded the binary for your OS you don't need to compile the source.
-
-You'll need `Go` 1.16+ installed to compile the `core` project. 
-[Refer to this page](https://golang.org/doc/install) to install Go.
-
-If you are running Linux you most certainly have `make` available. Here's how 
-to build and start the server locally:
-
-```shell
-$> make start
-```
-
-This compile and start the server using the `.env` file to setup the proper 
-environment variables.
-
-Your StaticBackend instance runs under `http://localhost:8099`
-
-#### Manually compile and start
-
-If you do not have `make` available.
-
-1. Make sure that the environment variables are available in your current terminal session.
-2. Compile the server with:
-
-```shell
-$> cd cmd && go build -o staticbackend && ./staticbackend
-```
-
-_Replace `./staticbackend` for `staticbackend.exe` if you're on Windows._
-
-## Create an account on your instance
-
-To start using your StaticBackend instance you'll need to create an account 
-for your app.
-
-The easiest way is:
-
-1. Open a browser and navigate to [http://localhost:8099](http://localhost:8099)
-2. Enter your email and click the "Create app" button
-3. Return to the terminal where `staticbackend` is running and you'll see all 
-your app's credentials and tokens.
-
-You may also use our [CLI](/getting-started/cli).
-
-Please refer to the documentation on how to install the version for your OS.
-
-Once installed, add the following config file to your current directory:
-
-**.backend.yml**:
-
-```yml
-region: dev
-```
-
-Than execute this command:
-
-```shell
-$> backend account create you@domain.com
-```
-
-This will create your account, a new database and an admin user with a 
-`root token` to execute database request on server-side on behalf of other user.
-
-You may now create your application and have a new `.backend.yml` with the 
-created account info inside so any command you issue with the CLI in your 
-application directory will be targeting this new account and database.
-
-From there you may start using our client or server libraries with the tokens 
-you received.
-
-Refer to the [documentation](/docs) for more information about what 
-you can do with your backend.
+Need simpler setup? Try [managed hosting](/getting-started/quickstart) - same features, zero DevOps.
