@@ -5,7 +5,7 @@ enableRobotsTXT = true
 
 
 [params]
-cliversion = "v1.7.0"
+cliversion = "v1.7.1"
 
 
 [markup.goldmark.renderer]
