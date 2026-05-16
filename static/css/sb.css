@@ -4183,3 +4183,6 @@ div.content a {
     line-height: 1.75rem;
   }
 }
+/* Accessibility: boost contrast for low-contrast Chroma/Monokai syntax tokens */
+pre span[style*="color:#75715e"] { color: #a8a5a0 !important; } /* comments */
+pre span[style*="color:#f92672"] { color: #ff79c6 !important; } /* operators/keywords */
