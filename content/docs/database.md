@@ -13,12 +13,16 @@ Quick links:
 * [Create documents in bulk](#create-documents-in-bulk)
 * [List documents](#list-documents)
 * [Get a document](#get-a-document)
+* [Get documents by ids](#get-documents-by-ids)
 * [Query for documents](#query-for-documents)
 * [Update a document](#update-a-document)
 * [Update documents in bulk](#update-documents-in-bulk)
+* [Increment a numeric field](#increment-a-numeric-field)
 * [Delete document](#delete-document)
 * [Delete documents in bulk](#delete-documents-in-bulk)
 * [Count documents](#count-documents)
+* [Generate a document id](#generate-a-document-id)
+* [Search documents](#search-documents)
 * [Create database index](#create-database-index)
 
 At its core, StaticBackend's primary offering is a database as a service 
@@ -238,7 +242,7 @@ curl -H "Content-Type: application/json" \
 const optionalParams = {
   page: 1,
   size: 2,
-  descending: true
+  desc: true
 }
 const result = await bkn.list(session_token, "tasks", optionalParams);
 if (!result.ok) {
@@ -325,6 +329,69 @@ fmt.Println(task)
 }
 ```
 
+### Get documents by ids
+
+Fetch multiple documents from a repository by id.
+
+**HTTP request**:
+
+`POST /db/{repository-name}?ids=true`
+
+**Format**: JSON
+
+**Body**:
+
+An array of document ids.
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X POST \
+     -d '["5e185aceb1374eaf8b994bf6", "5e185bdcb1374eaf8b994bf7"]' \
+     https://na1.staticbackend.com/db/tasks?ids=true
+```
+```javascript
+const ids = [
+  "5e185aceb1374eaf8b994bf6",
+  "5e185bdcb1374eaf8b994bf7"
+];
+const result = await bkn.getByIds(session_token, "tasks", ids);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+ids := []string{
+  "5e185aceb1374eaf8b994bf6",
+  "5e185bdcb1374eaf8b994bf7",
+}
+var tasks []Task
+err := backend.GetByIDs(token, "tasks", ids, &tasks)
+fmt.Println(tasks)
+```
+
+**Response**:
+
+```json
+[{
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "done":false,
+  "id":"5e185aceb1374eaf8b994bf6",
+  "name":"task name here"
+},{
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "done":true,
+  "id":"5e185bdcb1374eaf8b994bf7",
+  "name":"2nd task here"
+}]
+```
+
 ### Query for documents
 
 Get specific documents by supplying criterias.
@@ -341,6 +408,7 @@ name | type | description
 ----:|:-----|:------------
 page | `number` | Result page (starting at 1, default to 1)
 size | `number` | How many document per page (maximum 100, default to 25)
+sort | `string` | Field name to sort by
 desc | `bool` | Get result by descending order of creation (default to ascending)
 
 **Body**:
@@ -371,15 +439,20 @@ Supported operations: `==`, `!=`, `<`, `>`, `<=`, `>=`, `in`, `!in`.
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer user-token" \
-     -X POST
-     -d '[["done", "==", true]]'
-     https://na1.staticbackend.com/query/tasks
+     -X POST \
+     -d '[["done", "==", true]]' \
+     https://na1.staticbackend.com/query/tasks?desc=true
 ```
 ```javascript
 const filters = [
   ["done", "==", true]
 ];
-const result = await bkn.query(session_token, "tasks", filters);
+const params = {
+  page: 1,
+  size: 25,
+  desc: true
+};
+const result = await bkn.query(session_token, "tasks", filters, params);
 if (!result.ok) {
   console.error(result.content);
   return;
@@ -389,8 +462,13 @@ console.log(result.content);
 ```go
 var filters []backend.QueryItem
 filters = append(filters, backend.QueryItem{Field: "done", Op: backend.QueryEqual, Value: true})
+params := &backend.ListParams{
+  Page: 1,
+  Size: 25,
+  Descending: true,
+}
 var tasks []Task
-result, err := backend.Find(token, "tasks", filters, &tasks)
+result, err := backend.Find(token, "tasks", filters, &tasks, params)
 fmt.Println(tasks)
 ```
 
@@ -435,8 +513,8 @@ the fields.*
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer user-token" \
-     -X PUT
-     -d '{"done": false, "assignedTo": "dominic"}'
+     -X PUT \
+     -d '{"done": false, "assignedTo": "dominic"}' \
      https://na1.staticbackend.com/db/tasks/5e185bdcb1374eaf8b994bf7
 ```
 ```javascript
@@ -457,6 +535,8 @@ partialUpdate := new(struct{
   Done bool `json:"done"`
   AssignedTo string `json:"assignedTo"`
 })
+partialUpdate.Done = false
+partialUpdate.AssignedTo = "dominic"
 
 var task Task
 err := backend.Update(token, "tasks", id, partialUpdate, &task)
@@ -468,7 +548,13 @@ fmt.Println(task)
 **Response**:
 
 ```json
-true
+{
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "assignedTo":"dominic",
+  "done":false,
+  "id":"5e185bdcb1374eaf8b994bf7",
+  "name":"2nd task here"
+}
 ```
 
 ### Update documents in bulk
@@ -512,8 +598,8 @@ value | any | Filter field on that value based on operator.
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer user-token" \
-     -X PUT
-     -d '{"update": {"done": true}, "clauses": [["assignTo", "==", "dominic"]]}'
+     -X PUT \
+     -d '{"update": {"done": true}, "clauses": [["assignTo", "==", "dominic"]]}' \
      https://na1.staticbackend.com/db/tasks?bulk=1
 ```
 ```javascript
@@ -534,15 +620,15 @@ if (!result.ok) {
 console.log(result.content);
 ```
 ```go
-data := struct {
-  Update: struct {
-    Done: true,
-  } `json:"update"`
-  Clauses: []backend.QueryItem{
-    backend.QueryItem{"assignTo", backend.QueryEqual, "dominic"},
-  } `json:"clauses"`
+filters := []backend.QueryItem{
+  {Field: "assignTo", Op: backend.QueryEqual, Value: "dominic"},
 }
-updated, err := backend.UpdateBulk(token, "tasks", data)
+update := struct {
+  Done bool `json:"done"`
+}{
+  Done: true,
+}
+updated, err := backend.UpdateBulk(token, "tasks", filters, update)
 fmt.Printf("%d document updated", updated)
 ```
 
@@ -550,6 +636,64 @@ fmt.Printf("%d document updated", updated)
 
 ```json
 15
+```
+
+### Increment a numeric field
+
+Increment or decrement a numeric field on a document.
+
+**HTTP request**:
+
+`PUT /inc/{repository-name}/{doc-id}`
+
+**Format**: JSON
+
+**Body**:
+
+name | type | description
+----:|:-----|:------------
+field | `string` | The numeric field to update
+range | `number` | The signed amount to add to the current value
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X PUT \
+     -d '{"field": "viewCount", "range": 1}' \
+     https://na1.staticbackend.com/inc/tasks/5e185bdcb1374eaf8b994bf7
+```
+```javascript
+const result = await bkn.increase(
+  session_token,
+  "tasks",
+  "5e185bdcb1374eaf8b994bf7",
+  "viewCount",
+  1
+);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+err := backend.Increase(
+  token,
+  "tasks",
+  "5e185bdcb1374eaf8b994bf7",
+  "viewCount",
+  1,
+)
+```
+
+**Response**:
+
+```json
+true
 ```
 
 ### Delete document
@@ -567,7 +711,7 @@ Delete a document from a repository.
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer user-token" \
-     -X DELETE
+     -X DELETE \
      https://na1.staticbackend.com/db/tasks/5e185bdcb1374eaf8b994bf7
 ```
 ```javascript
@@ -606,7 +750,7 @@ Delete multiple documents matching filters.
 
 name | type | description
 ----:|:-----|:------------
-bulk | `number` | 1 to indicate it's a buld delete
+bulk | `number` | 1 to indicate it's a bulk delete
 x | `string` | A base64 encoded JSON of the filters array (see [Query for documents](#query-for-documents))
 
 **Example**:
@@ -616,11 +760,11 @@ x | `string` | A base64 encoded JSON of the filters array (see [Query for docume
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer user-token" \
-     -X DELETE
+     -X DELETE \
      "https://na1.staticbackend.com/db/tasks?bulk=1&x=base64-here"
 ```
 ```javascript
-const filters = [["done", "=", true]];
+const filters = [["done", "==", true]];
 const result = await bkn.deleteBulk(session_token, "tasks", filters);
 if (!result.ok) {
   console.error(result.content);
@@ -630,7 +774,7 @@ console.log(result.content);
 ```
 ```go
 filters := []backend.QueryItem{
-  {Field: "done", Op: "=", Value: true},
+  {Field: "done", Op: backend.QueryEqual, Value: true},
 }
 err := backend.DeleteBulk(token, "tasks", filters)
 ```
@@ -645,7 +789,7 @@ err := backend.DeleteBulk(token, "tasks", filters)
 
 ### Count documents
 
-Count numbers of document in a repository with optional filters.
+Count number of documents in a repository with optional filters.
 
 **HTTP request**:
 
@@ -682,11 +826,14 @@ curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer user-token" \
      -X POST \
-     -d '[["done", "=", true]]' \
+     -d '[["done", "==", true]]' \
      https://na1.staticbackend.com/db/count/tasks
 ```
 ```javascript
-const filters = [["assignTo", "=", "dominic", "done", "=", false]];
+const filters = [
+  ["assignTo", "==", "dominic"],
+  ["done", "==", false]
+];
 const result = await bkn.count(session_token, "tasks", filters);
 if (!result.ok) {
   console.error(result.content);
@@ -712,6 +859,98 @@ fmt.Printf("%d document(s) matches", n)
 }
 ```
 
+### Generate a document id
+
+Generate a document id before creating a document.
+
+**HTTP request**:
+
+`GET /newid`
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     https://na1.staticbackend.com/newid
+```
+```javascript
+const result = await bkn.newId(session_token);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+// New id generation is available through the HTTP endpoint.
+```
+
+**Response**:
+
+```json
+"5e185aceb1374eaf8b994bf6"
+```
+
+### Search documents
+
+Search documents that have been indexed for full-text search.
+
+**HTTP request**:
+
+`POST /search`
+
+**Format**: JSON
+
+**Body**:
+
+name | type | description
+----:|:-----|:------------
+col | `string` | Collection / repository to search
+keywords | `string` | Search keywords
+
+**Example**:
+
+{{< langtabs >}}
+```bash
+curl -H "Content-Type: application/json" \
+     -H "SB-PUBLIC-KEY: your-pub-key" \
+     -H "Authorization: Bearer user-token" \
+     -X POST \
+     -d '{"col": "tasks", "keywords": "release checklist"}' \
+     https://na1.staticbackend.com/search
+```
+```javascript
+const result = await bkn.search(
+  session_token,
+  "tasks",
+  "release checklist"
+);
+if (!result.ok) {
+  console.error(result.content);
+  return;
+}
+console.log(result.content);
+```
+```go
+var tasks []Task
+err := backend.Search(token, "tasks", "release checklist", &tasks)
+fmt.Println(tasks)
+```
+
+**Response**:
+
+```json
+[{
+  "accountId":"5e184d95b1374eaf8b994bf3",
+  "done":false,
+  "id":"5e185aceb1374eaf8b994bf6",
+  "name":"release checklist"
+}]
+```
+
 ### Create database index
 
 [Requires a root token](/docs/root-token): Create database indexes
@@ -728,6 +967,7 @@ name | type | description
 ----:|:-----|:------------
 col | `string` | The collection / repository ex: `tasks`
 field | `string` | Top-level field to index
+type | `string` | Optional typed index: `text`, `number`, `boolean`, or `date`
 
 **Example**:
 
@@ -737,10 +977,10 @@ curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer root-token" \
 		 -X POST \
-     https://na1.staticbackend.com/sudo/index?col=tasks&field=done
+     https://na1.staticbackend.com/sudo/index?col=tasks&field=done&type=boolean
 ```
 ```javascript
-const res = await bkn.sudoAddIndex(rootToken, "tasks", "done");
+const res = await bkn.sudoAddIndex(rootToken, "tasks", "done", "boolean");
 ```
 ```go
 err := backend.SudoAddIndex(rootToken, "tasks", "done")
@@ -748,4 +988,6 @@ err := backend.SudoAddIndex(rootToken, "tasks", "done")
 
 **Response**:
 
-HTTP status > 299 means error.
+```json
+true
+```

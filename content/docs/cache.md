@@ -26,7 +26,7 @@ users to Stripe, and you're able to get the value once they're back.
 name | type | description
 ----:|:-----|:------------
 key | `string` | The key for this item
-value | `object` | To object to store
+value | `string` | JSON-encoded value to store
 
 **Example**:
 
@@ -36,7 +36,7 @@ curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer root-token" \
 		 -X POST \
-		 -d '{"key": "test", "value": "working"}' \
+		 -d '{"key": "test", "value": "{\"status\":\"working\"}"}' \
      https://na1.staticbackend.com/sudo/cache
 ```
 ```javascript
@@ -81,7 +81,7 @@ curl -H "Content-Type: application/json" \
 ```
 ```javascript
 const res = await bkn.cacheGet(rootToken, "key");
-// res.content contains the object if found
+const val = JSON.parse(res.content);
 ```
 ```go
 var val []string
@@ -93,10 +93,7 @@ if err := backend.CacheGet(rootToken, "key", &val); err != nil {
 **Response**:
 
 ```json
-{
-	"a": "b",
-	"c": true
-}
+"{\"a\":\"b\",\"c\":true}"
 ```
 
 ### Publish message
@@ -105,7 +102,7 @@ Publish a message that could trigger a server-side function.
 
 **HTTP request**:
 
-`POST /publish`
+`POST /publish-message`
 
 **Format**: JSON
 
@@ -115,7 +112,7 @@ name | type | description
 ----:|:-----|:------------
 channel | `string` | The destination channel to receive the message
 type    | `string` | A custom type you may refer to in the server-side function
-data    | `object` | The data for this message
+data    | `string` | JSON-encoded data for this message
 
 **Example**:
 
@@ -127,16 +124,16 @@ curl -H "Content-Type: application/json" \
 		 -X POST \
 		 -d '{"channel": "unlock-action", \
 		   "type": "xyz-created", \
-			 "data": {"id": "123456"}}' \
-     https://na1.staticbackend.com/publish
+			 "data": "{\"id\":\"123456\"}"}' \
+     https://na1.staticbackend.com/publish-message
 ```
 ```javascript
 const data = {
   id: "some-id-related-to-what-user-is-doing"
 };
-const res = await bkn.cacheGet(token, 
-  "unlock-action", 
-  "xyz-created", 
+const res = await bkn.publish(token,
+  "unlock-action",
+  "xyz-created",
   data);
 // !res.ok => failed
 // res.ok => message published

@@ -59,7 +59,7 @@ While the root token version:
 curl -H "Content-Type: application/json" \
      -H "SB-PUBLIC-KEY: your-pub-key" \
      -H "Authorization: Bearer root-token" \
-     https://na1.staticbackend.com/sudodb/tasks/5e185aceb1374eaf8b994bf6
+     https://na1.staticbackend.com/sudo/tasks/5e185aceb1374eaf8b994bf6
 ```
 ```javascript
 const id = "5e185aceb1374eaf8b994bf6";
@@ -77,5 +77,5 @@ err := backend.SudoGetByID(rootToken, "tasks", id, &task)
 fmt.Println(task)
 ```
 
-Those functions are avaialble only from your server-side functions/backend 
+Those functions are available only from your server-side functions/backend
 using the server-side client libraries.
